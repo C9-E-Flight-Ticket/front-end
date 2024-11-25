@@ -8,7 +8,7 @@ const ModalMenuLayout = ({
   children,
   value = 1,
   label = "",
-  marginFromTop = "20px",
+  marginFromTop = 20,
   onSave,
   onMenuClose,
 }) => {
@@ -55,7 +55,7 @@ const ModalMenuLayout = ({
           <hr
             className={cn(
               "mt-1 border-t-borderGrey border-t-2 outline-none",
-              `mb-[${marginFromTop}]`
+              `mb-[${marginFromTop}px]`
             )}
           />
           {children}

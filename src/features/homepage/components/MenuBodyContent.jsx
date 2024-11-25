@@ -2,6 +2,8 @@ import InputField from "@/features/homepage/components/InputField";
 import SeatMenu from "@/features/homepage/components/SeatMenu";
 import PassengerMenu from "@/features/homepage/components/PassengerMenu";
 import InputGroupLayout from "@/features/homepage/components/InputGroupLayout";
+import SearchArrivalCity from "@/features/homepage/components/SearchArrivalCity";
+import SearchDepartureCity from "@/features/homepage/components/SearchDepartureCity";
 
 const MenuBodyContent = () => {
   return (
@@ -11,14 +13,14 @@ const MenuBodyContent = () => {
           <img src="/plane-vector.png" alt="plane-vector" className="w-5 h-5" />
           <p className="text-[#8A8A8A] text-sm">From</p>
         </div>
-        <InputField placeholder={"Jakarta (JKTA)"} width="100%" />
+        <SearchDepartureCity />
       </InputGroupLayout>
       <InputGroupLayout>
         <div className="flex gap-3 items-center">
           <img src="/plane-vector.png" alt="plane-vector" className="w-5 h-5" />
           <p className="text-[#8A8A8A] text-sm">To</p>
         </div>
-        <InputField placeholder={"Melbourne (MLB)"} width="100%" />
+        <SearchArrivalCity />
       </InputGroupLayout>
       <InputGroupLayout>
         <div className="flex gap-3 items-center">
