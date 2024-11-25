@@ -1,6 +1,10 @@
 import { MenuItem } from "@material-tailwind/react";
+import { forwardRef } from "react";
 
-const SeatItem = ({ name = "", active, setActive, price = 0 }) => {
+const SeatItem = forwardRef(function SeatItem(
+  { name = "", active, setActive, price = 0 },
+  ref
+) {
   return (
     <>
       <div className="flex justify-center outline-none">
@@ -33,6 +37,6 @@ const SeatItem = ({ name = "", active, setActive, price = 0 }) => {
       </div>
     </>
   );
-};
+});
 
 export default SeatItem;

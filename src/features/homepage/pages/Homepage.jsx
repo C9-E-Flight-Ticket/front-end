@@ -5,7 +5,7 @@ import Destination from "../components/Destination";
 export default function Homepage() {
   return (
     <>
-      {/* <MainNavbar /> */}
+      <MainNavbar />
 
       <div className="h-screen flex justify-center">
         <TicketSearching className={"w-[70rem]"} />

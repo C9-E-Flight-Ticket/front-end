@@ -3,7 +3,7 @@ import PassengerItem from "@/features/homepage/components/PassengerItem";
 import { useState } from "react";
 
 const PassengerMenu = () => {
-  const [realPassenger, setRealPassenger] = useState({
+  const [passenger, setPassenger] = useState({
     adult: 0,
     child: 0,
     baby: 0,
@@ -15,16 +15,19 @@ const PassengerMenu = () => {
   });
 
   function handleSave() {
-    setRealPassenger(tempPassenger);
+    setPassenger(tempPassenger);
+  }
+
+  function handleMenuClose() {
+    setTempPassenger(passenger);
   }
 
   return (
     <ModalMenuLayout
-      value={`${
-        realPassenger.adult + realPassenger.child + realPassenger.baby
-      } Penumpang`}
+      value={`${passenger.adult + passenger.child + passenger.baby} Penumpang`}
       label="Passengers"
       onSave={handleSave}
+      onMenuClose={handleMenuClose}
     >
       <PassengerItem
         img="/adult-passenger.png"

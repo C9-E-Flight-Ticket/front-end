@@ -10,6 +10,7 @@ const ModalMenuLayout = ({
   label = "",
   marginFromTop = "20px",
   onSave,
+  onMenuClose,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -45,7 +46,10 @@ const ModalMenuLayout = ({
           <div className="w-full p-2 flex justify-end outline-none">
             <XMarkIcon
               className="w-6 h-6 text-black hover:cursor-pointer"
-              onClick={handleMenuOpen}
+              onClick={() => {
+                handleMenuOpen();
+                onMenuClose();
+              }}
             />
           </div>
           <hr
