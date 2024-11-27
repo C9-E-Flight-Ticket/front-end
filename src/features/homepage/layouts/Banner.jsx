@@ -1,6 +1,6 @@
 const Banner = () => {
   return (
-    <div className="w-full flex justify-center items-center h-[250px] relative top-28">
+    <div className="w-full flex justify-center items-center h-[220px] relative top-[105px]">
       <img
         src="/banner-bangkok.png"
         alt="banner"

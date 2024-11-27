@@ -18,14 +18,18 @@ export function TicketSearching({ className }) {
       )}
     >
       <CardBody>
-        <Typography variant="h5" color="black" className="mb-10">
+        <Typography variant="h5" color="black" className="mb-5">
           Pilih Jadwal Penerbangan spesial di{" "}
           <span className="text-deep-purple-700">Tiketku!</span>
         </Typography>
         <MenuBodyContent />
       </CardBody>
       <CardFooter className="py-0 px-0">
-        <Button fullWidth className="rounded-t-none" color="deep-purple">
+        <Button
+          fullWidth
+          className="rounded-t-none bg-[#7126B5]"
+          color="deep-purple"
+        >
           Cari Penerbangan
         </Button>
       </CardFooter>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Popover, PopoverContent, Button } from "@material-tailwind/react";
+import { Popover, PopoverContent } from "@material-tailwind/react";
 import FlightDateInput from "@/features/homepage/components/FlightDateInput";
 import ToggleSwitch from "@/features/homepage/components/ToggleSwitch";
 import DatePicker from "@/features/homepage/components/DatePicker";
@@ -69,8 +69,8 @@ const FlightDate = () => {
               toggleIsOn={toggleIsOn}
             />
             <ToggleSwitch
-              color="primaryPurple"
-              className="mb-7 absolute left-40"
+              color="#7126B5"
+              className="mb-7 absolute top-[-10px] right-0"
               isOn={toggleIsOn}
               setIsOn={setToggleIsOn}
             />

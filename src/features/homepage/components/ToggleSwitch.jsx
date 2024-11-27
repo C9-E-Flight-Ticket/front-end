@@ -19,7 +19,7 @@ const ToggleSwitch = ({
       <div
         onClick={toggleSwitch}
         className={`relative w-12 h-6 flex items-center rounded-full cursor-pointer transition-colors duration-300 ${
-          isOn ? `bg-${color}` : "bg-gray-300"
+          isOn ? `bg-[${color}]` : "bg-gray-300"
         } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
       >
         <div
