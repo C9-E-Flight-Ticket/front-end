@@ -11,14 +11,14 @@ const DestinationFilterButton = ({
     <div>
       <button
         className={cn(
-          `flex items-center rounded-xl py-[14px] px-6 ${
+          `flex items-center rounded-xl py-[12px] px-4 text-sm ${
             isActive ? "bg-[#7126B5] text-white" : "bg-[#E2D4F0]"
           }`,
           className
         )}
         onClick={onClick}
       >
-        <MagnifyingGlassIcon className="w-5 mr-1" />
+        <MagnifyingGlassIcon className="w-5 mr-2" />
         {children}
       </button>
     </div>

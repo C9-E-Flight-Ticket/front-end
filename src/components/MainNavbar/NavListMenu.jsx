@@ -4,7 +4,7 @@ import { useState } from "react";
 import Menu from "@/components/MainNavbar/Menu";
 
 const NavListMenu = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   return (
     <>
       {isAuthenticated ? (
@@ -14,11 +14,10 @@ const NavListMenu = () => {
           variant="filled"
           size="sm"
           color="deep-purple"
-          ripple={false}
-          className="inline-block normal-case hover:bg-deep-purple-700 hover:shadow-none"
+          className="inline-block normal-case px-3 bg-[#7126B5] hover:bg-primaryPurple hover:shadow-none"
         >
           <span className="flex items-center">
-            <ArrowRightEndOnRectangleIcon className="w-6" />
+            <ArrowRightEndOnRectangleIcon className="w-6 mr-[3px]" />
             Masuk
           </span>
         </Button>
