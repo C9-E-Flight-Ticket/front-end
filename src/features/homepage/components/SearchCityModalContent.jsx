@@ -47,18 +47,20 @@ const SearchCityModalContent = forwardRef(function SearchCityModalContent(
             <ul>
               {suggestions.map((city, index) => (
                 <div key={index}>
-                  <li
-                    className="flex justify-between items-center p-2 hover:cursor-pointer hover:bg-gray-100"
-                    onClick={() => setSearch(city)}
-                  >
-                    <span className="text-gray-800">{city}</span>
+                  <div className="flex justify-between group group-hover:bg-gray-100">
+                    <li
+                      className="flex justify-between items-center p-2 hover:cursor-pointer w-full group-hover:bg-gray-100"
+                      onClick={() => setSearch(city)}
+                    >
+                      <span className="text-gray-800">{city}</span>
+                    </li>
                     <button
                       onClick={() => onRemoveSuggestion(city)}
-                      className="text-gray-500 hover:text-red-500"
+                      className="text-gray-500 hover:text-red-500 group-hover:bg-gray-100 px-2"
                     >
                       ✖
                     </button>
-                  </li>
+                  </div>
                   <hr className="border-t-borderGrey outline-none mb-2" />
                 </div>
               ))}

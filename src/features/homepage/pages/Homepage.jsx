@@ -1,14 +1,15 @@
 import MainNavbar from "@/components/MainNavbar/MainNavbar";
-import { TicketSearching } from "@/features/homepage/components/TicketSearching";
+import { TicketSearching } from "@/features/homepage/layouts/TicketSearching";
 import Destination from "../components/Destination";
+import Banner from "../layouts/Banner";
 
 export default function Homepage() {
   return (
     <>
       <MainNavbar />
-
-      <div className="h-screen flex justify-center">
-        <TicketSearching className={"w-[70rem]"} />
+      <Banner />
+      <div className="h-screen flex justify-center  relative z-[99]">
+        <TicketSearching className={"w-9/12"} />
       </div>
       <Destination />
     </>

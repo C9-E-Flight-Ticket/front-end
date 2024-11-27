@@ -1,6 +1,17 @@
 import { Menu, MenuHandler, MenuList, Button } from "@material-tailwind/react";
+import { useEffect } from "react";
 
 const SearchCityModal = ({ children, onOpen, isOpen, value }) => {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    return () => document.body.classList.remove("overflow-hidden");
+  }, [isOpen]);
+
   return (
     <div className="relative w-full">
       {isOpen && (

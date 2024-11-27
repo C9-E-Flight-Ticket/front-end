@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SearchCityModal from "@/features/homepage/components/SearchCityModal";
 import SearchCityModalContent from "@/features/homepage/components/SearchCityModalContent";
+import { Button } from "@material-tailwind/react";
 
 const SearchDepartureCity = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,16 +36,18 @@ const SearchDepartureCity = () => {
   }
 
   return (
-    <SearchCityModal onOpen={handleMenuOpen} isOpen={isOpen} value={value}>
-      <SearchCityModalContent
-        onOpen={handleMenuOpen}
-        isOpen={isOpen}
-        onSave={handleSave}
-        suggestions={suggestions}
-        onClearAll={handleClearAll}
-        onRemoveSuggestion={handleRemoveSuggestion}
-      />
-    </SearchCityModal>
+    <>
+      <SearchCityModal onOpen={handleMenuOpen} isOpen={isOpen} value={value}>
+        <SearchCityModalContent
+          onOpen={handleMenuOpen}
+          isOpen={isOpen}
+          onSave={handleSave}
+          suggestions={suggestions}
+          onClearAll={handleClearAll}
+          onRemoveSuggestion={handleRemoveSuggestion}
+        />
+      </SearchCityModal>
+    </>
   );
 };
 
