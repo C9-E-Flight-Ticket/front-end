@@ -8,6 +8,12 @@ export const flightApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    getTicketSearching: build.query({
+      query: ({ continent, limit, offset }) => ({
+        url: `/api/flight/search?arrivalContinent=${continent}&limit=${limit}&offset=${offset}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 

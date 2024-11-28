@@ -8,9 +8,12 @@ import {
 import Icon from "./Icon";
 import FlightDetail from "./FlightDetail";
 import { flightDetailsData } from "../data/flightDetailsData";
+import { useNavigate } from "react-router-dom";
 
 export default function FlightCard({ flight, open, handleOpen }) {
   const priceColorClass = flight.id === 2 ? "text-red-600" : "text-purple-800";
+
+  const navigate = useNavigate();
 
   return (
     <Card
@@ -77,7 +80,10 @@ export default function FlightCard({ flight, open, handleOpen }) {
               <p className={`font-semibold ${priceColorClass}`}>
                 {flight.price}
               </p>
-              <div className="w-[100px] h-auto px-[12px] py-[4px] rounded-[12px] bg-purple-800 hover:bg-purple-900 text-white text-center cursor-pointer">
+              <div
+                className="w-[100px] h-auto px-[12px] py-[4px] rounded-[12px] bg-purple-800 hover:bg-purple-900 text-white text-center cursor-pointer"
+                onClick={() => navigate("/transaction")}
+              >
                 Pilih
               </div>
             </div>

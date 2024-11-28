@@ -7,17 +7,22 @@ import SeatSelection from "../components/SeatSelection";
 import SaveButton from "../components/SaveButton";
 import NotificationBox from "../components/NotificationBox";
 import MainLayout from "@/layouts/MainLayout";
+import { useState } from "react";
 
 export default function TransactionPage() {
+  const [isClicked, setIsClicked] = useState(false);
   return (
     <MainLayout>
       <div className="mx-auto mb-10">
         <CheckOutStep currentStepIndex={0} />
-        <NotificationBox
-          message="Selesaikan dalam"
-          initialTime={900}
-          className="bg-red-500"
-        />
+        {isClicked && (
+          <NotificationBox
+            message="Selesaikan dalam"
+            initialTime={900}
+            className="bg-red-500"
+            isClicked={isClicked}
+          />
+        )}
       </div>
       <div className="flex justify-center ms-10">
         <FormLayout type={"Pemesan"}>
@@ -28,7 +33,7 @@ export default function TransactionPage() {
             <FormPassengerContent index={1} />
           </FormLayout>
           <SeatSelection />
-          <SaveButton />
+          <SaveButton setIsClicked={setIsClicked} />
         </div>
         <div className="w-fit flex justify-center">
           <FlightDetail />

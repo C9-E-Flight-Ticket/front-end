@@ -15,8 +15,6 @@ const ToggleSwitch = ({
     }
   };
 
-  console.log(isOn);
-
   return (
     <div className={`flex items-center gap-2 ${className}`} {...containerProps}>
       <div

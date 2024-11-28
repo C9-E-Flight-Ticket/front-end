@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  departureCity: "Jakarta (JKTA)",
-  returnCity: "Melbourne (MLB)",
+  departureCity: "Jakarta",
+  returnCity: "Melbourne",
   suggestions: ["Jakarta", "Bandung", "Surabaya"],
   flightDate: null,
   passengers: {
@@ -40,6 +40,12 @@ const homepageSlice = createSlice({
           ]
         : [...state.suggestions, action.payload];
     },
+    switchSearchCity(state) {
+      const returnCity = state.returnCity;
+      // switch
+      state.returnCity = state.departureCity;
+      state.departureCity = returnCity;
+    },
     clearSuggestion(state) {
       state.suggestions = [];
     },
@@ -66,6 +72,7 @@ const homepageSlice = createSlice({
 export const {
   selectDepartureCity,
   selectReturnCity,
+  switchSearchCity,
   clearSuggestion,
   removeSuggestion,
   updateFlightDate,

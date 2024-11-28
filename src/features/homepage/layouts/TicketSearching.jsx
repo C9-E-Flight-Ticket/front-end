@@ -8,8 +8,11 @@ import {
 } from "@material-tailwind/react";
 
 import MenuBodyContent from "@/features/homepage/layouts/MenuBodyContent";
+import { useNavigate } from "react-router-dom";
 
 export default function TicketSearching({ className }) {
+  const navigate = useNavigate();
+
   return (
     <Card
       className={cn(
@@ -29,6 +32,7 @@ export default function TicketSearching({ className }) {
           fullWidth
           className="rounded-t-none bg-[#7126B5]"
           color="deep-purple"
+          onClick={() => navigate("/flight")}
         >
           Cari Penerbangan
         </Button>

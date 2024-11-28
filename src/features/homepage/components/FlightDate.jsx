@@ -31,10 +31,12 @@ const FlightDate = () => {
   }, [isOpen]);
 
   function formattedDate(date) {
+    const dateFormat = new Date(date);
     const options = { day: "numeric", month: "long", year: "numeric" };
     try {
-      return date.toLocaleDateString("id-ID", options);
+      return dateFormat.toLocaleDateString("id-ID", options);
     } catch (error) {
+      console.log(error);
       return "Pilih Tanggal";
     }
   }
@@ -45,7 +47,16 @@ const FlightDate = () => {
 
   function handleSave() {
     setIsOpen(false);
-    dispatch(updateFlightDate(tempDate));
+    if (isReturnToggleActive) {
+      dispatch(
+        updateFlightDate({
+          from: tempDate.from.toString(),
+          to: tempDate.to.toString(),
+        })
+      );
+    } else {
+      dispatch(updateFlightDate(tempDate.toString()));
+    }
   }
 
   function handleToggleChange() {

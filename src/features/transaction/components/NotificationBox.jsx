@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 
-const NotificationBox = ({ message, initialTime, className }) => {
+const NotificationBox = ({ message, initialTime, className, isClicked }) => {
   const [timeLeft, setTimeLeft] = useState(initialTime);
   useEffect(() => {
-    if (!initialTime) return;
+    if (!initialTime || !isClicked) return;
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
     }, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [initialTime, isClicked]);
   const formatTime = (time) => {
     if (!initialTime) return;
     const hours = String(Math.floor(time / 3600)).padStart(2, "0");
