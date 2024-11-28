@@ -5,6 +5,7 @@ const FilteredDestinationCard = ({
   departureDate,
   returnDate,
   price,
+  image,
 }) => {
   return (
     <div className="relative w-[170px] h-[194px] border rounded shadow bg-white transition-transform transform hover:scale-110 hover:shadow-lg hover:cursor-pointer">
@@ -12,10 +13,7 @@ const FilteredDestinationCard = ({
         <div className="text-white text-[10px] ml-2">50% OFF</div>
       </div>
       <div className="w-[149.82px] h-[94.17px] mt-[7.53px] mx-[8.56px]">
-        <img
-          className="rounded w-full h-full object-cover"
-          src="/banner-bangkok.png"
-        />
+        <img className="rounded w-full h-full object-cover" src={image} />
       </div>
       <div className="block mx-[9px] mt-[10px]">
         <div className="text-[12px] font-medium">

@@ -9,7 +9,7 @@ import {
 
 import MenuBodyContent from "@/features/homepage/layouts/MenuBodyContent";
 
-export function TicketSearching({ className }) {
+export default function TicketSearching({ className }) {
   return (
     <Card
       className={cn(
