@@ -7,10 +7,8 @@ const PaymentPage = () => {
   return (
     <>
       <MainNavbar />
-      <div className="mx-auto">
-        <CheckOutStep currentStepIndex={1} />
-      </div>
-      <div className="flex justify-center">
+      <CheckOutStep currentStepIndex={1} />
+      <div className="flex justify-center ms-36">
         <div className="w-full">
           <PaymentMethod />
         </div>

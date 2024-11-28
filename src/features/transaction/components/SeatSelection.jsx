@@ -28,7 +28,7 @@ const SeatSelection = () => {
   };
 
   return (
-    <div className="w-full mx-auto p-6">
+    <div className="w-full lg:w-3/5 p-6">
       <div className="p-5 border rounded-lg border-textGrey">
         <h1 className="mb-2 text-xl font-semibold">Pilih Kursi</h1>
         <div className="p-3 text-center rounded-md bg-lightGreen">
@@ -36,7 +36,7 @@ const SeatSelection = () => {
             {classInfo.name} - {classInfo.totalSeats} Seats available
           </p>
         </div>
-        <div className="gap-4 flex items-start">
+        <div className="gap-4 flex justify-center">
           <div>
             <div className="grid grid-cols-3 gap-x-4 text-textGrey">
               {leftRows.map((row) => (

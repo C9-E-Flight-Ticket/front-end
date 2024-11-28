@@ -51,7 +51,7 @@ const FlightDetail = () => {
           <p>Tax</p>
           <p>IDR 300.000</p>
         </div>
-        <div className="mt-2 flex justify-between text-lg font-bold text-textPurple">
+        <div className="mt-2 flex justify-between text-lg font-bold border-t text-textPurple">
           <p>Total</p>
           <p>IDR 9.850.000</p>
         </div>
