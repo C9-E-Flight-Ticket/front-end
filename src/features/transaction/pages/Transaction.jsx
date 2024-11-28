@@ -7,7 +7,7 @@ export default function Transaction() {
     <>
       <MainNavbar />
       <div className="mx-auto">
-        <CheckOutStep currentStep="Isi Data Diri" />
+        <CheckOutStep currentStepIndex={0} />
       </div>
       <div>
         <FlightDetail />
