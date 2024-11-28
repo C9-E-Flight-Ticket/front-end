@@ -1,30 +1,33 @@
 import ModalMenuLayout from "@/features/homepage/components/ModalMenuLayout";
 import PassengerItem from "@/features/homepage/components/PassengerItem";
+import { updatePassengers } from "@/services/homepageSlice";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const PassengerMenu = () => {
-  const [passenger, setPassenger] = useState({
-    adult: 0,
-    child: 0,
-    baby: 0,
-  });
+  const { passengers } = useSelector((state) => state.homepage);
+
   const [tempPassenger, setTempPassenger] = useState({
     adult: 0,
     child: 0,
     baby: 0,
   });
 
+  const dispatch = useDispatch();
+
   function handleSave() {
-    setPassenger(tempPassenger);
+    dispatch(updatePassengers(tempPassenger));
   }
 
   function handleMenuClose() {
-    setTempPassenger(passenger);
+    setTempPassenger(passengers);
   }
 
   return (
     <ModalMenuLayout
-      value={`${passenger.adult + passenger.child + passenger.baby} Penumpang`}
+      value={`${
+        passengers.adult + passengers.child + passengers.baby
+      } Penumpang`}
       label="Passengers"
       onSave={handleSave}
       onMenuClose={handleMenuClose}
