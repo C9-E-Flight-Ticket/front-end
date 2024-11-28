@@ -2,7 +2,7 @@ import React from "react";
 
 const FlightDetail = () => {
   return (
-    <div className="max-w-md mx-auto p-6">
+    <div className="max-w-md p-6">
       <h2 className="text-lg font-bold text-black mb-1">Detail Penerbangan</h2>
       <div className="flex justify-between items-start">
         <div>
