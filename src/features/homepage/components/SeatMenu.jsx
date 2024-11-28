@@ -18,7 +18,7 @@ const SeatMenu = () => {
     <ModalMenuLayout
       value={active}
       label="Seat Class"
-      marginFromTop="0px"
+      marginFromTop={0}
       onSave={handleSave}
       onMenuClose={handleMenuClose}
     >
@@ -28,28 +28,28 @@ const SeatMenu = () => {
         setActive={setTempActive}
         price={4950000}
       />
-      <hr className="mx-5 py border-t-borderGrey outline-none" />
+      <hr className="mx-5 border-t-borderGrey outline-none" />
       <SeatItem
         name="Premium Economy"
         active={tempActive}
         setActive={setTempActive}
         price={7550000}
       />
-      <hr className="mx-5 py border-t-borderGrey outline-none" />
+      <hr className="mx-5 border-t-borderGrey outline-none" />
       <SeatItem
         name="Business"
         active={tempActive}
         setActive={setTempActive}
         price={29220000}
       />
-      <hr className="mx-5 py border-t-borderGrey outline-none" />
+      <hr className="mx-5 border-t-borderGrey outline-none" />
       <SeatItem
         name="First Class"
         active={tempActive}
         setActive={setTempActive}
         price={87620000}
       />
-      <hr className="mx-5 py border-t-borderGrey outline-none" />
+      <hr className="mx-5 border-t-borderGrey outline-none" />
     </ModalMenuLayout>
   );
 };
