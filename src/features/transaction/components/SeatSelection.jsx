@@ -28,7 +28,7 @@ const SeatSelection = () => {
   };
 
   return (
-    <div className="w-full lg:w-3/5 p-6">
+    <div className="w-full my-6 mr-4 lg:w-3/5">
       <div className="p-5 border rounded-lg border-textGrey">
         <h1 className="mb-2 text-xl font-semibold">Pilih Kursi</h1>
         <div className="p-3 text-center rounded-md bg-lightGreen">

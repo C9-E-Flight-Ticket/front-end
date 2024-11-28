@@ -12,7 +12,7 @@ const PaymentMethod = () => {
         <h3 className="text-lg font-bold mb-4">Isi Data Pembayaran</h3>
         <div className="mb-4">
           <div
-            className={`p-4 cursor-pointer ${
+            className={`p-4 cursor-pointer flex justify-between items-center ${
               activeAccordion === "Gopay"
                 ? "bg-textPurple  text-white"
                 : "bg-darkgrey  text-white"
@@ -20,6 +20,13 @@ const PaymentMethod = () => {
             onClick={() => toggleAccordion("Gopay")}
           >
             Gopay
+            <span
+              className={`transform transition-transform ${
+                activeAccordion === "Gopay" ? "rotate-0" : "rotate-180"
+              }`}
+            >
+              <img src="/accordion.svg" alt="accordion" />
+            </span>
           </div>
           {activeAccordion === "Gopay" && (
             <div className="p-4">
@@ -35,7 +42,7 @@ const PaymentMethod = () => {
         </div>
         <div className="mb-4">
           <div
-            className={`p-4 cursor-pointer ${
+            className={`p-4 cursor-pointer flex justify-between items-center ${
               activeAccordion === "Virtual Account"
                 ? "bg-textPurple  text-white"
                 : "bg-darkgrey  text-white"
@@ -43,6 +50,16 @@ const PaymentMethod = () => {
             onClick={() => toggleAccordion("Virtual Account")}
           >
             Virtual Account
+            <span
+              className={`transform transition-transform ${
+                activeAccordion === "Virtual Account"
+                  ? "rotate-0"
+                  : "rotate-180"
+              }`}
+            >
+              <img src="/accordion.svg" alt="accordion" />
+              <polyline points="6 9 12 15 18 9" />
+            </span>
           </div>
           {activeAccordion === "Virtual Account" && (
             <div className="p-4 border-t">
@@ -59,7 +76,7 @@ const PaymentMethod = () => {
         </div>
         <div className="mb-4">
           <div
-            className={`p-4 cursor-pointer ${
+            className={`p-4 cursor-pointer flex justify-between items-center ${
               activeAccordion === "Credit Card"
                 ? "bg-textPurple  text-white"
                 : "bg-darkgrey  text-white"
@@ -67,6 +84,13 @@ const PaymentMethod = () => {
             onClick={() => toggleAccordion("Credit Card")}
           >
             Credit Card
+            <span
+              className={`transform transition-transform ${
+                activeAccordion === "Credit Card" ? "rotate-0" : "rotate-180"
+              }`}
+            >
+              <img src="/accordion.svg" alt="accordion" />
+            </span>
           </div>
           {activeAccordion === "Credit Card" && (
             <div className="flex items-center justify-center">
