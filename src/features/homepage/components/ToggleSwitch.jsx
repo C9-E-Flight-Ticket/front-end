@@ -6,13 +6,16 @@ const ToggleSwitch = ({
   containerProps = {},
   labelProps = {},
   isOn,
-  setIsOn,
+  setIsOn = null,
+  globalHandler = null,
 }) => {
   const toggleSwitch = () => {
     if (!disabled) {
-      setIsOn(!isOn);
+      setIsOn ? setIsOn(!isOn) : globalHandler();
     }
   };
+
+  console.log(isOn);
 
   return (
     <div className={`flex items-center gap-2 ${className}`} {...containerProps}>

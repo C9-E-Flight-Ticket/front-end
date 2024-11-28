@@ -41,7 +41,7 @@ const FlightDetail = ({ flight }) => {
 
         <div className="flex items-start w-full">
           <img
-            src="../public/icon-airlines.png"
+            src="/Icon-airlines.png"
             alt="Airlines"
             className="w-[24px] h-[24px] opacity-100 mr-3 mt-1"
           />

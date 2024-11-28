@@ -5,20 +5,20 @@ import ToggleSwitch from "@/features/homepage/components/ToggleSwitch";
 import DatePicker from "@/features/homepage/components/DatePicker";
 import FlightDateButton from "@/features/homepage/components/FlightDateButton";
 import { useDispatch, useSelector } from "react-redux";
-import { updateFlightDate } from "@/services/homepageSlice";
+import { changeReturnToggle, updateFlightDate } from "@/services/homepageSlice";
 
 const FlightDate = () => {
   const [tempDate, setTempDate] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [toggleIsOn, setToggleIsOn] = useState(false);
+  const { isReturnToggleActive } = useSelector((state) => state.homepage);
+  const { flightDate } = useSelector((state) => state.homepage);
 
   const dispatch = useDispatch();
-  const { flightDate } = useSelector((state) => state.homepage);
 
   useEffect(() => {
     dispatch(updateFlightDate(null));
     setTempDate(null);
-  }, [toggleIsOn, dispatch]);
+  }, [isReturnToggleActive, dispatch]);
 
   useEffect(() => {
     if (isOpen) {
@@ -48,6 +48,10 @@ const FlightDate = () => {
     dispatch(updateFlightDate(tempDate));
   }
 
+  function handleToggleChange() {
+    dispatch(changeReturnToggle());
+  }
+
   return (
     <div className="relative w-full">
       {isOpen && (
@@ -61,7 +65,7 @@ const FlightDate = () => {
             label={"Departure"}
             type={"from"}
             onOpen={handleOpen}
-            toggleIsOn={toggleIsOn}
+            toggleIsOn={isReturnToggleActive}
           />
           <div className="w-full relative flex">
             <FlightDateInput
@@ -70,13 +74,13 @@ const FlightDate = () => {
               label={"Return"}
               type={"to"}
               onOpen={handleOpen}
-              toggleIsOn={toggleIsOn}
+              toggleIsOn={isReturnToggleActive}
             />
             <ToggleSwitch
               color="#7126B5"
               className="mb-7 absolute top-[-10px] right-0"
-              isOn={toggleIsOn}
-              setIsOn={setToggleIsOn}
+              isOn={isReturnToggleActive}
+              globalHandler={handleToggleChange}
             />
           </div>
         </div>
@@ -84,13 +88,13 @@ const FlightDate = () => {
           <DatePicker
             date={tempDate}
             setDate={setTempDate}
-            toggleIsOn={toggleIsOn}
+            toggleIsOn={isReturnToggleActive}
           />
           <FlightDateButton
             date={tempDate}
             onSave={handleSave}
             setDate={setTempDate}
-            toggleIsOn={toggleIsOn}
+            toggleIsOn={isReturnToggleActive}
           />
         </PopoverContent>
       </Popover>

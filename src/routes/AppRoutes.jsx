@@ -1,7 +1,7 @@
 import Homepage from "@/features/homepage/pages/Homepage";
 import NotFound from "@/components/NotFound";
 import { createBrowserRouter } from "react-router-dom";
-import SelectFlight from "@/features/selectflight/pages/SelectFlight";
+import SelectFlight from "@/features/selectFlight/pages/SelectFlight";
 import Transaction from "@/features/transaction/pages/TransactionPage";
 import Payment from "@/features/transaction/pages/PaymentPage";
 import PaymentSuccessPage from "@/features/transaction/pages/PaymentSuccessPage";

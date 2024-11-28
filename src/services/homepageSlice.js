@@ -11,6 +11,7 @@ const initialState = {
     baby: 0,
   },
   seatClass: "Economy",
+  isReturnToggleActive: false,
 };
 
 const homepageSlice = createSlice({
@@ -56,6 +57,9 @@ const homepageSlice = createSlice({
     chooseSeatClass(state, action) {
       state.seatClass = action.payload;
     },
+    changeReturnToggle(state) {
+      state.isReturnToggleActive = !state.isReturnToggleActive;
+    },
   },
 });
 
@@ -67,5 +71,6 @@ export const {
   updateFlightDate,
   updatePassengers,
   chooseSeatClass,
+  changeReturnToggle,
 } = homepageSlice.actions;
 export default homepageSlice.reducer;
