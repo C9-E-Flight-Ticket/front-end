@@ -1,11 +1,13 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { Input, IconButton, Button } from "@material-tailwind/react";
 
 const SearchCityModalContent = forwardRef(function SearchCityModalContent(
-  { onOpen, onSave, onClearAll, onRemoveSuggestion, suggestions },
+  { onOpen, onSave, onClearAll, onRemoveSuggestion, suggestions, storedSearch },
   ref
 ) {
   const [search, setSearch] = useState("");
+
+  useEffect(() => setSearch(storedSearch), [storedSearch]);
 
   return (
     <>

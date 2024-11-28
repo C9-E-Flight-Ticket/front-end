@@ -41,6 +41,7 @@ const SearchDepartureCity = () => {
         suggestions={suggestions}
         onClearAll={handleClearAll}
         onRemoveSuggestion={handleRemoveSuggestion}
+        storedSearch={departureCity}
       />
     </SearchCityModal>
   );

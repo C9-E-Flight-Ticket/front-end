@@ -64,7 +64,7 @@ const ModalMenuLayout = ({
           </div>
           <hr
             className={cn(
-              `!mb-${marginFromTop}`,
+              `mb-${marginFromTop}`,
               "mt-1 border-t-borderGrey border-t-2 outline-none"
             )}
           />
