@@ -1,21 +1,23 @@
 import { useState } from "react";
 import SearchCityModal from "@/features/homepage/components/SearchCityModal";
 import SearchCityModalContent from "@/features/homepage/components/SearchCityModalContent";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectReturnCity,
+  removeSuggestion,
+  clearSuggestion,
+} from "@/services/homepageSlice";
 
-const SearchArrivalCity = () => {
+const SearchReturnCity = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [value, setValue] = useState("Melbourne (MLB)");
+  const { returnCity, suggestions } = useSelector((state) => state.homepage);
 
-  const [suggestions, setSuggestions] = useState([
-    "Jakarta",
-    "Bandung",
-    "Surabaya",
-  ]);
+  const dispatch = useDispatch();
 
-  const handleClearAll = () => setSuggestions([]);
+  const handleClearAll = () => dispatch(clearSuggestion());
 
   const handleRemoveSuggestion = (city) => {
-    setSuggestions((prev) => prev.filter((item) => item !== city));
+    dispatch(removeSuggestion(city));
   };
 
   function handleMenuOpen() {
@@ -23,19 +25,11 @@ const SearchArrivalCity = () => {
   }
 
   function handleSave(value) {
-    setValue(value);
-
-    if (suggestions.includes(value)) {
-      return setSuggestions((prevArr) => [
-        value,
-        ...prevArr.filter((city) => city !== value),
-      ]);
-    }
-    setSuggestions((prevArr) => [value, ...prevArr]);
+    dispatch(selectReturnCity(value));
   }
 
   return (
-    <SearchCityModal onOpen={handleMenuOpen} isOpen={isOpen} value={value}>
+    <SearchCityModal onOpen={handleMenuOpen} isOpen={isOpen} value={returnCity}>
       <SearchCityModalContent
         onOpen={handleMenuOpen}
         isOpen={isOpen}
@@ -48,4 +42,4 @@ const SearchArrivalCity = () => {
   );
 };
 
-export default SearchArrivalCity;
+export default SearchReturnCity;

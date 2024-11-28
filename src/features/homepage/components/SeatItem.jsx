@@ -9,6 +9,7 @@ const SeatItem = forwardRef(function SeatItem(
     <>
       <div className="flex justify-center outline-none">
         <MenuItem
+          tabIndex={-1}
           onClick={() => setActive(name)}
           className={`py-4 px-4 mx-5 rounded-none flex justify-between group hover:bg-primaryPurple hover:bg-opacity-100 focus:bg-primaryPurple focus:bg-opacity-100 active:bg-primaryPurple active:bg-opacity-100 ${
             active === name && "bg-primaryPurple"

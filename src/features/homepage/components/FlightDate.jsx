@@ -4,17 +4,21 @@ import FlightDateInput from "@/features/homepage/components/FlightDateInput";
 import ToggleSwitch from "@/features/homepage/components/ToggleSwitch";
 import DatePicker from "@/features/homepage/components/DatePicker";
 import FlightDateButton from "@/features/homepage/components/FlightDateButton";
+import { useDispatch, useSelector } from "react-redux";
+import { updateFlightDate } from "@/services/homepageSlice";
 
 const FlightDate = () => {
-  const [date, setDate] = useState(null);
   const [tempDate, setTempDate] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [toggleIsOn, setToggleIsOn] = useState(false);
 
+  const dispatch = useDispatch();
+  const { flightDate } = useSelector((state) => state.homepage);
+
   useEffect(() => {
-    setDate(null);
+    dispatch(updateFlightDate(null));
     setTempDate(null);
-  }, [toggleIsOn]);
+  }, [toggleIsOn, dispatch]);
 
   useEffect(() => {
     if (isOpen) {
@@ -41,7 +45,7 @@ const FlightDate = () => {
 
   function handleSave() {
     setIsOpen(false);
-    setDate(tempDate);
+    dispatch(updateFlightDate(tempDate));
   }
 
   return (
@@ -52,7 +56,7 @@ const FlightDate = () => {
       <Popover handler={handleOpen} open={isOpen}>
         <div className="flex w-full gap-10">
           <FlightDateInput
-            date={date}
+            date={flightDate}
             formattedDate={formattedDate}
             label={"Departure"}
             type={"from"}
@@ -61,7 +65,7 @@ const FlightDate = () => {
           />
           <div className="w-full relative flex">
             <FlightDateInput
-              date={date}
+              date={flightDate}
               formattedDate={formattedDate}
               label={"Return"}
               type={"to"}

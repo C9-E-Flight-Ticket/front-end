@@ -1,22 +1,23 @@
 import { useState } from "react";
 import SearchCityModal from "@/features/homepage/components/SearchCityModal";
 import SearchCityModalContent from "@/features/homepage/components/SearchCityModalContent";
-import { Button } from "@material-tailwind/react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectDepartureCity,
+  removeSuggestion,
+  clearSuggestion,
+} from "@/services/homepageSlice";
 
 const SearchDepartureCity = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [value, setValue] = useState("Jakarta (JKTA)");
+  const { departureCity, suggestions } = useSelector((state) => state.homepage);
 
-  const [suggestions, setSuggestions] = useState([
-    "Jakarta",
-    "Bandung",
-    "Surabaya",
-  ]);
+  const dispatch = useDispatch();
 
-  const handleClearAll = () => setSuggestions([]);
+  const handleClearAll = () => dispatch(clearSuggestion());
 
   const handleRemoveSuggestion = (city) => {
-    setSuggestions((prev) => prev.filter((item) => item !== city));
+    dispatch(removeSuggestion(city));
   };
 
   function handleMenuOpen() {
@@ -24,30 +25,24 @@ const SearchDepartureCity = () => {
   }
 
   function handleSave(value) {
-    setValue(value);
-
-    if (suggestions.includes(value)) {
-      return setSuggestions((prevArr) => [
-        value,
-        ...prevArr.filter((city) => city !== value),
-      ]);
-    }
-    setSuggestions((prevArr) => [value, ...prevArr]);
+    dispatch(selectDepartureCity(value));
   }
 
   return (
-    <>
-      <SearchCityModal onOpen={handleMenuOpen} isOpen={isOpen} value={value}>
-        <SearchCityModalContent
-          onOpen={handleMenuOpen}
-          isOpen={isOpen}
-          onSave={handleSave}
-          suggestions={suggestions}
-          onClearAll={handleClearAll}
-          onRemoveSuggestion={handleRemoveSuggestion}
-        />
-      </SearchCityModal>
-    </>
+    <SearchCityModal
+      onOpen={handleMenuOpen}
+      isOpen={isOpen}
+      value={departureCity}
+    >
+      <SearchCityModalContent
+        onOpen={handleMenuOpen}
+        isOpen={isOpen}
+        onSave={handleSave}
+        suggestions={suggestions}
+        onClearAll={handleClearAll}
+        onRemoveSuggestion={handleRemoveSuggestion}
+      />
+    </SearchCityModal>
   );
 };
 
