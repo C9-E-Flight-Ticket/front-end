@@ -1,8 +1,9 @@
+import { currentDayName } from "@/utils/helper";
 import { useState } from "react";
 
 const SelectFlightButton = () => {
   const [selectedDay, setSelectedDay] = useState("");
-
+  const currentDay = currentDayName(new Date());
   const days = [
     "Selasa",
     "Rabu",
@@ -20,9 +21,9 @@ const SelectFlightButton = () => {
 
   return (
     <div className="absolute top-1/2 left-1/3">
-      <div className="block">
-        <div className="flex gap-3">
-          <div className="flex items-center rounded-xl w-[700px] h-[50px] bg-[#A06ECE] px-4 py-[5] gap-2">
+      <div className="block px-4 py-2 gap-[10px]">
+        <div className="flex gap-3 h-[55px]">
+          <div className="flex items-center rounded-xl w-[700px] h-[50px] bg-[#A06ECE] px-4 py-[5px] gap-2">
             <button>
               <img src="/arrow-left.png" />
             </button>
@@ -30,9 +31,11 @@ const SelectFlightButton = () => {
               JKT {">"} MLB - 2 Penumpang - Economy
             </div>
           </div>
-          <button className="bg-[#73CA5C] hover:bg-light-green-900 transition duration-300 w-[220px] h-[50px] rounded-xl font-bold text-white text-center text-base">
-            Ubah Pencarian
-          </button>
+          <div className="flex justify-center">
+            <button className="bg-[#73CA5C] hover:bg-light-green-900 transition duration-300 w-[220px] h-[50px] rounded-xl font-bold text-white text-center text-base">
+              Ubah Pencarian
+            </button>
+          </div>
         </div>
         <div className="flex pt-2 pb-4 border-b border-[#D0D0D0]">
           {days.map((day, index) => (
@@ -40,16 +43,27 @@ const SelectFlightButton = () => {
               <div className="p-2">
                 <button
                   onClick={() => selectDay(index)}
-                  className={`w-[100px] p-1 rounded-lg ${
-                    selectedDay === index ? "text-white bg-[#7126B5]" : ""
-                  }`}
+                  className={`w-[100px] p-1 rounded-lg 
+                    ${
+                      selectedDay === index && currentDay === day
+                        ? "text-white bg-[#7126B5]"
+                        : selectedDay === index
+                        ? "text-white bg-[#7126B5]"
+                        : currentDay === day
+                        ? "text-white bg-[#A06ECE]"
+                        : ""
+                    }`}
                 >
                   <div className="block text-center ">
                     <p className="font-bold text-sm">{day}</p>
                     <p
-                      className={`w-[92px] text-xs ${
-                        selectedDay === index ? "text-white" : "text-[#8A8A8A]"
-                      } `}
+                      className={`w-[92px] text-xs 
+                        ${currentDay === day ? "text-white" : "text-[#8A8A8A]"}
+                        ${
+                          selectedDay === index
+                            ? "text-white"
+                            : "text-[#8A8A8A]"
+                        } `}
                     >
                       01/03/2023
                     </p>
