@@ -1,6 +1,7 @@
 import Homepage from "@/features/homepage/pages/Homepage";
 import NotFound from "@/components/NotFound";
 import { createBrowserRouter } from "react-router-dom";
+import SelectFlight from "@/features/selectflight//pages/SelectFlight";
 
 const routes = [
   {
@@ -10,6 +11,10 @@ const routes = [
   {
     path: "*",
     element: <NotFound />,
+  },
+  {
+    path: "/select-flight",
+    element: <SelectFlight />,
   },
 ];
 
