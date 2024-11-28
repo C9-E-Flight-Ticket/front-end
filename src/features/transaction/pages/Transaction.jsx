@@ -1,6 +1,7 @@
 import MainNavbar from "@/components/MainNavbar/MainNavbar";
 import CheckOutStep from "@/features/transaction/components/CheckOutStep";
 import FlightDetail from "@/features/transaction/components/FlightDetail";
+import SeatSelection from "../components/SeatSelection";
 
 export default function Transaction() {
   return (
@@ -10,7 +11,14 @@ export default function Transaction() {
         <CheckOutStep currentStepIndex={0} />
       </div>
       <div>
-        <FlightDetail />
+        <div className="flex items-center justify-center">
+          <div>
+            <SeatSelection className="w-full" />
+          </div>
+          <div>
+            <FlightDetail className="w-full" />
+          </div>
+        </div>
       </div>
     </>
   );

@@ -14,8 +14,8 @@ const PaymentMethod = () => {
           <div
             className={`p-4 cursor-pointer ${
               activeAccordion === "Gopay"
-                ? "bg-purple-800  text-white"
-                : "bg-gray-800  text-white"
+                ? "bg-textPurple  text-white"
+                : "bg-darkgrey  text-white"
             }`}
             onClick={() => toggleAccordion("Gopay")}
           >
@@ -37,8 +37,8 @@ const PaymentMethod = () => {
           <div
             className={`p-4 cursor-pointer ${
               activeAccordion === "Virtual Account"
-                ? "bg-purple-800  text-white"
-                : "bg-gray-800  text-white"
+                ? "bg-textPurple  text-white"
+                : "bg-darkgrey  text-white"
             }`}
             onClick={() => toggleAccordion("Virtual Account")}
           >
@@ -61,8 +61,8 @@ const PaymentMethod = () => {
           <div
             className={`p-4 cursor-pointer ${
               activeAccordion === "Credit Card"
-                ? "bg-purple-800  text-white"
-                : "bg-gray-800  text-white"
+                ? "bg-textPurple  text-white"
+                : "bg-darkgrey  text-white"
             }`}
             onClick={() => toggleAccordion("Credit Card")}
           >
@@ -122,7 +122,7 @@ const PaymentMethod = () => {
             </div>
           )}
         </div>
-        <button className="w-full bg-purple-800 text-white p-2 rounded-md">
+        <button className="w-full bg-textPurple text-white p-2 rounded-md">
           Bayar
         </button>
       </div>

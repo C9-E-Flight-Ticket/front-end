@@ -2,8 +2,8 @@ const CheckoutSteps = ({ currentStepIndex }) => {
   const steps = ["Isi Data Diri", "Bayar", "Selesai"];
 
   return (
-    <div className="w-full bg-white px-72 py-6 shadow-md">
-      <div className="flex text-lg font-bold space-x-2 py-4">
+    <div className="w-full px-72 py-6 shadow-md bg-white">
+      <div className="py-4 space-x-2 flex text-lg font-bold">
         {steps.map((step, index) => (
           <div key={index} className="flex">
             <span
