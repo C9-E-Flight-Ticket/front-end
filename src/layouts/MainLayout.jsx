@@ -4,7 +4,7 @@ export default function MainLayout({ children }) {
   return (
     <>
       <MainNavbar />
-      <div className="min-h-screen">{children}</div>
+      <div className="min-h-screen mb-10">{children}</div>
     </>
   );
 }

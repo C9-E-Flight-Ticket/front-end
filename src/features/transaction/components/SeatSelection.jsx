@@ -27,9 +27,9 @@ const SeatSelection = () => {
     return selected ? selected.label : null;
   };
 
-  return (
-    <div className="w-full my-6 mr-4 lg:w-3/5">
-      <div className="p-5 border rounded-lg border-textGrey">
+  return 
+    <div className="w-full p-5 mx-auto">
+      <div className="p-5 border border-textGrey">
         <h1 className="mb-2 text-xl font-semibold">Pilih Kursi</h1>
         <div className="p-3 text-center rounded-md bg-lightGreen">
           <p className="text-xs font-normal text-white">
