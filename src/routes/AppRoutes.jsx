@@ -13,7 +13,7 @@ const routes = [
     element: <NotFound />,
   },
   {
-    path: "/select-flight",
+    path: "/flight",
     element: <SelectFlight />,
   },
 ];
