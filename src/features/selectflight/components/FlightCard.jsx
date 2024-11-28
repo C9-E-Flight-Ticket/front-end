@@ -10,6 +10,8 @@ import FlightDetail from "./FlightDetail";
 import { flightDetailsData } from "../data/flightDetailsData";
 
 export default function FlightCard({ flight, open, handleOpen }) {
+  const priceColorClass = flight.id === 2 ? "text-red-600" : "text-purple-800";
+
   return (
     <Card
       className={`w-[700px] p-[0px_15px] border-t rounded-tl-[8px] gap-[12px] transition-all ${
@@ -49,16 +51,16 @@ export default function FlightCard({ flight, open, handleOpen }) {
             <div className="flex flex-col items-center gap-[4px]">
               <p className="text-gray-600 text-sm">{flight.duration}</p>
               <div className="flex items-center">
-                <div className="w-48 h-[1px] bg-gray-400"></div>
+                <div className="w-64 h-[1px] bg-gray-400"></div>
                 <img
                   src={flight.arrowIcon}
                   alt="Arrow"
-                  className="w-4 h-4 text-gray-400"
+                  className=" -translate-y-[4%] -translate-x-[50%] w-4 h-4"
                 />
               </div>
               <p className="text-gray-600 text-xs">{flight.type}</p>
             </div>
-            <div className="text-center flex flex-col gap-[4px]">
+            <div className="-translate-x-[50%] text-center flex flex-col gap-[4px]">
               <p className="text-gray-800 font-bold text-sm">
                 {flight.arrivalTime}
               </p>
@@ -68,11 +70,13 @@ export default function FlightCard({ flight, open, handleOpen }) {
               <img
                 src={flight.baggageIcon}
                 alt="Baggage Icon"
-                className="w-4 h-4 text-purple-800"
+                className="-translate-x-[200%] w-4 h-4 text-purple-800"
               />
             </div>
             <div className="flex flex-col items-end gap-[8px]">
-              <p className="text-gray-800 font-semibold">{flight.price}</p>
+              <p className={`font-semibold ${priceColorClass}`}>
+                {flight.price}
+              </p>
               <div className="w-[100px] h-auto px-[12px] py-[4px] rounded-[12px] bg-purple-800 hover:bg-purple-900 text-white text-center cursor-pointer">
                 Pilih
               </div>
