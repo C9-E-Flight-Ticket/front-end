@@ -3,7 +3,7 @@ import cn from "classnames";
 
 const DestinationFilterButton = ({
   onClick,
-  isActive,
+  isActive = "Semua",
   children,
   className,
 }) => {
