@@ -8,7 +8,7 @@ import {
   clearSuggestion,
 } from "@/services/homepageSlice";
 
-const SearchArrivalCity = () => {
+const SearchReturnCity = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { returnCity, suggestions } = useSelector((state) => state.homepage);
 
@@ -42,4 +42,4 @@ const SearchArrivalCity = () => {
   );
 };
 
-export default SearchArrivalCity;
+export default SearchReturnCity;

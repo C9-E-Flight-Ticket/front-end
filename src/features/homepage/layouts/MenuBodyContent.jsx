@@ -1,7 +1,7 @@
 import SeatMenu from "@/features/homepage/components/SeatMenu";
 import PassengerMenu from "@/features/homepage/components/PassengerMenu";
 import InputGroupLayout from "@/features/homepage/components/InputGroupLayout";
-import SearchArrivalCity from "@/features/homepage/components/SearchArrivalCity";
+import SearchReturnCity from "@/features/homepage/components/SearchReturnCity";
 import SearchDepartureCity from "@/features/homepage/components/SearchDepartureCity";
 import ToggleSwitchSearch from "@/features/homepage/components/ToggleSwitchSearch";
 import FlightDate from "@/features/homepage/components/FlightDate";
@@ -28,7 +28,7 @@ const MenuBodyContent = () => {
           <img src="/plane-vector.png" alt="plane-vector" className="w-5 h-5" />
           <p className="text-[#8A8A8A] text-sm">To</p>
         </div>
-        <SearchArrivalCity />
+        <SearchReturnCity />
       </InputGroupLayout>
       <InputGroupLayout>
         <div className="flex gap-3 items-center">
@@ -41,7 +41,7 @@ const MenuBodyContent = () => {
         </div>
         <FlightDate />
       </InputGroupLayout>
-      <div className="flex w-full gap-5">
+      <div className="flex w-full gap-5 items-center">
         <InputGroupLayout>
           <div className="flex gap-3 items-center">
             <img
