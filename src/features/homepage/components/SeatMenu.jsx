@@ -1,22 +1,26 @@
 import ModalMenuLayout from "@/features/homepage/components/ModalMenuLayout";
 import SeatItem from "@/features/homepage/components/SeatItem";
+import { chooseSeatClass } from "@/services/homepageSlice";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const SeatMenu = () => {
-  const [active, setActive] = useState("Economy");
+  const { seatClass } = useSelector((state) => state.homepage);
   const [tempActive, setTempActive] = useState("Economy");
 
+  const dispatch = useDispatch();
+
   function handleSave() {
-    setActive(tempActive);
+    dispatch(chooseSeatClass(tempActive));
   }
 
   function handleMenuClose() {
-    setTempActive(active);
+    setTempActive(seatClass);
   }
 
   return (
     <ModalMenuLayout
-      value={active}
+      value={seatClass}
       label="Seat Class"
       marginFromTop={0}
       onSave={handleSave}
