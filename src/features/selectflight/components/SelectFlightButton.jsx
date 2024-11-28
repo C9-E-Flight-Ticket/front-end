@@ -20,7 +20,7 @@ const SelectFlightButton = () => {
   };
 
   return (
-    <div className="absolute top-1/2 left-1/3">
+    <div className=" top-1/2 left-1/3">
       <div className="block px-4 py-2 gap-[10px]">
         <div className="flex gap-3 h-[55px]">
           <div className="flex items-center rounded-xl w-[700px] h-[50px] bg-[#A06ECE] px-4 py-[5px] gap-2">
