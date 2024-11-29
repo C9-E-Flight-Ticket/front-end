@@ -21,19 +21,21 @@ const Sorting = () => {
 
   return (
     <>
-      <button
-        onClick={handleActiveModal}
-        className="h-8 border border-[#A06ECE] text-[#7126B5] rounded-2xl px-1"
-      >
-        <div className="flex">
-          <div className="py-[2px] pl-1 w-[16.67px] h-[16.67px]">
-            <ArrowsUpDownIcon />
+      <div className="absolute w-[968px] h-[48px] top-[345px] left-1/2 transform -translate-x-[52%] p-[8px] flex justify-end items-center">
+        <button
+          onClick={handleActiveModal}
+          className="h-8 border border-[#A06ECE] text-[#7126B5] rounded-2xl px-1"
+        >
+          <div className="flex">
+            <div className="py-[2px] pl-1 w-[16.67px] h-[16.67px]">
+              <ArrowsUpDownIcon />
+            </div>
+            <div className="text-xs px-2">
+              {selectedSorting.split(" ").slice(1).join(" ")}
+            </div>
           </div>
-          <div className="text-xs px-2">
-            {selectedSorting.split(" ").slice(1).join(" ")}
-          </div>
-        </div>
-      </button>
+        </button>
+      </div>
 
       {modalActivated && (
         <SortingModal

@@ -43,7 +43,7 @@ const SelectFlightButton = () => {
             </button>
           </div>
         </div>
-        <div className="flex pt-2 pb-4 border-b border-[#D0D0D0]">
+        <div className="flex pt-2 pb-4">
           {days.map((day, index) => (
             <div key={index} className="flex items-center">
               <div className="p-2">
