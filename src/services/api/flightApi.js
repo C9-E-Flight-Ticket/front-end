@@ -8,9 +8,17 @@ export const flightApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
-    getTicketSearching: build.query({
-      query: ({ continent, limit, offset }) => ({
-        url: `/api/flight/search?arrivalContinent=${continent}&limit=${limit}&offset=${offset}`,
+    getTicketBySearching: build.query({
+      query: ({
+        departureCity,
+        arrivalCity,
+        departureDate,
+        returnDate,
+        seatClass,
+        limit,
+        offset,
+      }) => ({
+        url: `/api/flight/search?departureCity=${departureCity}&arrivalCity=${arrivalCity}&departureDate=${departureDate}&returnDate=${returnDate}&seatClass=${seatClass}&limit=${limit}&offset=${offset}`,
         method: "GET",
       }),
     }),

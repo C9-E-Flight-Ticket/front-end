@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 const SeatSelection = () => {
   const classInfo = {
@@ -11,6 +12,7 @@ const SeatSelection = () => {
   const cols = Array.from({ length: 12 }, (_, i) => i + 1);
   const unavailableSeats = ["A1", "A2", "A4", "D4"];
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const { seatClass } = useSelector((state) => state.homepage);
 
   const toggleSeat = (seat) => {
     setSelectedSeats((prev) => {
@@ -33,7 +35,7 @@ const SeatSelection = () => {
         <h1 className="mb-2 text-xl font-semibold">Pilih Kursi</h1>
         <div className="p-3 text-center rounded-md bg-lightGreen">
           <p className="text-xs font-normal text-white">
-            {classInfo.name} - {classInfo.totalSeats} Seats available
+            {seatClass} - {classInfo.totalSeats} Seats available
           </p>
         </div>
         <div className="gap-4 flex justify-center">

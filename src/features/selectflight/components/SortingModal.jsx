@@ -16,6 +16,7 @@ const SortingModal = ({ closeModal, submitSorting, value }) => {
   const handleSubmit = () => {
     setSortingValue(selected);
     submitSorting(selected);
+    closeModal();
   };
 
   return (
