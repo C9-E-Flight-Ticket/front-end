@@ -1,11 +1,11 @@
 import CheckOutStep from "@/features/transaction/components/CheckOutStep";
-import FlightDetail from "@/features/transaction/components/FlightDetail";
+import FlightDetail from "@/components/FlightDetail/FlightDetail";
 import FormLayout from "@/features/transaction/components/FormLayout";
-import FormUserContent from "../components/FormUserContent";
-import FormPassengerContent from "../components/FormPassengerContent";
-import SeatSelection from "../components/SeatSelection";
-import SaveButton from "../components/SaveButton";
-import NotificationBox from "../components/NotificationBox";
+import FormUserContent from "@/features/transaction/components/FormUserContent";
+import FormPassengerContent from "@/features/transaction/components/FormPassengerContent";
+import SeatSelection from "@/features/transaction/components/SeatSelection";
+import SaveButton from "@/features/transaction/components/SaveButton";
+import NotificationBox from "@/features/transaction/components/NotificationBox";
 import MainLayout from "@/layouts/MainLayout";
 import { useState } from "react";
 

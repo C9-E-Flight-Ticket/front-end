@@ -1,7 +1,7 @@
 import MainNavbar from "@/components/MainNavbar/MainNavbar";
 import CheckOutStep from "@/features/transaction/components/CheckOutStep";
-import SuccessContent from "../components/SuccessContent";
-import NotificationBox from "../components/NotificationBox";
+import SuccessContent from "@/features/transaction/components/SuccessContent";
+import NotificationBox from "@/features/transaction/components/NotificationBox";
 
 export default function PaymentSuccessPage() {
   return (

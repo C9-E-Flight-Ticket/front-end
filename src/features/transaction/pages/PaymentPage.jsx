@@ -1,8 +1,8 @@
 import MainNavbar from "@/components/MainNavbar/MainNavbar";
 import CheckOutStep from "@/features/transaction/components/CheckOutStep";
-import FlightDetail from "@/features/transaction/components/FlightDetail";
+import FlightDetail from "@/components/FlightDetail/FlightDetail";
 import PaymentMethod from "@/features/transaction/components/PaymentMethod";
-import NotificationBox from "../components/NotificationBox";
+import NotificationBox from "@/features/transaction/components/NotificationBox";
 
 const PaymentPage = () => {
   return (
