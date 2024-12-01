@@ -82,7 +82,11 @@ export default function FlightCard({ flight, open, handleOpen }) {
               </p>
               <div
                 className="w-[100px] h-auto px-[12px] py-[4px] rounded-[12px] bg-purple-800 hover:bg-purple-900 text-white text-center cursor-pointer"
-                onClick={() => navigate("/transaction")}
+                onClick={() =>
+                  navigate("/transaction", {
+                    state: { seatClass: flight.class },
+                  })
+                }
               >
                 Pilih
               </div>
