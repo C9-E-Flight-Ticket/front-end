@@ -3,6 +3,8 @@ import Pagination from "@/features/homepage/components/Pagination";
 import DestinationFilterButton from "./DestinationFilterButton";
 import FilteredDestinationCard from "./FilteredDestinationCard";
 import { useGetTicketByContinentQuery } from "@/services/api/flightApi";
+import DataNotFound from "./DataNotFound";
+import DestinationSkeleton from "./DestinationSkeleton";
 
 const continents = [
   "Semua",
@@ -57,8 +59,11 @@ const Destination = ({ className }) => {
         </div>
       </div>
       <div className="justify-start flex gap-4 mt-4 flex-wrap">
-        {!isLoading &&
-          !error &&
+        {isLoading ? (
+          <DestinationSkeleton />
+        ) : error && error.status === 404 ? (
+          <DataNotFound destination={selected} />
+        ) : (
           flightData.map((flight, index) => (
             <FilteredDestinationCard
               key={flight.id}
@@ -70,7 +75,8 @@ const Destination = ({ className }) => {
               price={flight.seats[60].price}
               image={flight.departureAirport.urlImage}
             />
-          ))}
+          ))
+        )}
       </div>
       {!isLoading && !error && pagination.totalPages > 1 && (
         <Pagination
