@@ -1,6 +1,7 @@
-import React from "react";
+import { useSelector } from "react-redux";
 
 const FlightDetail = () => {
+  const { passengers } = useSelector((state) => state.homepage);
   return (
     <div className="max-w-md p-6">
       <h2 className="text-lg font-bold text-black mb-1">Detail Penerbangan</h2>
@@ -44,23 +45,50 @@ const FlightDetail = () => {
         </div>
       </div>
       <div className="pt-2 mt-2 ml-3 border-t">
-        <h3 className="text-base font-semibold text-black">Rincian Harga</h3>
-        <div className="mt-2 flex justify-between text-sm text-black">
-          <p>2 Adults</p>
-          <p>IDR 9.550.000</p>
-        </div>
-        <div className="flex justify-between text-sm text-black">
-          <p>1 Baby</p>
-          <p>IDR 0</p>
-        </div>
-        <div className="flex justify-between text-sm text-black">
-          <p>Tax</p>
-          <p>IDR 300.000</p>
-        </div>
-        <div className="mt-2 flex justify-between text-lg font-bold border-t text-textPurple">
-          <p>Total</p>
-          <p>IDR 9.850.000</p>
-        </div>
+        <h3 className="text-base font-semibold text-black mb-2">
+          Rincian Harga
+        </h3>
+
+        {passengers.adult ? (
+          <div className="flex justify-between text-sm text-black">
+            <p>{passengers.adult} Adults</p>
+            <p>IDR 9.550.000</p>
+          </div>
+        ) : (
+          ""
+        )}
+
+        {passengers.child ? (
+          <div className="flex justify-between text-sm text-black">
+            <p>{passengers.child} Child</p>
+            <p>IDR 9.550.000</p>
+          </div>
+        ) : (
+          ""
+        )}
+
+        {passengers.baby ? (
+          <div className="flex justify-between text-sm text-black">
+            <p>{passengers.baby} Baby</p>
+            <p>IDR 9.550.000</p>
+          </div>
+        ) : (
+          ""
+        )}
+
+        {!!passengers.adult && !!passengers.child && !!passengers.baby && (
+          <>
+            <div className="flex justify-between text-sm text-black">
+              <p>Tax</p>
+              <p>IDR 300.000</p>
+            </div>
+
+            <div className="mt-2 flex justify-between text-lg font-bold border-t text-textPurple">
+              <p>Total</p>
+              <p>IDR 9.850.000</p>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
