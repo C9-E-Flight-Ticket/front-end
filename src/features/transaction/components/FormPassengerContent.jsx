@@ -184,7 +184,7 @@ const FormPassengerContent = ({ index, register, control, errors }) => {
             {...register(`passenger${index}.identityNumber`, {
               required: "KTP/Paspor is required",
             })}
-            placeholder="1234567890"
+            placeholder="3176042405990001"
             className={cn(
               "p-2 rounded border border-[#adadad]",
               errors?.[`passenger${index}`]?.identityNumber &&

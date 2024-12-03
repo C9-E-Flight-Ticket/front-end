@@ -23,7 +23,7 @@ export default function TransactionPage() {
   }
 
   return (
-    <MainLayout>
+    <MainLayout className="mt-52">
       <div className="mx-auto mb-10">
         <CheckOutStep currentStepIndex={0} />
         {isSubmitted && (
@@ -44,7 +44,7 @@ export default function TransactionPage() {
           <SeatSelection />
           <SaveButton targetFormId="userPassengerForm" />
         </div>
-        <div className="w-fit flex justify-center">
+        <div className="w-1/4 flex justify-center relative">
           <FlightDetail />
         </div>
       </div>

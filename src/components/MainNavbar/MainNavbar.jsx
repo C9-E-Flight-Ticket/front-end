@@ -7,7 +7,7 @@ const MainNavbar = () => {
   return (
     <Navbar
       fullWidth
-      className="py-2 flex justify-center mb-10 fixed z-[9999] bg-white bg-opacity-100"
+      className="py-2 flex justify-center mb-10 fixed top-0 z-[9999] bg-white bg-opacity-100"
     >
       <div className="w-full lg:mx-20 flex items-center justify-between text-blue-gray-900">
         <div className="flex lg:w-[35rem] gap-4 items-center">
