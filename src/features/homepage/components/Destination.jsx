@@ -19,9 +19,10 @@ const Destination = ({ className }) => {
   const [selected, setSelected] = useState("Semua");
   const [offset, setOffset] = useState(0);
   const [active, setActive] = useState(1);
-  const limit = useRef(6);
+  const limit = useRef(7);
+  const skeletonCount = useRef(7);
 
-  const { data, isLoading, error } = useGetTicketByContinentQuery(
+  const { data, isLoading, error, isFetching } = useGetTicketByContinentQuery(
     {
       continent: selected === "Semua" ? "" : selected,
       limit: limit.current,
@@ -58,13 +59,18 @@ const Destination = ({ className }) => {
           ))}
         </div>
       </div>
-      <div className="justify-start flex gap-4 mt-4 flex-wrap">
-        {isLoading ? (
-          <DestinationSkeleton />
-        ) : error && error.status === 404 ? (
-          <DataNotFound destination={selected} />
-        ) : (
-          flightData.map((flight, index) => (
+
+      {isLoading || isFetching ? (
+        <div className={"justify-start grid grid-cols-7 gap-4 mt-4"}>
+          {Array.from({ length: skeletonCount.current }).map((_, i) => (
+            <DestinationSkeleton key={i} />
+          ))}
+        </div>
+      ) : error ? (
+        <DataNotFound destination={selected} />
+      ) : (
+        <div className={"justify-start grid grid-cols-7 gap-4 mt-4"}>
+          {flightData.map((flight, index) => (
             <FilteredDestinationCard
               key={flight.id}
               from={flight.departureAirport.city}
@@ -75,19 +81,21 @@ const Destination = ({ className }) => {
               price={flight.seats[60].price}
               image={flight.departureAirport.urlImage}
             />
-          ))
-        )}
-      </div>
-      {!isLoading && !error && pagination.totalPages > 1 && (
-        <Pagination
-          className={"mx-auto mt-8"}
-          limit={limit.current}
-          setOffset={setOffset}
-          pagination={pagination}
-          active={active}
-          setActive={setActive}
-        />
+          ))}
+        </div>
       )}
+
+      {!isLoading ||
+        (!isFetching && !error && pagination.totalPages > 1 && (
+          <Pagination
+            className={"mx-auto mt-8"}
+            limit={limit.current}
+            setOffset={setOffset}
+            pagination={pagination}
+            active={active}
+            setActive={setActive}
+          />
+        ))}
     </div>
   );
 };

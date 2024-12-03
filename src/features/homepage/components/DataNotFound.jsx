@@ -1,6 +1,6 @@
 const DataNotFound = ({ destination }) => {
   return (
-    <div className="w-full h-[194px] border rounded-xl flex justify-center items-center bg-[#E2D4F0]">
+    <div className="w-full h-[194px] border rounded-xl flex justify-center items-center bg-[#E2D4F0] mt-5">
       {/* <div className="mt-9 w-full flex justify-center">
         <img className="h-20" src="/404.png" />
       </div> */}
