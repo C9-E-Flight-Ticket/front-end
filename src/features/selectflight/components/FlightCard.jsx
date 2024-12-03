@@ -70,7 +70,7 @@ export default function FlightCard({
                 <img
                   src={flight.arrowIcon}
                   alt="Arrow"
-                  className=" -translate-y-[4%] -translate-x-[50%] w-4 h-4"
+                  className=" -translate-y-[4%] -translate-x-[50%] w-3 h-3"
                 />
               </div>
               <p className="text-gray-600 text-xs">{flight.type}</p>
