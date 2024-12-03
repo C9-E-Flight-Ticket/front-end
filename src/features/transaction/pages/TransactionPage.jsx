@@ -7,9 +7,12 @@ import FormUserPassenger from "@/features/transaction/components/FormUserPasseng
 import MainLayout from "@/layouts/MainLayout";
 
 import { useState } from "react";
+import { Button } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
 
 export default function TransactionPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const navigate = useNavigate();
 
   function handleSubmit(data) {
     // No error in form handler
@@ -28,9 +31,11 @@ export default function TransactionPage() {
         <CheckOutStep currentStepIndex={0} />
 
         <NotificationBox
-          message="Selesaikan dalam"
+          message={
+            isSubmitted ? "Data Anda berhasil tersimpan!" : "Selesaikan dalam"
+          }
           initialTime={900}
-          className="bg-red-600"
+          type={isSubmitted ? "success" : "count"}
         />
       </div>
       <div className="flex justify-center ms-10">
@@ -43,7 +48,19 @@ export default function TransactionPage() {
           <SaveButton targetFormId="userPassengerForm" />
         </div>
         <div className="w-1/4 flex justify-center relative">
-          <FlightDetail />
+          <div className="max-w-md p-6 fixed">
+            <FlightDetail />
+            {isSubmitted && (
+              <Button
+                color="red"
+                className="!bg-red-500"
+                fullWidth
+                onClick={() => navigate("/payment")}
+              >
+                Lanjut Bayar
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </MainLayout>

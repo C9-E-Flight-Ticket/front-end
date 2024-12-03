@@ -1,9 +1,10 @@
+import { Button } from "@material-tailwind/react";
 import { useSelector } from "react-redux";
 
 const FlightDetail = () => {
   const { passengers } = useSelector((state) => state.homepage);
   return (
-    <div className="max-w-md p-6 fixed">
+    <>
       <h2 className="text-lg font-bold text-black mb-1">Detail Penerbangan</h2>
       <div className="flex justify-between items-start">
         <div>
@@ -90,7 +91,7 @@ const FlightDetail = () => {
           </>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

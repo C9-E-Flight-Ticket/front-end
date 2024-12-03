@@ -1,14 +1,21 @@
 import { useState, useEffect } from "react";
 
-const NotificationBox = ({ message, initialTime, className }) => {
+const NotificationBox = ({
+  message,
+  initialTime,
+  className,
+  type = "count",
+}) => {
   const [timeLeft, setTimeLeft] = useState(initialTime);
+
   useEffect(() => {
-    if (!initialTime) return;
+    if (!initialTime || type !== "count") return;
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
+      console.log("time");
     }, 1000);
     return () => clearInterval(timer);
-  }, [initialTime]);
+  }, [initialTime, type]);
 
   const formatTime = (time) => {
     if (!initialTime) return;
@@ -19,10 +26,15 @@ const NotificationBox = ({ message, initialTime, className }) => {
   };
   return (
     <div
-      className={`fixed z-[99] top-28 left-1/2 w-8/12 p-2 mt-10 text-center font-semibold rounded-lg text-white ${className}`}
+      className={`fixed z-[99] top-28 left-1/2 w-8/12 p-2 mt-10 text-center font-semibold rounded-lg text-white ${className} ${
+        type === "count" ? "bg-red-500" : "bg-green-500"
+      }`}
       style={{ transform: "translateX(-50%)" }}
     >
-      {message} <span className="font-bold">{formatTime(timeLeft)}</span>
+      {message}{" "}
+      {type === "count" && (
+        <span className="font-bold">{formatTime(timeLeft)}</span>
+      )}
     </div>
   );
 };
