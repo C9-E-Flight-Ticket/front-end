@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 
 const SeatSelection = () => {
-  const { seatClass } = useSelector((state) => state.homepage);
+  const { seatClass, passengers } = useSelector((state) => state.homepage);
   const [activeTrip, setActiveTrip] = useState("Pergi");
   const [selectedSeatsPergi, setSelectedSeatsPergi] = useState([]);
   const [selectedSeatsPulang, setSelectedSeatsPulang] = useState([]);
@@ -45,18 +45,20 @@ const SeatSelection = () => {
       ? setSelectedSeatsPergi
       : setSelectedSeatsPulang;
 
-    setSelectedSeats((prev) => {
+    setSelectedSeats((prev = []) => {
       if (prev.find((s) => s.seat === seat)) {
         return prev.filter((s) => s.seat !== seat);
-      } else {
+      }
+      if (prev.length < passengers.adult + passengers.child) {
         return [...prev, { seat, label: `P${prev.length + 1}` }];
       }
+      return prev;
     });
   };
 
   const getSeatLabel = (seat, isPergi = true) => {
     const selectedSeats = isPergi ? selectedSeatsPergi : selectedSeatsPulang;
-    const selected = selectedSeats.find((s) => s.seat === seat);
+    const selected = (selectedSeats || []).find((s) => s.seat === seat);
     return selected ? selected.label : null;
   };
 
