@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const SeatSelection = () => {
-  const location = useLocation();
-  const seatClass = location.state?.seatClass || "Economy";
+  const { seatClass } = useSelector((state) => state.homepage);
+  const [selectedSeats, setSelectedSeats] = useState([]);
 
   const getSeatLayout = (seatClass) => {
     switch (seatClass) {
@@ -25,12 +25,14 @@ const SeatSelection = () => {
         };
     }
   };
+
   const layout = getSeatLayout(seatClass);
+  const { leftRows, rightRows, cols } = layout;
   const totalSeats =
     (layout.leftRows.length + layout.rightRows.length) * layout.cols;
-  const { leftRows, rightRows, cols } = layout;
-  const [selectedSeats, setSelectedSeats] = useState([]);
+  const seatRows = layout.leftRows.length;
   const unavailableSeats = [];
+
   const toggleSeat = (seat) => {
     setSelectedSeats((prev) => {
       if (prev.find((s) => s.seat === seat)) {
@@ -40,10 +42,12 @@ const SeatSelection = () => {
       }
     });
   };
+
   const getSeatLabel = (seat) => {
     const selected = selectedSeats.find((s) => s.seat === seat);
     return selected ? selected.label : null;
   };
+
   return (
     <div className="w-full p-5 mx-auto">
       <div className="p-5 border border-textGrey">
@@ -56,7 +60,13 @@ const SeatSelection = () => {
         <div className="gap-4 flex justify-center">
           <div>
             <div
-              className={`grid grid-cols-${rightRows.length} gap-x-4 text-textGrey`}
+              className={`grid ${
+                seatRows === 3
+                  ? "grid-cols-3"
+                  : seatRows === 2
+                  ? "grid-cols-2"
+                  : "grid-cols-1"
+              } gap-x-4 text-textGrey`}
             >
               {leftRows.map((row) => (
                 <div
@@ -68,7 +78,13 @@ const SeatSelection = () => {
               ))}
             </div>
             <div
-              className={`grid grid-cols-${leftRows.length} gap-x-4 gap-y-3`}
+              className={`grid ${
+                seatRows === 3
+                  ? "grid-cols-3"
+                  : seatRows === 2
+                  ? "grid-cols-2"
+                  : "grid-cols-1"
+              } gap-x-4 gap-y-3`}
             >
               {Array.from({ length: cols }, (_, i) => i + 1).map((col) =>
                 leftRows.map((row) => {
@@ -107,7 +123,13 @@ const SeatSelection = () => {
           </div>
           <div>
             <div
-              className={`grid grid-cols-${rightRows.length} gap-x-4 text-textGrey`}
+              className={`grid ${
+                seatRows === 3
+                  ? "grid-cols-3"
+                  : seatRows === 2
+                  ? "grid-cols-2"
+                  : "grid-cols-1"
+              } gap-x-4 text-textGrey`}
             >
               {rightRows.map((row) => (
                 <div
@@ -119,7 +141,13 @@ const SeatSelection = () => {
               ))}
             </div>
             <div
-              className={`grid grid-cols-${rightRows.length} gap-x-4 gap-y-3`}
+              className={`grid ${
+                seatRows === 3
+                  ? "grid-cols-3"
+                  : seatRows === 2
+                  ? "grid-cols-2"
+                  : "grid-cols-1"
+              } gap-x-4 gap-y-3`}
             >
               {Array.from({ length: cols }, (_, i) => i + 1).map((col) =>
                 rightRows.map((row) => {
