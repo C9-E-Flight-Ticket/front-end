@@ -53,7 +53,7 @@ export default function TransactionPage() {
             {isSubmitted && (
               <Button
                 color="red"
-                className="!bg-red-500"
+                className="!bg-red-500 mt-5"
                 fullWidth
                 onClick={() => navigate("/payment")}
               >
