@@ -23,17 +23,15 @@ export default function TransactionPage() {
   }
 
   return (
-    <MainLayout className="mt-52">
+    <MainLayout className="mt-56">
       <div className="mx-auto mb-10">
         <CheckOutStep currentStepIndex={0} />
-        {isSubmitted && (
-          <NotificationBox
-            message="Selesaikan dalam"
-            initialTime={900}
-            className="bg-red-500"
-            isSubmitted={isSubmitted}
-          />
-        )}
+
+        <NotificationBox
+          message="Selesaikan dalam"
+          initialTime={900}
+          className="bg-red-600"
+        />
       </div>
       <div className="flex justify-center ms-10">
         <div className="w-fit flex flex-col justify-center">
