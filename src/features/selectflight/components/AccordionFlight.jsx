@@ -1,39 +1,71 @@
 import React, { useState } from "react";
 import FlightCard from "./FlightCard";
 import SelectOrderCard from "./SelectOrderCard";
+import { useNavigate } from "react-router-dom";
 import flightData from "../data/flightData";
+import returnFlightData from "../data/returnFlightData";
 
 export default function AccordionFlight() {
-  const [open, setOpen] = useState(0);
-  const [selectedFlight, setSelectedFlight] = useState(null);
+  const [stage, setStage] = useState("departure");
+  const [open, setOpen] = useState(null);
+  const [selectedDeparture, setSelectedDeparture] = useState(null);
+  const [selectedReturn, setSelectedReturn] = useState(null);
+  const navigate = useNavigate();
 
   const handleOpen = (value) => {
-    setOpen(open === value ? 0 : value);
+    setOpen(open === value ? null : value);
   };
 
-  const handleSelectFlight = (flight) => {
-    setSelectedFlight(flight);
+  const handleSelectDeparture = (flight) => {
+    setSelectedDeparture(flight);
+    setStage("return");
+    setOpen(null);
   };
 
-  const handleCloseSelectedFlight = () => {
-    setSelectedFlight(null);
+  const handleSelectReturn = (flight) => {
+    setSelectedReturn(flight);
+    navigate("/transaction", {
+      state: {
+        departureFlight: selectedDeparture,
+        returnFlight: flight,
+      },
+    });
   };
+
+  const handleReset = () => {
+    setStage("departure");
+    setSelectedDeparture(null);
+    setSelectedReturn(null);
+    setOpen(null);
+  };
+
+  const currentFlightData =
+    stage === "departure" ? flightData : returnFlightData;
 
   return (
     <div className="flex flex-col items-center space-y-5 py-5 relative">
-      {flightData.map((flight) => (
+      <div className="w-full">
+        <h2 className="text-xl font-bold mb-4">
+          {stage === "departure"
+            ? "Pilih Tiket Keberangkatan"
+            : "Pilih Tiket Kepulangan"}
+        </h2>
+      </div>
+      {currentFlightData.map((flight) => (
         <FlightCard
           key={flight.id}
           flight={flight}
           open={open}
           handleOpen={handleOpen}
-          onSelectFlight={handleSelectFlight}
+          onSelectFlight={
+            stage === "departure" ? handleSelectDeparture : handleSelectReturn
+          }
         />
       ))}
 
       <SelectOrderCard
-        selectedFlight={selectedFlight}
-        onClose={handleCloseSelectedFlight}
+        selectedFlight={selectedDeparture || selectedReturn}
+        onClose={handleReset}
       />
     </div>
   );
