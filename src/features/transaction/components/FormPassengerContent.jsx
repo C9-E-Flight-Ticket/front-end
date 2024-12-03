@@ -1,9 +1,12 @@
 import ToggleSwitch from "@/features/homepage/components/ToggleSwitch";
 import { Typography, Select, Option } from "@material-tailwind/react";
+import { Controller } from "react-hook-form";
+
 import { useState } from "react";
 
-const FormPassengerContent = ({ index }) => {
+const FormPassengerContent = ({ index, register, control }) => {
   const [isHaveFamilyName, setIsHaveFamilyName] = useState(false);
+
   return (
     <>
       <h2 className="mb-5 p-2 ps-4 text-white bg-[#3C3C3C] rounded-t-xl">
@@ -17,29 +20,39 @@ const FormPassengerContent = ({ index }) => {
         >
           Title
         </Typography>
-        <Select
-          size="lg"
-          value="mr"
-          onChange={() => {}}
-          className="border-[#adadad] border"
-          labelProps={{
-            className: "before:!border-transparent after:!border-transparent",
-          }}
-          menuProps={{ className: "text-black" }}
-        >
-          <Option
-            value="mr"
-            className="border border-x-transparent border-t-transparent border-b-black rounded-none rounded-t-lg"
-          >
-            Mr.
-          </Option>
-          <Option
-            value="ms"
-            className="border border-x-transparent border-t-transparent !border-b-black rounded-none"
-          >
-            Ms.
-          </Option>
-        </Select>
+        <Controller
+          name={`passenger${index}.title`}
+          rules={{ required: "Title is required!" }}
+          control={control}
+          defaultValue={"mr"}
+          render={({ field }) => (
+            <Select
+              {...field}
+              value={field.value}
+              onChange={(value) => field.onChange(value)}
+              size="lg"
+              className="border-[#adadad] border"
+              labelProps={{
+                className:
+                  "before:!border-transparent after:!border-transparent",
+              }}
+              menuProps={{ className: "text-black" }}
+            >
+              <Option
+                value="mr"
+                className="border border-x-transparent border-t-transparent border-b-black rounded-none rounded-t-lg"
+              >
+                Mr.
+              </Option>
+              <Option
+                value="ms"
+                className="border border-x-transparent border-t-transparent !border-b-black rounded-none"
+              >
+                Ms.
+              </Option>
+            </Select>
+          )}
+        />
         <Typography
           variant="h6"
           color="deep-purple"
@@ -48,6 +61,7 @@ const FormPassengerContent = ({ index }) => {
           Nama Lengkap
         </Typography>
         <input
+          {...register(`passenger${index}.name`)}
           placeholder="John Doe"
           className="p-2 rounded border border-[#adadad] focus:border-t-deep-purple-900"
         />
@@ -70,6 +84,7 @@ const FormPassengerContent = ({ index }) => {
               Nama Keluarga
             </Typography>
             <input
+              {...register(`passenger${index}.familyName`)}
               disabled={!isHaveFamilyName}
               className="p-2 rounded border border-[#adadad] focus:border-t-deep-purple-900 disabled:opacity-80 disabled:bg-gray-200 disabled:cursor-not-allowed"
             />
@@ -83,6 +98,7 @@ const FormPassengerContent = ({ index }) => {
           Tanggal Lahir
         </Typography>
         <input
+          {...register(`passenger${index}.dateOfBirth`)}
           type="date"
           placeholder="name@mail.com"
           className="p-2 rounded border border-[#adadad] focus:border-t-deep-purple-900"
@@ -95,6 +111,7 @@ const FormPassengerContent = ({ index }) => {
           Kewarganegaraan
         </Typography>
         <input
+          {...register(`passenger${index}.citizenship`)}
           placeholder="Indonesia"
           className="p-2 rounded border border-[#adadad] focus:border-t-deep-purple-900"
         />
@@ -105,7 +122,10 @@ const FormPassengerContent = ({ index }) => {
         >
           KTP/Paspor
         </Typography>
-        <input className="p-2 rounded border border-[#adadad] focus:border-t-deep-purple-900" />
+        <input
+          {...register(`passenger${index}.identityNumber`)}
+          className="p-2 rounded border border-[#adadad] focus:border-t-deep-purple-900"
+        />
         <Typography
           variant="h6"
           color="deep-purple"
@@ -113,7 +133,10 @@ const FormPassengerContent = ({ index }) => {
         >
           Negara Penerbit
         </Typography>
-        <input className="p-2 rounded border border-[#adadad] focus:border-t-deep-purple-900" />
+        <input
+          {...register(`passenger${index}.issuingCountry`)}
+          className="p-2 rounded border border-[#adadad] focus:border-t-deep-purple-900"
+        />
         <Typography
           variant="h6"
           color="deep-purple"
@@ -122,9 +145,10 @@ const FormPassengerContent = ({ index }) => {
           Berlaku Sampai
         </Typography>
         <input
+          {...register(`passenger${index}.validUntil`)}
           type="date"
           placeholder="name@mail.com"
-          className="p-2 rounded border border-[#adadad] focus:border-t-deep-purple-900"
+          className="p-2 mb-10 rounded border border-[#adadad] focus:border-t-deep-purple-900"
         />
       </div>
     </>
