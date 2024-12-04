@@ -1,96 +1,75 @@
-import { Button } from "@material-tailwind/react";
-import { useSelector } from "react-redux";
+import FlightDetailData from "@/features/transaction/components/FlightDetailData";
+import React from "react";
+import {
+  Tabs,
+  TabsHeader,
+  TabsBody,
+  Tab,
+  TabPanel,
+} from "@material-tailwind/react";
 
 const FlightDetail = () => {
-  const { passengers } = useSelector((state) => state.homepage);
+  const [activeTab, setActiveTab] = React.useState("html");
+  const data = [
+    {
+      label: "Pergi",
+      value: "pergi",
+      desc: (
+        <FlightDetailData
+          departureHour={"07:00"}
+          departureDate={"3 Maret 2023"}
+          departureGate={"Soekarno Hatta - Terminal 1A Domestik"}
+          arrivalHour={"11:00"}
+          arrivalDate={"3 Maret 2023"}
+          arrivalGate={"Melbourne International Airport"}
+        />
+      ),
+    },
+    {
+      label: "Pulang",
+      value: "Pulang",
+      desc: (
+        <FlightDetailData
+          departureHour={"13:00"}
+          departureDate={"8 Maret 2023"}
+          departureGate={"Melbourne International Airport"}
+          arrivalHour={"17:00"}
+          arrivalDate={"8 Maret 2023"}
+          arrivalGate={"Soekarno Hatta - Terminal 1A Domestik"}
+        />
+      ),
+    },
+  ];
   return (
     <>
-      <h2 className="text-lg font-bold text-black mb-1">Detail Penerbangan</h2>
-      <div className="flex justify-between items-start">
-        <div>
-          <p className="text-base font-bold">07:00</p>
-          <p className="text-sm text-black">3 Maret 2023</p>
-          <p className="text-sm text-black">
-            Soekarno Hatta - Terminal 1A Domestik
-          </p>
-        </div>
-        <div className="text-right">
-          <p className="text-sm font-semibold text-lightPurple">
-            Keberangkatan
-          </p>
-        </div>
-      </div>
-      <div className="pt-2 mt-4 border-t">
-        <p className="ml-11 text-base font-semibold text-black">
-          Jet Air - Economy
-        </p>
-        <p className="ml-11 text-base font-bold">JT - 203</p>
-        <div className="mt-4 flex items-start gap-3">
-          <img src="/air-asia.png" alt="AirAsia Logo" className="w-8 h-8" />
-          <div>
-            <p className="text-base font-bold">Informasi :</p>
-            <p>Baggage 20 kg</p>
-            <p>Cabin baggage 7 kg</p>
-            <p>In Flight Entertainment</p>
-          </div>
-        </div>
-      </div>
-      <div className="pt-2 mt-2 flex border-t justify-between items-start">
-        <div>
-          <p className="text-base font-bold">11:00</p>
-          <p className="text-sm text-black">3 Maret 2023</p>
-          <p className="text-sm text-black">Melbourne International Airport</p>
-        </div>
-        <div className="text-right">
-          <p className="text-sm font-semibold text-lightPurple">Kedatangan</p>
-        </div>
-      </div>
-      <div className="pt-2 mt-2 ml-3 border-t">
-        <h3 className="text-base font-semibold text-black mb-2">
-          Rincian Harga
-        </h3>
-
-        {passengers.adult ? (
-          <div className="flex justify-between text-sm text-black">
-            <p>{passengers.adult} Adults</p>
-            <p>IDR 9.550.000</p>
-          </div>
-        ) : (
-          ""
-        )}
-
-        {passengers.child ? (
-          <div className="flex justify-between text-sm text-black">
-            <p>{passengers.child} Child</p>
-            <p>IDR 9.550.000</p>
-          </div>
-        ) : (
-          ""
-        )}
-
-        {passengers.baby ? (
-          <div className="flex justify-between text-sm text-black">
-            <p>{passengers.baby} Baby</p>
-            <p>IDR 9.550.000</p>
-          </div>
-        ) : (
-          ""
-        )}
-
-        {!!passengers.adult && !!passengers.child && !!passengers.baby && (
-          <>
-            <div className="flex justify-between text-sm text-black">
-              <p>Tax</p>
-              <p>IDR 300.000</p>
-            </div>
-
-            <div className="mt-2 flex justify-between text-lg font-bold border-t text-textPurple">
-              <p>Total</p>
-              <p>IDR 9.850.000</p>
-            </div>
-          </>
-        )}
-      </div>
+      <h2 className="text-lg font-bold text-black mb-4">Detail Penerbangan</h2>
+      <Tabs value={activeTab}>
+        <TabsHeader
+          className="rounded-none border-b border-blue-gray-50 bg-transparent p-0"
+          indicatorProps={{
+            className:
+              "bg-transparent border-b-2 border-gray-900 shadow-none rounded-none",
+          }}
+        >
+          {data.map(({ label, value }) => (
+            <Tab
+              key={value}
+              value={value}
+              onClick={() => setActiveTab(value)}
+              className={activeTab === value ? "text-gray-900" : ""}
+            >
+              {label}
+            </Tab>
+          ))}
+        </TabsHeader>
+        <TabsBody>
+          {data.map(({ value, desc }) => (
+            <TabPanel className="text-black" key={value} value={value}>
+              {desc}
+            </TabPanel>
+          ))}
+        </TabsBody>
+      </Tabs>
     </>
   );
 };
