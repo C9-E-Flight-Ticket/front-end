@@ -1,6 +1,5 @@
 import CheckOutStep from "@/features/transaction/components/CheckOutStep";
-import CheckOutStep from "@/features/transaction/components/CheckOutStep";
-import FlightDetail from "@/features/transaction/components/FlightDetail";
+import FlightDetail from "@/components/FlightDetail/FlightDetail";
 import SeatSelection from "@/features/transaction/components/SeatSelection";
 import SaveButton from "@/features/transaction/components/SaveButton";
 import NotificationBox from "@/features/transaction/components/NotificationBox";

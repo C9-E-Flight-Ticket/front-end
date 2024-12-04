@@ -5,6 +5,7 @@ import SelectFlight from "@/features/selectFlight/pages/SelectFlight";
 import Transaction from "@/features/transaction/pages/TransactionPage";
 import Payment from "@/features/transaction/pages/PaymentPage";
 import PaymentSuccessPage from "@/features/transaction/pages/PaymentSuccessPage";
+import HistoryPage from "@/features/history/pages/HistoryPage";
 
 const routes = [
   {
@@ -22,6 +23,10 @@ const routes = [
   {
     path: "/success",
     element: <PaymentSuccessPage />,
+  },
+  {
+    path: "/history",
+    element: <HistoryPage />,
   },
   {
     path: "*",
