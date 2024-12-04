@@ -7,12 +7,12 @@ export default function FlightSelectionPage() {
   return (
     <>
       <Sorting />
-      <div className="absolute top-[400px] left-1/2 transform -translate-x-1/2 flex w-[968px]">
-        <div className=" top-[400px] pt-4 -translate-x-[15%] w-[250px]">
+      <div className="relative top-[320px] grid w-[968px] mx-auto">
+        <div className="fixed top-[390px] pt-4 -translate-x-[15%] w-[250px]">
           <FilterCard />
         </div>
 
-        <div className="flex-grow">
+        <div className="justify-self-end">
           <AccordionFlight />
         </div>
       </div>
