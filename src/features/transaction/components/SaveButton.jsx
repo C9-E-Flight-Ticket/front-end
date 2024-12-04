@@ -1,21 +1,14 @@
-import React from "react";
+import { Button } from "@material-tailwind/react";
 
-const SaveButton = ({ setIsClicked }) => {
+const SaveButton = ({ targetFormId }) => {
   return (
-    <div className="w-10/12 mx-auto">
-      <button
-        className="w-full bg-textPurple text-white p-2 rounded-md"
-        onClick={() => {
-          setIsClicked((prev) => !prev);
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-          });
-        }}
-      >
-        Simpan
-      </button>
-    </div>
+    <Button
+      className="w-11/12 mx-auto bg-textPurple text-white p-2 rounded-md"
+      type="submit"
+      form={targetFormId}
+    >
+      Simpan
+    </Button>
   );
 };
 
