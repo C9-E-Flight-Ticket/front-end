@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Accordion,
   AccordionHeader,
@@ -17,8 +16,6 @@ export default function FlightCard({
   onSelectFlight,
 }) {
   const priceColorClass = flight.id === 2 ? "text-red-600" : "text-purple-800";
-
-  const navigate = useNavigate();
 
   const handleSelectTicket = (e) => {
     e.stopPropagation();

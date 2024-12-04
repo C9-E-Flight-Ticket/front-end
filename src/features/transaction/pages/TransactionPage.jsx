@@ -1,42 +1,66 @@
 import CheckOutStep from "@/features/transaction/components/CheckOutStep";
 import FlightDetail from "@/features/transaction/components/FlightDetail";
-import FormLayout from "@/features/transaction/components/FormLayout";
-import FormUserContent from "../components/FormUserContent";
-import FormPassengerContent from "../components/FormPassengerContent";
-import SeatSelection from "../components/SeatSelection";
-import SaveButton from "../components/SaveButton";
-import NotificationBox from "../components/NotificationBox";
+import SeatSelection from "@/features/transaction/components/SeatSelection";
+import SaveButton from "@/features/transaction/components/SaveButton";
+import NotificationBox from "@/features/transaction/components/NotificationBox";
+import FormUserPassenger from "@/features/transaction/components/FormUserPassenger";
 import MainLayout from "@/layouts/MainLayout";
+
 import { useState } from "react";
+import { Button } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
 
 export default function TransactionPage() {
-  const [isClicked, setIsClicked] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const navigate = useNavigate();
+
+  function handleSubmit(data) {
+    // No error in form handler
+    console.log(data);
+
+    setIsSubmitted(true);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
   return (
-    <MainLayout>
+    <MainLayout className="mt-56">
       <div className="mx-auto mb-10">
         <CheckOutStep currentStepIndex={0} />
-        {isClicked && (
-          <NotificationBox
-            message="Selesaikan dalam"
-            initialTime={900}
-            className="bg-red-500"
-            isClicked={isClicked}
-          />
-        )}
+
+        <NotificationBox
+          message={
+            isSubmitted ? "Data Anda berhasil tersimpan!" : "Selesaikan dalam"
+          }
+          initialTime={900}
+          type={isSubmitted ? "success" : "count"}
+        />
       </div>
       <div className="flex justify-center ms-10">
-        <FormLayout type={"Pemesan"}>
-          <FormUserContent />
-        </FormLayout>
         <div className="w-fit flex flex-col justify-center">
-          <FormLayout type={"Penumpang"}>
-            <FormPassengerContent index={1} />
-          </FormLayout>
+          <FormUserPassenger
+            formId="userPassengerForm"
+            onSubmit={handleSubmit}
+          />
           <SeatSelection />
-          <SaveButton setIsClicked={setIsClicked} />
+          <SaveButton targetFormId="userPassengerForm" />
         </div>
-        <div className="w-fit flex justify-center">
-          <FlightDetail />
+        <div className="w-1/4 flex justify-center relative">
+          <div className="max-w-md p-6 fixed">
+            <FlightDetail />
+            {isSubmitted && (
+              <Button
+                color="red"
+                className="!bg-red-500 mt-5"
+                fullWidth
+                onClick={() => navigate("/payment")}
+              >
+                Lanjut Bayar
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </MainLayout>
