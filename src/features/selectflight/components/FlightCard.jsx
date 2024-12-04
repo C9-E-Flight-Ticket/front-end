@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Accordion,
   AccordionHeader,
@@ -10,10 +9,20 @@ import FlightDetail from "./FlightDetail";
 import { flightDetailsData } from "../data/flightDetailsData";
 import { useNavigate } from "react-router-dom";
 
-export default function FlightCard({ flight, open, handleOpen }) {
+export default function FlightCard({
+  flight,
+  open,
+  handleOpen,
+  onSelectFlight,
+}) {
   const priceColorClass = flight.id === 2 ? "text-red-600" : "text-purple-800";
 
-  const navigate = useNavigate();
+  const handleSelectTicket = (e) => {
+    e.stopPropagation();
+    if (onSelectFlight) {
+      onSelectFlight(flight);
+    }
+  };
 
   return (
     <Card
@@ -58,7 +67,7 @@ export default function FlightCard({ flight, open, handleOpen }) {
                 <img
                   src={flight.arrowIcon}
                   alt="Arrow"
-                  className=" -translate-y-[4%] -translate-x-[50%] w-4 h-4"
+                  className=" -translate-y-[4%] -translate-x-[50%] w-3 h-3"
                 />
               </div>
               <p className="text-gray-600 text-xs">{flight.type}</p>
@@ -82,11 +91,7 @@ export default function FlightCard({ flight, open, handleOpen }) {
               </p>
               <div
                 className="w-[100px] h-auto px-[12px] py-[4px] rounded-[12px] bg-purple-800 hover:bg-purple-900 text-white text-center cursor-pointer"
-                onClick={() =>
-                  navigate("/transaction", {
-                    state: { seatClass: flight.class },
-                  })
-                }
+                onClick={handleSelectTicket}
               >
                 Pilih
               </div>
