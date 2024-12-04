@@ -23,7 +23,7 @@ const SelectFlightButton = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="block px-4 py-2 gap-[10px]">
+    <div className="block px-4 py-2 gap-[10px] border-b border-b-[#D0D0D0]">
       <div className="flex gap-3 h-[55px]">
         <div className="flex items-center rounded-xl w-[700px] h-[50px] bg-[#A06ECE] px-4 py-[5px] gap-2">
           <button>
