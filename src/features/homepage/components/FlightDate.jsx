@@ -47,15 +47,19 @@ const FlightDate = () => {
 
   function handleSave() {
     setIsOpen(false);
+
     if (isReturnToggleActive) {
+      const departureDate = new Date(tempDate.from);
+      const returnDate = new Date(tempDate.to);
       dispatch(
         updateFlightDate({
-          from: tempDate.from.toString(),
-          to: tempDate.to.toString(),
+          from: departureDate.toISOString().split("T")[0],
+          to: returnDate.toISOString().split("T")[0],
         })
       );
     } else {
-      dispatch(updateFlightDate(tempDate.toString()));
+      const date = new Date(tempDate);
+      dispatch(updateFlightDate(date.toISOString().split("T")[0]));
     }
   }
 
