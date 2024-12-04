@@ -18,7 +18,7 @@ const continents = [
 const Destination = ({ className }) => {
   const [selected, setSelected] = useState("Semua");
   const [offset, setOffset] = useState(0);
-  const [active, setActive] = useState(1);
+  const [currPage, setCurrPage] = useState(1);
   const limit = useRef(7);
   const skeletonCount = useRef(7);
 
@@ -36,7 +36,7 @@ const Destination = ({ className }) => {
 
   useEffect(() => {
     setOffset(0);
-    setActive(1);
+    setCurrPage(1);
   }, [selected]);
 
   const handleSelect = (selectedContinent) => {
@@ -85,17 +85,16 @@ const Destination = ({ className }) => {
         </div>
       )}
 
-      {!isLoading ||
-        (!isFetching && !error && pagination.totalPages > 1 && (
-          <Pagination
-            className={"mx-auto mt-8"}
-            limit={limit.current}
-            setOffset={setOffset}
-            pagination={pagination}
-            active={active}
-            setActive={setActive}
-          />
-        ))}
+      {!isLoading && !error && pagination.totalPages > 0 && (
+        <Pagination
+          className={"mx-auto mt-8"}
+          limit={limit.current}
+          setOffset={setOffset}
+          pagination={pagination}
+          currPage={currPage}
+          setCurrPage={setCurrPage}
+        />
+      )}
     </div>
   );
 };
