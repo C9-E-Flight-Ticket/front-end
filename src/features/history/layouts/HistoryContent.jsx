@@ -3,8 +3,8 @@ import TicketCard from "../components/TicketCard";
 
 const HistoryContent = () => {
   return (
-    <div className="mt-[10px] ml-[292px] flex">
-      <div className="w-[500px] mx-[16px] mr-[34px] ">
+    <div className="mt-[10px] flex justify-center">
+      <div className="w-[500px] mr-[50px] ">
         <p className="mb-[12px] text-[16px] font-bold ">Maret 2023</p>
         <TicketCard />
       </div>
