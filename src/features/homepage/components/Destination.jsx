@@ -78,7 +78,7 @@ const Destination = ({ className }) => {
               airline={flight.airline.name}
               departureDate={"20"}
               returnDate={"30 Maret 2024"}
-              price={flight.seats[60].price}
+              price={"300.000"}
               image={flight.departureAirport.urlImage}
             />
           ))}

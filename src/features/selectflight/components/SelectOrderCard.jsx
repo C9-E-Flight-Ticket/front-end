@@ -11,7 +11,7 @@ const SelectOrderCard = ({ selectedFlight, onClose }) => {
 
   return (
     <Card
-      className="fixed left-32 translate-y-[260px] -translate-x-[66%] w-[268px] h-[310px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.15)] bg-white opacity-100 rounded-tl-lg z-50"
+      className="fixed left-[31.2rem] top-[19.5rem] translate-y-[260px] -translate-x-[66%] w-[268px] h-[25 0px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.15)] bg-white opacity-100 rounded-tl-lg z-50"
       style={{ padding: "24px" }}
     >
       <div className="flex justify-between items-center mb-4">
@@ -69,11 +69,6 @@ const SelectOrderCard = ({ selectedFlight, onClose }) => {
             <p className="font-medium text-gray-800">
               {selectedFlight.arrivalTime} - {selectedFlight.arrivalPlace}
             </p>
-          </div>
-
-          <div className="pt-2 border-t border-gray-200">
-            <p className="text-xs text-gray-600">Total Harga</p>
-            <p className="font-bold text-purple-800">{selectedFlight.price}</p>
           </div>
         </div>
       </CardBody>

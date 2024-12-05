@@ -1,8 +1,9 @@
+import { cn } from "@/lib/utils";
 import React from "react";
 
-const TiketSold = () => {
+const TiketSold = ({ className }) => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
+    <div className={cn("flex flex-col items-center justify-center", className)}>
       <img
         src="/ticket-sold.png"
         alt="Tiket Habis"

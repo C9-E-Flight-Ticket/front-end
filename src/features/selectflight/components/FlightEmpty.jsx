@@ -2,7 +2,7 @@ import React from "react";
 
 const FlightEmpty = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
+    <div className="flex flex-col items-center justify-center">
       <img
         src="/flight-empty.png"
         alt="Tiket Habis"
