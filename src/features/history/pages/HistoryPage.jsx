@@ -1,6 +1,6 @@
 import MainLayout from "@/layouts/MainLayout";
-import TicketCard from "../components/TicketCard";
 import HistoryHeader from "../components/HistoryHeader";
+import HistoryContent from "../layouts/HistoryContent";
 
 export default function HistoryPage() {
   return (
@@ -8,8 +8,8 @@ export default function HistoryPage() {
       <div className="w-full h-[260px] shadow-md">
         <HistoryHeader />
       </div>
-      <div className="mt-48">
-        <TicketCard />
+      <div>
+        <HistoryContent />
       </div>
     </MainLayout>
   );

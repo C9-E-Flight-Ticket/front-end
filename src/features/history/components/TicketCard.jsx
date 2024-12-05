@@ -3,7 +3,7 @@ import { Card } from "@material-tailwind/react";
 
 const TicketCard = () => {
   return (
-    <Card className="w-[468px] h-[204px] mt-6 ml-36 py-[12px] px-[16px] rounded-[10px] border-[2px] border-lightGray ">
+    <Card className="w-[468px] h-[204px] py-[12px] px-[16px] rounded-[10px] border-[2px] border-lightGray ">
       <p className="w-[70px] h-[28px] my-[4px] rounded-[16px] text-[14px] font-light flex items-center justify-center bg-lightGreen text-white">
         Issued
       </p>
