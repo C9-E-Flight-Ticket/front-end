@@ -5,7 +5,7 @@ import FlightSelectionPage from "../layout/FlightSelectionPage";
 export default function SelectFlight() {
   return (
     <>
-      <MainLayout>
+      <MainLayout className="mb-0">
         <FlightSelectionHeader />
         <FlightSelectionPage />
       </MainLayout>
