@@ -1,14 +1,16 @@
 import ModalMenuLayout from "@/features/homepage/components/ModalMenuLayout";
 import SeatItem from "@/features/homepage/components/SeatItem";
 import { chooseSeatClass } from "@/services/homepageSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 const SeatMenu = () => {
   const { seatClass } = useSelector((state) => state.homepage);
   const [tempActive, setTempActive] = useState("Economy");
 
   const dispatch = useDispatch();
+
+  // sync state when user back to homepage
+  useEffect(() => setTempActive(seatClass), [seatClass]);
 
   function handleSave() {
     dispatch(chooseSeatClass(tempActive));
