@@ -67,7 +67,7 @@ const Destination = ({ className }) => {
           ))}
         </div>
       ) : error ? (
-        <DataNotFound destination={selected} />
+        <DataNotFound />
       ) : (
         <div className={"justify-start grid grid-cols-7 gap-4 mt-4"}>
           {flightData.map((flight, index) => (

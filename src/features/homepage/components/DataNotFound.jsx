@@ -1,4 +1,4 @@
-const DataNotFound = ({ destination }) => {
+const DataNotFound = () => {
   return (
     <div className="w-full h-[194px] rounded-xl flex justify-center items-center mt-5">
       <div className="block text-center">
