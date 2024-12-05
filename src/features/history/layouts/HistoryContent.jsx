@@ -1,5 +1,6 @@
 import FlightDetail from "@/components/FlightDetail/FlightDetail";
 import TicketCard from "../components/TicketCard";
+import HistoryButton from "../components/HistoryButton";
 
 const HistoryContent = () => {
   return (
@@ -10,6 +11,7 @@ const HistoryContent = () => {
       </div>
       <div className="w-[346px] ">
         <FlightDetail className="w-full" />
+        <HistoryButton />
       </div>
     </div>
   );
