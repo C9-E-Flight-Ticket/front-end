@@ -49,8 +49,13 @@ const FlightDate = () => {
     setIsOpen(false);
 
     if (isReturnToggleActive) {
-      const departureDate = new Date(tempDate.from);
-      const returnDate = new Date(tempDate.to);
+      const departureDate = new Date(
+        tempDate.from.getTime() - tempDate.from.getTimezoneOffset() * 60000
+      );
+      const returnDate = new Date(
+        tempDate.to.getTime() - tempDate.to.getTimezoneOffset() * 60000
+      );
+
       dispatch(
         updateFlightDate({
           from: departureDate.toISOString().split("T")[0],
@@ -58,7 +63,9 @@ const FlightDate = () => {
         })
       );
     } else {
-      const date = new Date(tempDate);
+      const date = new Date(
+        tempDate.getTime() - tempDate.getTimezoneOffset() * 60000
+      );
       dispatch(updateFlightDate(date.toISOString().split("T")[0]));
     }
   }

@@ -1,10 +1,17 @@
-import { currentDayName } from "@/utils/helper";
+import { getDayName, formatDateToForwardSlash } from "@/utils/helper";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const SelectFlightButton = () => {
-  const [selectedDay, setSelectedDay] = useState("");
-  const currentDay = currentDayName(new Date());
+  const { flightDate, isReturnToggleActive } = useSelector(
+    (state) => state.homepage
+  );
+  const [selectedDay, setSelectedDay] = useState(
+    isReturnToggleActive ? new Date(flightDate.from) : new Date(flightDate)
+  );
+
+  const currentDay = getDayName(new Date());
   const days = [
     "Selasa",
     "Rabu",
@@ -15,12 +22,11 @@ const SelectFlightButton = () => {
     "Senin",
     "Selasa",
   ];
+  const navigate = useNavigate();
 
   const selectDay = (selected) => {
     setSelectedDay(selected);
   };
-
-  const navigate = useNavigate();
 
   return (
     <div className="block px-4 py-2 gap-[10px] border-b border-b-[#D0D0D0]">
@@ -70,7 +76,8 @@ const SelectFlightButton = () => {
                             : "text-[#8A8A8A]"
                         } `}
                   >
-                    01/03/2023
+                    {/* date */}
+                    {formatDateToForwardSlash(selectedDay)}
                   </p>
                 </div>
               </button>
