@@ -22,17 +22,23 @@ const SeatSelection = () => {
         return {
           leftRows: ["A", "B", "C"],
           rightRows: ["D", "E", "F"],
-          cols: 12,
+          cols: 13,
+        };
+      case "Premium Economy":
+        return {
+          leftRows: ["A", "B", "C"],
+          rightRows: ["D", "E", "F"],
+          cols: 7,
         };
       case "Business":
-        return { leftRows: ["A", "B"], rightRows: ["C", "D"], cols: 6 };
+        return { leftRows: ["A", "B"], rightRows: ["C", "D"], cols: 3 };
       case "First Class":
-        return { leftRows: ["A"], rightRows: ["B"], cols: 4 };
+        return { leftRows: ["A", "B"], rightRows: ["C", "D"], cols: 1 };
       default:
         return {
           leftRows: ["A", "B", "C"],
           rightRows: ["D", "E", "F"],
-          cols: 12,
+          cols: 13,
         };
     }
   };
@@ -71,7 +77,17 @@ const SeatSelection = () => {
       <div className="flex justify-center gap-4">
         <div>
           <div
-            className={`grid grid-cols-${leftRows.length} gap-x-4 text-gray-600`}
+            className={`grid ${
+              seatClass === "Economy"
+                ? "grid-cols-3 "
+                : seatClass === "Premium Economy"
+                ? "grid-cols-3 "
+                : seatClass === "Business"
+                ? "grid-cols-2 "
+                : seatClass === "First Class"
+                ? "grid-cols-2 "
+                : "grid-cols-3 "
+            } gap-x-4 gap-y-3 text-gray-600`}
           >
             {leftRows.map((row) => (
               <div
@@ -82,7 +98,19 @@ const SeatSelection = () => {
               </div>
             ))}
           </div>
-          <div className={`grid grid-cols-${leftRows.length} gap-x-4 gap-y-3`}>
+          <div
+            className={`grid ${
+              seatClass === "Economy"
+                ? "grid-cols-3 "
+                : seatClass === "Premium Economy"
+                ? "grid-cols-3 "
+                : seatClass === "Business"
+                ? "grid-cols-2 "
+                : seatClass === "First Class"
+                ? "grid-cols-2 "
+                : "grid-cols-3 "
+            } gap-x-4 gap-y-3`}
+          >
             {Array.from({ length: cols }, (_, i) => i + 1).map((col) =>
               leftRows.map((row) => {
                 const seat = `${row}${col}`;
@@ -122,7 +150,17 @@ const SeatSelection = () => {
 
         <div>
           <div
-            className={`grid grid-cols-${rightRows.length} gap-x-4 text-gray-600`}
+            className={`grid ${
+              seatClass === "Economy"
+                ? "grid-cols-3 "
+                : seatClass === "Premium Economy"
+                ? "grid-cols-3 "
+                : seatClass === "Business"
+                ? "grid-cols-2 "
+                : seatClass === "First Class"
+                ? "grid-cols-2 "
+                : "grid-cols-3 "
+            } gap-x-4 gap-y-3 text-gray-600`}
           >
             {rightRows.map((row) => (
               <div
@@ -133,7 +171,19 @@ const SeatSelection = () => {
               </div>
             ))}
           </div>
-          <div className={`grid grid-cols-${rightRows.length} gap-x-4 gap-y-3`}>
+          <div
+            className={`grid ${
+              seatClass === "Economy"
+                ? "grid-cols-3 "
+                : seatClass === "Premium Economy"
+                ? "grid-cols-3 "
+                : seatClass === "Business"
+                ? "grid-cols-2 "
+                : seatClass === "First Class"
+                ? "grid-cols-2 "
+                : "grid-cols-3 "
+            } gap-x-4 gap-y-3`}
+          >
             {Array.from({ length: cols }, (_, i) => i + 1).map((col) =>
               rightRows.map((row) => {
                 const seat = `${row}${col}`;
