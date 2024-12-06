@@ -6,6 +6,7 @@ import Transaction from "@/features/transaction/pages/TransactionPage";
 import Payment from "@/features/transaction/pages/PaymentPage";
 import PaymentSuccessPage from "@/features/transaction/pages/PaymentSuccessPage";
 import HistoryPage from "@/features/history/pages/HistoryPage";
+import AccountPage from "@/features/account/pages/AccountPage";
 
 const routes = [
   {
@@ -27,6 +28,10 @@ const routes = [
   {
     path: "/history",
     element: <HistoryPage />,
+  },
+  {
+    path: "/account",
+    element: <AccountPage />,
   },
   {
     path: "*",
