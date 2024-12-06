@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   Tabs,
@@ -7,6 +7,7 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
+import { useGetDetailFlightQuery } from "@/services/api/detailFlightApi";
 
 const SeatSelection = () => {
   const { seatClass, passengers, isReturnToggleActive } = useSelector(
@@ -15,6 +16,22 @@ const SeatSelection = () => {
   const [activeTrip, setActiveTrip] = useState("Pergi");
   const [selectedSeatsPergi, setSelectedSeatsPergi] = useState([]);
   const [selectedSeatsPulang, setSelectedSeatsPulang] = useState([]);
+
+  const { data, isLoading, error, isFetching } = useGetDetailFlightQuery(
+    {
+      flightId: [1],
+      seatClass: seatClass,
+      adult: passengers.adult,
+      child: passengers.child,
+      baby: passengers.baby,
+    },
+    { refetchOnMountOrArgChange: true }
+  );
+
+  const apiData = data?.payload.datas;
+  const seats = apiData?.flights[0].seats;
+  console.log(apiData);
+  console.log(seats);
 
   const getSeatLayout = (seatClass) => {
     switch (seatClass) {
@@ -33,7 +50,7 @@ const SeatSelection = () => {
       case "Business":
         return { leftRows: ["A", "B"], rightRows: ["C", "D"], cols: 3 };
       case "First Class":
-        return { leftRows: ["A", "B"], rightRows: ["C", "D"], cols: 1 };
+        return { leftRows: ["A", "B"], rightRows: ["C", "D"], cols: 2 };
       default:
         return {
           leftRows: ["A", "B", "C"],
