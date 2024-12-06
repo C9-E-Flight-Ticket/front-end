@@ -1,31 +1,38 @@
 import { getDayName, formatDateToForwardSlash } from "@/utils/helper";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useFlightDates } from "../hooks/useFlightDates";
+
+const days = [
+  "Selasa",
+  "Rabu",
+  "Kamis",
+  "Jumat",
+  "Sabtu",
+  "Minggu",
+  "Senin",
+  "Selasa",
+];
+
 import { useNavigate } from "react-router-dom";
 
 const SelectFlightButton = () => {
+  const currentDay = getDayName(new Date());
   const { flightDate, isReturnToggleActive } = useSelector(
     (state) => state.homepage
   );
-  const [selectedDay, setSelectedDay] = useState(
-    isReturnToggleActive ? new Date(flightDate.from) : new Date(flightDate)
+  const [selectedDate, setSelectedDate] = useState(
+    new Date(isReturnToggleActive ? flightDate.from : flightDate)
   );
 
-  const currentDay = getDayName(new Date());
-  const days = [
-    "Selasa",
-    "Rabu",
-    "Kamis",
-    "Jumat",
-    "Sabtu",
-    "Minggu",
-    "Senin",
-    "Selasa",
-  ];
+  const datesInWeek = useFlightDates(flightDate, isReturnToggleActive);
+  console.log(datesInWeek);
+
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const selectDay = (selected) => {
-    setSelectedDay(selected);
+  const handleSelectDay = (selected) => {
+    setSelectedDate(selected);
   };
 
   return (
@@ -49,35 +56,37 @@ const SelectFlightButton = () => {
         </div>
       </div>
       <div className="flex pt-2 pb-4">
-        {days.map((day, index) => (
+        {datesInWeek.map((date, index) => (
           <div key={index} className="flex items-center">
             <div className="p-2">
               <button
-                onClick={() => selectDay(index)}
+                onClick={() => handleSelectDay(index)}
                 className={`w-[100px] p-1 rounded-lg 
                     ${
-                      selectedDay === index && currentDay === day
+                      // selectedDate.getDay() === index
+                      //   ? "text-white bg-[#7126B5]"
+                      //   : selectedDate === index
+                      //   ? "text-white bg-[#7126B5]"
+                      //   : currentDay === day
+                      //   ? "text-white bg-[#A06ECE]"
+                      //   : ""
+                      selectedDate.getDay() === index
                         ? "text-white bg-[#7126B5]"
-                        : selectedDay === index
-                        ? "text-white bg-[#7126B5]"
-                        : currentDay === day
-                        ? "text-white bg-[#A06ECE]"
                         : ""
                     }`}
               >
                 <div className="block text-center ">
-                  <p className="font-bold text-sm">{day}</p>
+                  <p className="font-bold text-sm">{getDayName(date)}</p>
                   <p
                     className={`w-[92px] text-xs 
-                        ${currentDay === day ? "text-white" : "text-[#8A8A8A]"}
+                        ${currentDay === date ? "text-white" : "text-[#8A8A8A]"}
                         ${
-                          selectedDay === index
+                          selectedDate.getDay() === index
                             ? "text-white"
                             : "text-[#8A8A8A]"
                         } `}
                   >
-                    {/* date */}
-                    {formatDateToForwardSlash(selectedDay)}
+                    {formatDateToForwardSlash(datesInWeek[index])}
                   </p>
                 </div>
               </button>
