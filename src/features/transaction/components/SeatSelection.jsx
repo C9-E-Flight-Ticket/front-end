@@ -9,7 +9,9 @@ import {
 } from "@material-tailwind/react";
 
 const SeatSelection = () => {
-  const { seatClass, passengers } = useSelector((state) => state.homepage);
+  const { seatClass, passengers, isReturnToggleActive } = useSelector(
+    (state) => state.homepage
+  );
   const [activeTrip, setActiveTrip] = useState("Pergi");
   const [selectedSeatsPergi, setSelectedSeatsPergi] = useState([]);
   const [selectedSeatsPulang, setSelectedSeatsPulang] = useState([]);
@@ -167,22 +169,26 @@ const SeatSelection = () => {
         <h1 className="mb-2 text-xl font-semibold">Pilih Kursi</h1>
 
         <Tabs value={activeTrip}>
-          <TabsHeader>
-            <Tab
-              key="Pergi"
-              value="Pergi"
-              onClick={() => setActiveTrip("Pergi")}
-            >
-              Pergi
-            </Tab>
-            <Tab
-              key="Pulang"
-              value="Pulang"
-              onClick={() => setActiveTrip("Pulang")}
-            >
-              Pulang
-            </Tab>
-          </TabsHeader>
+          {isReturnToggleActive && (
+            <TabsHeader>
+              <Tab
+                key="Pergi"
+                value="Pergi"
+                onClick={() => setActiveTrip("Pergi")}
+              >
+                Pergi
+              </Tab>
+
+              <Tab
+                key="Pulang"
+                value="Pulang"
+                onClick={() => setActiveTrip("Pulang")}
+              >
+                Pulang
+              </Tab>
+            </TabsHeader>
+          )}
+
           <TabsBody>
             <TabPanel key="Pergi" value="Pergi">
               <div className="p-3 text-center rounded-md bg-green-500">
