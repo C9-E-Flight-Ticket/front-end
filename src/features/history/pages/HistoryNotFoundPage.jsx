@@ -1,13 +1,11 @@
-import HistoryHeader from "../components/HistoryHeader";
+import HeaderMenu from "@/components/HeaderMenu/HeaderMenu";
 import HistoryNotFound from "../layouts/HistoryNotFound";
 import MainLayout from "@/layouts/MainLayout";
 
 const HistoryNotFoundPage = () => {
   return (
     <MainLayout>
-      <div className="w-full h-[260px] shadow-md">
-        <HistoryHeader />
-      </div>
+      <HeaderMenu title={"Riwayat Pemesanan"} headerId={1} />
       <div className="mt-[65px] ">
         <HistoryNotFound />
       </div>
