@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 
 const FlightDetail = () => {
-  const [activeTab, setActiveTab] = React.useState("html");
+  const [activeTab, setActiveTab] = React.useState("pergi");
   const data = [
     {
       label: "Pergi",
