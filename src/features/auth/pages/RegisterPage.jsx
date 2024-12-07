@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
 import SideBanner from "../components/SideBanner";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -12,15 +14,24 @@ const RegisterPage = () => {
     formState: { errors },
   } = useForm();
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+
   const onSubmit = (data) => {
     console.log("Form Data:", data);
+    setIsSubmitting(true);
+    setSuccessMessage("Tautan verifikasi telah dikirim!");
+
+    setTimeout(() => {
+      navigate("/otp");
+    }, 2000);
   };
 
   return (
     <div className="flex h-screen">
       <SideBanner />
-      <div className="flex-1 bg-white p-12 flex flex-col justify-center items-center">
-        <h2 className="text-2xl font-bold mb-6 w-full max-w-md text-left ">
+      <div className="flex-1 pt-36 bg-white p-12 flex flex-col justify-center items-center">
+        <h2 className="text-2xl font-bold mb-6 text-left w-full max-w-md">
           Daftar
         </h2>
         <form
@@ -35,6 +46,10 @@ const RegisterPage = () => {
             register={register}
             rules={{
               required: "Nama wajib diisi",
+              pattern: {
+                value: /^[a-zA-Z\s]+$/,
+                message: "Nama hanya boleh berisi huruf",
+              },
             }}
             error={errors.name}
             watch={watch}
@@ -64,8 +79,8 @@ const RegisterPage = () => {
             rules={{
               required: "Nomor telepon wajib diisi",
               pattern: {
-                value: /^[0-9]+$/,
-                message: "Nomor telepon hanya boleh angka",
+                value: /^\+?[0-9]*$/,
+                message: "Nomor telepon tidak valid",
               },
             }}
             error={errors.phone}
@@ -90,10 +105,35 @@ const RegisterPage = () => {
           <Button
             type="submit"
             text="Daftar"
-            color="bg-purple-500"
+            color={isSubmitting ? "bg-purple-200" : "bg-purple-700"}
             className="w-full"
           />
         </form>
+
+        <p className="text-sm mt-10">
+          Sudah punya akun?{" "}
+          <a href="/login" className="text-purple-500 font-medium">
+            Masuk di sini
+          </a>
+        </p>
+
+        <div className="w-[273px] max-w-md mt-4">
+          {/* Display only the first error message */}
+          {Object.keys(errors).length > 0 && (
+            <div className="px-4 py-2 bg-red-500 text-center text-white rounded-xl text-sm">
+              {/* Only show the first error */}
+              <ul>
+                <li>{Object.values(errors)[0]?.message}</li>
+              </ul>
+            </div>
+          )}
+
+          {successMessage && (
+            <div className="px-4 py-2 bg-green-500 text-white rounded-xl text-sm mt-4">
+              {successMessage}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
