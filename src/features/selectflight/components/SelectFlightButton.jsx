@@ -1,4 +1,8 @@
-import { getDayName, formatDateToForwardSlash } from "@/utils/helper";
+import {
+  getDayName,
+  formatDateToForwardSlash,
+  formatDateToDash,
+} from "@/utils/helper";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFlightDates } from "../hooks/useFlightDates";
@@ -15,24 +19,34 @@ const days = [
 ];
 
 import { useNavigate } from "react-router-dom";
+import { updateFlightDate } from "@/services/homepageSlice";
 
 const SelectFlightButton = () => {
-  const currentDay = getDayName(new Date());
+  const currentDate = new Date().toISOString();
   const { flightDate, isReturnToggleActive } = useSelector(
     (state) => state.homepage
   );
   const [selectedDate, setSelectedDate] = useState(
-    new Date(isReturnToggleActive ? flightDate.from : flightDate)
+    isReturnToggleActive ? flightDate.from : flightDate
   );
-
   const datesInWeek = useFlightDates(flightDate, isReturnToggleActive);
-  console.log(datesInWeek);
 
-  // const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSelectDay = (selected) => {
-    setSelectedDate(selected);
+  /**
+ * Ready For Return Flight
+  const dispatch = useDispatch();
+    dispatch(
+      updateFlightDate(
+        isReturnToggleActive
+        ? { ...flightDate, from: formatDateToDash(date) }
+        : formatDateToDash(date)
+      )
+    );
+    */
+
+  const handleSelectDay = (date) => {
+    setSelectedDate(formatDateToDash(date));
   };
 
   return (
@@ -60,18 +74,15 @@ const SelectFlightButton = () => {
           <div key={index} className="flex items-center">
             <div className="p-2">
               <button
-                onClick={() => handleSelectDay(index)}
+                onClick={() => handleSelectDay(date)}
                 className={`w-[100px] p-1 rounded-lg 
                     ${
-                      // selectedDate.getDay() === index
-                      //   ? "text-white bg-[#7126B5]"
-                      //   : selectedDate === index
-                      //   ? "text-white bg-[#7126B5]"
-                      //   : currentDay === day
-                      //   ? "text-white bg-[#A06ECE]"
-                      //   : ""
-                      selectedDate.getDay() === index
+                      formatDateToForwardSlash(selectedDate) ==
+                      formatDateToForwardSlash(date)
                         ? "text-white bg-[#7126B5]"
+                        : formatDateToForwardSlash(currentDate) ==
+                          formatDateToForwardSlash(date)
+                        ? "text-white bg-[#A06ECE]"
                         : ""
                     }`}
               >
@@ -79,9 +90,12 @@ const SelectFlightButton = () => {
                   <p className="font-bold text-sm">{getDayName(date)}</p>
                   <p
                     className={`w-[92px] text-xs 
-                        ${currentDay === date ? "text-white" : "text-[#8A8A8A]"}
+                        ${currentDate == date ? "text-white" : "text-[#8A8A8A]"}
                         ${
-                          selectedDate.getDay() === index
+                          formatDateToForwardSlash(selectedDate) ==
+                            formatDateToForwardSlash(date) ||
+                          formatDateToForwardSlash(currentDate) ==
+                            formatDateToForwardSlash(date)
                             ? "text-white"
                             : "text-[#8A8A8A]"
                         } `}

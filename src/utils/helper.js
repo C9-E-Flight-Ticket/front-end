@@ -16,6 +16,21 @@ export const formatDateToForwardSlash = (inDate) => {
   return `${day}/${month}/${year}`;
 };
 
+export const formatDateToDash = (date) => {
+  return new Date(date).toISOString().split("T")[0];
+};
+
+export const formattedDate = (date) => {
+  const dateFormat = new Date(date);
+  const options = { day: "numeric", month: "long", year: "numeric" };
+  try {
+    return dateFormat.toLocaleDateString("id-ID", options);
+  } catch (error) {
+    console.log(error);
+    return "Pilih Tanggal";
+  }
+};
+
 export const formattedDateToNewDate = (formattedDate) => {
   return new Date(formattedDate);
 };
