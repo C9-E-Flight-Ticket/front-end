@@ -20,7 +20,7 @@ export const formatDateToDash = (date) => {
   return new Date(date).toISOString().split("T")[0];
 };
 
-export const formattedDate = (date) => {
+export const formatDateToUI = (date) => {
   const dateFormat = new Date(date);
   const options = { day: "numeric", month: "long", year: "numeric" };
   try {
@@ -30,7 +30,6 @@ export const formattedDate = (date) => {
     return "Pilih Tanggal";
   }
 };
-
-export const formattedDateToNewDate = (formattedDate) => {
-  return new Date(formattedDate);
+export const convertLocalDateToUTC = (date) => {
+  return new Date(date.getTime() - date.getTimezoneOffset() * 60000);
 };
