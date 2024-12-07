@@ -30,8 +30,10 @@ const SeatSelection = () => {
 
   const apiData = data?.payload.datas;
   const seats = apiData?.flights[0].seats;
-  console.log(apiData);
-  console.log(seats);
+  // console.log(apiData);
+  // console.log(seats);
+  // console.log(selectedSeatsPergi);
+  // console.log(selectedSeatsPulang);
 
   const getSeatLayout = (seatClass) => {
     switch (seatClass) {
@@ -39,23 +41,42 @@ const SeatSelection = () => {
         return {
           leftRows: ["A", "B", "C"],
           rightRows: ["D", "E", "F"],
-          cols: 13,
+          cols: 12,
+          startRow: 13,
+          endRow: 24,
         };
       case "Premium Economy":
         return {
           leftRows: ["A", "B", "C"],
           rightRows: ["D", "E", "F"],
-          cols: 7,
+          cols: 6,
+          startRow: 7,
+          endRow: 12,
         };
       case "Business":
-        return { leftRows: ["A", "B"], rightRows: ["C", "D"], cols: 3 };
+        return {
+          leftRows: ["A", "B"],
+          rightRows: ["C", "D"],
+          cols: 4,
+          startRow: 3,
+          endRow: 6,
+        };
       case "First Class":
-        return { leftRows: ["A", "B"], rightRows: ["C", "D"], cols: 2 };
+        return {
+          leftRows: ["A", "B"],
+          rightRows: ["C", "D"],
+          cols: 2,
+
+          startRow: 1,
+          endRow: 2,
+        };
       default:
         return {
           leftRows: ["A", "B", "C"],
           rightRows: ["D", "E", "F"],
-          cols: 13,
+          cols: 12,
+          startRow: 1,
+          endRow: 2,
         };
     }
   };
@@ -128,14 +149,20 @@ const SeatSelection = () => {
                 : "grid-cols-3 "
             } gap-x-4 gap-y-3`}
           >
-            {Array.from({ length: cols }, (_, i) => i + 1).map((col) =>
+            {Array.from(
+              { length: layout.endRow - layout.startRow + 1 },
+              (_, i) => layout.startRow + i
+            ).map((col) =>
               leftRows.map((row) => {
-                const seat = `${row}${col}`;
+                const seat = `${col}${row}`;
+                const seatId = `${isPergi ? "P" : "R"}-${seat}`;
                 const isAvailable = !unavailableSeats.includes(seat);
                 const label = getSeatLabel(seat, isPergi);
+
                 return (
                   <button
-                    key={seat}
+                    key={seatId}
+                    id={seatId}
                     onClick={() => isAvailable && toggleSeat(seat, isPergi)}
                     className={`w-12 h-12 flex items-center justify-center border rounded ${
                       !isAvailable
@@ -155,7 +182,10 @@ const SeatSelection = () => {
         </div>
 
         <div className="flex flex-col items-center justify-center pt-12 gap-y-3">
-          {Array.from({ length: layout.cols }, (_, i) => i + 1).map((col) => (
+          {Array.from(
+            { length: layout.endRow - layout.startRow + 1 },
+            (_, i) => layout.startRow + i
+          ).map((col) => (
             <div
               key={col}
               className="flex items-center justify-center w-6 h-12 font-medium text-gray-600 border rounded-lg bg-gray-200"
@@ -201,14 +231,20 @@ const SeatSelection = () => {
                 : "grid-cols-3 "
             } gap-x-4 gap-y-3`}
           >
-            {Array.from({ length: cols }, (_, i) => i + 1).map((col) =>
+            {Array.from(
+              { length: layout.endRow - layout.startRow + 1 },
+              (_, i) => layout.startRow + i
+            ).map((col) =>
               rightRows.map((row) => {
-                const seat = `${row}${col}`;
+                const seat = `${col}${row}`;
+                const seatId = `${isPergi ? "P" : "R"}-${seat}`;
                 const isAvailable = !unavailableSeats.includes(seat);
                 const label = getSeatLabel(seat, isPergi);
+
                 return (
                   <button
-                    key={seat}
+                    key={seatId}
+                    id={seatId}
                     onClick={() => isAvailable && toggleSeat(seat, isPergi)}
                     className={`w-12 h-12 flex items-center justify-center border rounded ${
                       !isAvailable
