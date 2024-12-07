@@ -7,11 +7,15 @@ const initialState = {
 };
 
 const flightSlice = createSlice({
-  name: "flightSelection",
+  name: "flight",
   initialState,
   reducers: {
-    changeFlightStage(state) {
-      state.stage = state.stage === "departure" ? "return" : "departure";
+    changeFlightStage(state, action) {
+      state.stage = action.payload
+        ? action.payload
+        : state.stage === "departure"
+        ? "return"
+        : "departure";
     },
     changeDepartureFlight(state, action) {
       state.departureFlightId = action.payload;

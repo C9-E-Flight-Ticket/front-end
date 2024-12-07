@@ -3,7 +3,7 @@ import {
   formatDateToForwardSlash,
   formatDateToDash,
 } from "@/utils/helper";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFlightDates } from "../hooks/useFlightDates";
 

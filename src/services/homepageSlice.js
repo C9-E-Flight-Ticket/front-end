@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   departureCity: "Jakarta",
-  returnCity: "Melbourne",
-  suggestions: ["Jakarta", "Bandung", "Surabaya"],
+  returnCity: "Denpasar",
+  suggestions: ["Jakarta", "Denpasar", "Bandung", "Singapore"],
   flightDate: null,
   passengers: {
     adult: 0,

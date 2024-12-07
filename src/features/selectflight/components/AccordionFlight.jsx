@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import FlightCard from "./FlightCard";
 import SelectOrderCard from "./SelectOrderCard";
 import { useNavigate } from "react-router-dom";
 import flightData from "../data/flightData";
 import returnFlightData from "../data/returnFlightData";
+import { useDispatch, useSelector } from "react-redux";
+import { changeFlightStage } from "@/services/flightSlice";
 
 export default function AccordionFlight() {
-  const [stage, setStage] = useState("departure");
+  const { stage } = useSelector((state) => state.flight);
+  const { isReturnToggleActive } = useSelector((state) => state.homepage);
+
   const [open, setOpen] = useState(null);
   const [selectedDeparture, setSelectedDeparture] = useState(null);
   const [selectedReturn, setSelectedReturn] = useState(null);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleOpen = (value) => {
     setOpen(open === value ? null : value);
@@ -18,8 +24,10 @@ export default function AccordionFlight() {
 
   const handleSelectDeparture = (flight) => {
     setSelectedDeparture(flight);
-    setStage("return");
     setOpen(null);
+    isReturnToggleActive
+      ? dispatch(changeFlightStage())
+      : navigate("/transaction");
   };
 
   const handleSelectReturn = (flight) => {
@@ -33,7 +41,7 @@ export default function AccordionFlight() {
   };
 
   const handleReset = () => {
-    setStage("departure");
+    dispatch(changeFlightStage("departure"));
     setSelectedDeparture(null);
     setSelectedReturn(null);
     setOpen(null);
