@@ -7,9 +7,11 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
+import { useSelector } from "react-redux";
 
 const FlightDetail = () => {
-  const [activeTab, setActiveTab] = React.useState("html");
+  const [activeTab, setActiveTab] = React.useState("pergi");
+  const { isReturnToggleActive } = useSelector((state) => state.homepage);
   const data = [
     {
       label: "Pergi",
@@ -44,24 +46,27 @@ const FlightDetail = () => {
     <>
       <h2 className="text-lg font-bold text-black mb-4">Detail Penerbangan</h2>
       <Tabs value={activeTab}>
-        <TabsHeader
-          className="rounded-none border-b border-blue-gray-50 bg-transparent p-0"
-          indicatorProps={{
-            className:
-              "bg-transparent border-b-2 border-gray-900 shadow-none rounded-none",
-          }}
-        >
-          {data.map(({ label, value }) => (
-            <Tab
-              key={value}
-              value={value}
-              onClick={() => setActiveTab(value)}
-              className={activeTab === value ? "text-gray-900" : ""}
-            >
-              {label}
-            </Tab>
-          ))}
-        </TabsHeader>
+        {isReturnToggleActive && (
+          <TabsHeader
+            className="rounded-none border-b border-blue-gray-50 bg-transparent p-0"
+            indicatorProps={{
+              className:
+                "bg-transparent border-b-2 border-gray-900 shadow-none rounded-none",
+            }}
+          >
+            {data.map(({ label, value }) => (
+              <Tab
+                key={value}
+                value={value}
+                onClick={() => setActiveTab(value)}
+                className={activeTab === value ? "text-gray-900" : ""}
+              >
+                {label}
+              </Tab>
+            ))}
+          </TabsHeader>
+        )}
+
         <TabsBody>
           {data.map(({ value, desc }) => (
             <TabPanel className="text-black" key={value} value={value}>
