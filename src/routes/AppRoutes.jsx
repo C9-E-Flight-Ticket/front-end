@@ -5,6 +5,8 @@ import SelectFlight from "@/features/selectFlight/pages/SelectFlight";
 import Transaction from "@/features/transaction/pages/TransactionPage";
 import Payment from "@/features/transaction/pages/PaymentPage";
 import PaymentSuccessPage from "@/features/transaction/pages/PaymentSuccessPage";
+import RegisterPage from "@/features/auth/pages/RegisterPage";
+import OTPPage from "@/features/auth/pages/OTPPage";
 
 const routes = [
   {
@@ -30,6 +32,14 @@ const routes = [
   {
     path: "/flight",
     element: <SelectFlight />,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
+  },
+  {
+    path: "/otp",
+    element: <OTPPage />,
   },
 ];
 
