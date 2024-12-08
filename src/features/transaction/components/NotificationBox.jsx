@@ -12,7 +12,6 @@ const NotificationBox = ({
     if (!initialTime || type !== "count") return;
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
-      console.log("time");
     }, 1000);
     return () => clearInterval(timer);
   }, [initialTime, type]);
