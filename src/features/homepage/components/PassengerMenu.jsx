@@ -1,7 +1,7 @@
 import ModalMenuLayout from "@/features/homepage/components/ModalMenuLayout";
 import PassengerItem from "@/features/homepage/components/PassengerItem";
 import { updatePassengers } from "@/services/homepageSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const PassengerMenu = () => {
@@ -14,6 +14,9 @@ const PassengerMenu = () => {
   });
 
   const dispatch = useDispatch();
+
+  // sync state when user back to homepage
+  useEffect(() => setTempPassenger(passengers), [passengers]);
 
   function handleSave() {
     dispatch(updatePassengers(tempPassenger));

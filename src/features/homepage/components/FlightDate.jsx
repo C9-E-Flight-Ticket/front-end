@@ -6,6 +6,7 @@ import DatePicker from "@/features/homepage/components/DatePicker";
 import FlightDateButton from "@/features/homepage/components/FlightDateButton";
 import { useDispatch, useSelector } from "react-redux";
 import { changeReturnToggle, updateFlightDate } from "@/services/homepageSlice";
+import { convertLocalDateToUTC } from "@/utils/helper";
 
 const FlightDate = () => {
   const [tempDate, setTempDate] = useState(null);
@@ -15,31 +16,21 @@ const FlightDate = () => {
 
   const dispatch = useDispatch();
 
+  // reset state when toggle change
   useEffect(() => {
     dispatch(updateFlightDate(null));
     setTempDate(null);
   }, [isReturnToggleActive, dispatch]);
 
+  // turn off scrolling when modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add("overflow-hidden");
     } else {
       document.body.classList.remove("overflow-hidden");
     }
-
     return () => document.body.classList.remove("overflow-hidden");
   }, [isOpen]);
-
-  function formattedDate(date) {
-    const dateFormat = new Date(date);
-    const options = { day: "numeric", month: "long", year: "numeric" };
-    try {
-      return dateFormat.toLocaleDateString("id-ID", options);
-    } catch (error) {
-      console.log(error);
-      return "Pilih Tanggal";
-    }
-  }
 
   function handleOpen() {
     setIsOpen((prev) => !prev);
@@ -48,14 +39,18 @@ const FlightDate = () => {
   function handleSave() {
     setIsOpen(false);
     if (isReturnToggleActive) {
+      const departureDate = convertLocalDateToUTC(tempDate.from);
+      const returnDate = convertLocalDateToUTC(tempDate.to);
+
       dispatch(
         updateFlightDate({
-          from: tempDate.from.toString(),
-          to: tempDate.to.toString(),
+          from: departureDate.toISOString().split("T")[0],
+          to: returnDate.toISOString().split("T")[0],
         })
       );
     } else {
-      dispatch(updateFlightDate(tempDate.toString()));
+      const date = convertLocalDateToUTC(tempDate);
+      dispatch(updateFlightDate(date.toISOString().split("T")[0]));
     }
   }
 
@@ -72,7 +67,6 @@ const FlightDate = () => {
         <div className="flex w-full gap-10">
           <FlightDateInput
             date={flightDate}
-            formattedDate={formattedDate}
             label={"Departure"}
             type={"from"}
             onOpen={handleOpen}
@@ -81,7 +75,6 @@ const FlightDate = () => {
           <div className="w-full relative flex">
             <FlightDateInput
               date={flightDate}
-              formattedDate={formattedDate}
               label={"Return"}
               type={"to"}
               onOpen={handleOpen}

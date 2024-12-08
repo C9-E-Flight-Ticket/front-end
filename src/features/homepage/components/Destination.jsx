@@ -18,7 +18,7 @@ const continents = [
 const Destination = ({ className }) => {
   const [selected, setSelected] = useState("Semua");
   const [offset, setOffset] = useState(0);
-  const [active, setActive] = useState(1);
+  const [currPage, setCurrPage] = useState(1);
   const limit = useRef(7);
   const skeletonCount = useRef(7);
 
@@ -36,7 +36,7 @@ const Destination = ({ className }) => {
 
   useEffect(() => {
     setOffset(0);
-    setActive(1);
+    setCurrPage(1);
   }, [selected]);
 
   const handleSelect = (selectedContinent) => {
@@ -67,7 +67,7 @@ const Destination = ({ className }) => {
           ))}
         </div>
       ) : error ? (
-        <DataNotFound destination={selected} />
+        <DataNotFound />
       ) : (
         <div className={"justify-start grid grid-cols-7 gap-4 mt-4"}>
           {flightData.map((flight, index) => (
@@ -78,24 +78,23 @@ const Destination = ({ className }) => {
               airline={flight.airline.name}
               departureDate={"20"}
               returnDate={"30 Maret 2024"}
-              price={flight.seats[60].price}
+              price={"300.000"}
               image={flight.departureAirport.urlImage}
             />
           ))}
         </div>
       )}
 
-      {!isLoading ||
-        (!isFetching && !error && pagination.totalPages > 1 && (
-          <Pagination
-            className={"mx-auto mt-8"}
-            limit={limit.current}
-            setOffset={setOffset}
-            pagination={pagination}
-            active={active}
-            setActive={setActive}
-          />
-        ))}
+      {!isLoading && !error && pagination.totalPages > 0 && (
+        <Pagination
+          className={"mx-auto mt-8"}
+          limit={limit.current}
+          setOffset={setOffset}
+          pagination={pagination}
+          currPage={currPage}
+          setCurrPage={setCurrPage}
+        />
+      )}
     </div>
   );
 };

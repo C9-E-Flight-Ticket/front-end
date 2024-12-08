@@ -1,29 +1,56 @@
-import { currentDayName } from "@/utils/helper";
+import {
+  getDayName,
+  formatDateToForwardSlash,
+  formatDateToDash,
+} from "@/utils/helper";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useFlightDates } from "../hooks/useFlightDates";
+
+const days = [
+  "Selasa",
+  "Rabu",
+  "Kamis",
+  "Jumat",
+  "Sabtu",
+  "Minggu",
+  "Senin",
+  "Selasa",
+];
+
 import { useNavigate } from "react-router-dom";
+import { updateFlightDate } from "@/services/homepageSlice";
 
 const SelectFlightButton = () => {
-  const [selectedDay, setSelectedDay] = useState("");
-  const currentDay = currentDayName(new Date());
-  const days = [
-    "Selasa",
-    "Rabu",
-    "Kamis",
-    "Jumat",
-    "Sabtu",
-    "Minggu",
-    "Senin",
-    "Selasa",
-  ];
-
-  const selectDay = (selected) => {
-    setSelectedDay(selected);
-  };
+  const currentDate = new Date().toISOString();
+  const { flightDate, isReturnToggleActive } = useSelector(
+    (state) => state.homepage
+  );
+  const [selectedDate, setSelectedDate] = useState(
+    isReturnToggleActive ? flightDate.from : flightDate
+  );
+  const datesInWeek = useFlightDates(flightDate, isReturnToggleActive);
 
   const navigate = useNavigate();
 
+  /**
+ * Ready For Return Flight
+  const dispatch = useDispatch();
+    dispatch(
+      updateFlightDate(
+        isReturnToggleActive
+        ? { ...flightDate, from: formatDateToDash(date) }
+        : formatDateToDash(date)
+      )
+    );
+    */
+
+  const handleSelectDay = (date) => {
+    setSelectedDate(formatDateToDash(date));
+  };
+
   return (
-    <div className="block px-4 py-2 gap-[10px]">
+    <div className="block px-4 py-2 gap-[10px] border-b border-b-[#D0D0D0]">
       <div className="flex gap-3 h-[55px]">
         <div className="flex items-center rounded-xl w-[700px] h-[50px] bg-[#A06ECE] px-4 py-[5px] gap-2">
           <button>
@@ -43,34 +70,37 @@ const SelectFlightButton = () => {
         </div>
       </div>
       <div className="flex pt-2 pb-4">
-        {days.map((day, index) => (
+        {datesInWeek.map((date, index) => (
           <div key={index} className="flex items-center">
             <div className="p-2">
               <button
-                onClick={() => selectDay(index)}
+                onClick={() => handleSelectDay(date)}
                 className={`w-[100px] p-1 rounded-lg 
                     ${
-                      selectedDay === index && currentDay === day
+                      formatDateToForwardSlash(selectedDate) ==
+                      formatDateToForwardSlash(date)
                         ? "text-white bg-[#7126B5]"
-                        : selectedDay === index
-                        ? "text-white bg-[#7126B5]"
-                        : currentDay === day
+                        : formatDateToForwardSlash(currentDate) ==
+                          formatDateToForwardSlash(date)
                         ? "text-white bg-[#A06ECE]"
                         : ""
                     }`}
               >
                 <div className="block text-center ">
-                  <p className="font-bold text-sm">{day}</p>
+                  <p className="font-bold text-sm">{getDayName(date)}</p>
                   <p
                     className={`w-[92px] text-xs 
-                        ${currentDay === day ? "text-white" : "text-[#8A8A8A]"}
+                        ${currentDate == date ? "text-white" : "text-[#8A8A8A]"}
                         ${
-                          selectedDay === index
+                          formatDateToForwardSlash(selectedDate) ==
+                            formatDateToForwardSlash(date) ||
+                          formatDateToForwardSlash(currentDate) ==
+                            formatDateToForwardSlash(date)
                             ? "text-white"
                             : "text-[#8A8A8A]"
                         } `}
                   >
-                    01/03/2023
+                    {formatDateToForwardSlash(datesInWeek[index])}
                   </p>
                 </div>
               </button>

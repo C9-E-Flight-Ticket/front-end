@@ -5,7 +5,7 @@ import MainLayout from "@/layouts/MainLayout";
 
 export default function Homepage() {
   return (
-    <MainLayout>
+    <MainLayout className={"mb-0"}>
       <Banner />
       <TicketSearching
         className={"w-[73%] relative z-[99] mx-auto mt-[37px]"}

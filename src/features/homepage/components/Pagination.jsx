@@ -7,28 +7,31 @@ export default function CircularPagination({
   setOffset,
   limit,
   pagination,
-  active,
-  setActive,
+  currPage,
+  setCurrPage,
 }) {
-  const getItemProps = (index) => ({
-    variant: active === index ? "filled" : "text",
+  const getItemProps = (indexPage) => ({
+    variant: currPage === indexPage ? "filled" : "text",
     color: "gray",
-    onClick: () => setActive(index),
+    onClick: () => {
+      setCurrPage(indexPage);
+      setOffset((prev) => prev + limit * (indexPage - currPage));
+    },
     className: "rounded-full",
   });
 
   const next = () => {
-    if (active == pagination.totalPages) return;
+    if (currPage == pagination.totalPages) return;
 
     setOffset((prev) => prev + limit);
-    setActive(active + 1);
+    setCurrPage(currPage + 1);
   };
 
   const prev = () => {
-    if (active === 1) return;
+    if (currPage === 1) return;
 
     setOffset((prev) => prev - limit);
-    setActive(active - 1);
+    setCurrPage(currPage - 1);
   };
 
   return (
@@ -37,7 +40,7 @@ export default function CircularPagination({
         variant="text"
         className="flex items-center gap-2 rounded-full"
         onClick={prev}
-        disabled={active === 1}
+        disabled={currPage === 1}
       >
         <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
       </Button>
@@ -53,7 +56,7 @@ export default function CircularPagination({
         variant="text"
         className="flex items-center gap-2 rounded-full"
         onClick={next}
-        disabled={active == pagination.totalPages}
+        disabled={currPage == pagination.totalPages}
       >
         Next
         <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
