@@ -23,7 +23,7 @@ const RegisterPage = () => {
     setSuccessMessage("Tautan verifikasi telah dikirim!");
 
     setTimeout(() => {
-      navigate("/otp");
+      navigate("/otp", { state: { email: data.email } });
     }, 2000);
   };
 
@@ -118,10 +118,8 @@ const RegisterPage = () => {
         </p>
 
         <div className="w-[273px] max-w-md mt-4">
-          {/* Display only the first error message */}
           {Object.keys(errors).length > 0 && (
             <div className="px-4 py-2 bg-red-500 text-center text-white rounded-xl text-sm">
-              {/* Only show the first error */}
               <ul>
                 <li>{Object.values(errors)[0]?.message}</li>
               </ul>
