@@ -1,8 +1,8 @@
+import { formatDateToUI } from "@/utils/helper";
 import { Button } from "@material-tailwind/react";
 
 const DepartureDateInput = ({
   date,
-  formattedDate,
   label,
   type,
   onOpen,
@@ -27,9 +27,9 @@ const DepartureDateInput = ({
         {!toggleIsOn && type === "to" ? (
           "Tidak Diaktifkan"
         ) : !toggleIsOn && date ? (
-          formattedDate(date)
+          formatDateToUI(date)
         ) : date?.[type] ? (
-          formattedDate(date[type])
+          formatDateToUI(date[type])
         ) : (
           <span className="text-primaryPurple">Pilih Tanggal</span>
         )}
