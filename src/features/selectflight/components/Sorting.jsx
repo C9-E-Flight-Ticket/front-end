@@ -21,7 +21,7 @@ const Sorting = () => {
 
   return (
     <>
-      <div className="absolute w-[968px] h-[48px] top-[345px] left-1/2 transform -translate-x-[52%] p-[8px] flex justify-end items-center">
+      <div className="absolute w-[968px] h-[48px] top-[330px] left-1/2 transform -translate-x-1/2 pr-8 py-2 flex justify-end items-center z-40">
         <button
           onClick={handleActiveModal}
           className="h-8 border border-[#A06ECE] text-[#7126B5] rounded-2xl px-1"

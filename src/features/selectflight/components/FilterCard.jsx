@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardBody,
@@ -13,7 +12,7 @@ import DollarIcon from "/icon-dollar.png";
 const FilterCard = () => {
   return (
     <Card
-      className="absolute w-[268px] h-[248px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.15)] bg-white opacity-100 rounded-tl-lg"
+      className="absolute w-[268px] h-[248px] shadow border bg-white opacity-100 rounded-tl-lg"
       style={{ padding: "24px 0 0 0", gap: "24px" }}
     >
       <CardBody className="p-0">

@@ -1,15 +1,13 @@
 import MainLayout from "@/layouts/MainLayout";
-import TicketCard from "../components/TicketCard";
-import HistoryHeader from "../components/HistoryHeader";
+import HistoryContent from "../layouts/HistoryContent";
+import HeaderMenu from "@/components/HeaderMenu/HeaderMenu";
 
 export default function HistoryPage() {
   return (
     <MainLayout>
-      <div className="w-full h-[260px] shadow-md">
-        <HistoryHeader />
-      </div>
-      <div className="mt-48">
-        <TicketCard />
+      <HeaderMenu title={"Riwayat Pemesanan"} headerId={1} />
+      <div>
+        <HistoryContent />
       </div>
     </MainLayout>
   );
