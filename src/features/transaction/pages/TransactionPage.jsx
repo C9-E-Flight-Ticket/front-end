@@ -38,7 +38,7 @@ export default function TransactionPage() {
           type={isSubmitted ? "success" : "count"}
         />
       </div>
-      <div className="flex justify-center ms-10">
+      <div className="flex justify-center gap-12 2xl:gap-0">
         <div className="w-fit flex flex-col justify-center">
           <FormUserPassenger
             formId="userPassengerForm"

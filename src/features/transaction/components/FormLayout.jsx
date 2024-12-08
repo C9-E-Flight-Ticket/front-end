@@ -14,9 +14,7 @@ export default function FormLayout({ className, type, children }) {
       <Typography variant="h5" color="black">
         Isi Data {type}
       </Typography>
-      <div className="mt-5 mb-2 w-80 max-w-screen-lg sm:w-96 flex flex-col gap-5">
-        {children}
-      </div>
+      <div className="mt-5 mb-2 w-full flex flex-col gap-5">{children}</div>
     </Card>
   );
 }
