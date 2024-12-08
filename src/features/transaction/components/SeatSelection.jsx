@@ -28,8 +28,7 @@ const SeatSelection = () => {
     { refetchOnMountOrArgChange: true }
   );
 
-  const apiData = data?.payload.datas;
-  const seats = apiData?.flights[0].seats;
+  const seats = data?.payload?.datas?.flights[0]?.seats || [];
   // console.log(apiData);
   // console.log(seats);
   // console.log(selectedSeatsPergi);
@@ -66,7 +65,6 @@ const SeatSelection = () => {
           leftRows: ["A", "B"],
           rightRows: ["C", "D"],
           cols: 2,
-
           startRow: 1,
           endRow: 2,
         };
@@ -86,31 +84,35 @@ const SeatSelection = () => {
     (layout.leftRows.length + layout.rightRows.length) * layout.cols;
   const { leftRows, rightRows, cols } = layout;
 
-  const toggleSeat = (seat, isPergi = true) => {
+  const toggleSeat = (seatNumber, isPergi = true) => {
     const setSelectedSeats = isPergi
       ? setSelectedSeatsPergi
       : setSelectedSeatsPulang;
 
     setSelectedSeats((prev = []) => {
-      if (prev.find((s) => s.seat === seat)) {
-        return prev.filter((s) => s.seat !== seat);
+      if (prev.some((seat) => seat.seatNumber === seatNumber)) {
+        return prev.filter((seat) => seat.seatNumber !== seatNumber);
       }
       if (prev.length < passengers.adult + passengers.child) {
-        return [...prev, { seat, label: `P${prev.length + 1}` }];
+        const seatData = seats.find((seat) => seat.seatNumber === seatNumber);
+        return [
+          ...prev,
+          { seatNumber, label: `P${prev.length + 1}`, seatData },
+        ];
       }
       return prev;
     });
   };
 
-  const getSeatLabel = (seat, isPergi = true) => {
+  const getSeatLabel = (seatNumber, isPergi = true) => {
     const selectedSeats = isPergi ? selectedSeatsPergi : selectedSeatsPulang;
-    const selected = (selectedSeats || []).find((s) => s.seat === seat);
+    const selected = (selectedSeats || []).find(
+      (seat) => seat.seatNumber === seatNumber
+    );
     return selected ? selected.label : null;
   };
 
   const renderSeatMap = (isPergi = true) => {
-    const unavailableSeats = [];
-
     return (
       <div className="flex justify-center gap-4">
         <div>
@@ -154,16 +156,18 @@ const SeatSelection = () => {
               (_, i) => layout.startRow + i
             ).map((col) =>
               leftRows.map((row) => {
-                const seat = `${col}${row}`;
-                const seatId = `${isPergi ? "P" : "R"}-${seat}`;
-                const isAvailable = !unavailableSeats.includes(seat);
-                const label = getSeatLabel(seat, isPergi);
-
+                const seatNumber = `${col}${row}`;
+                const seatData = seats.find(
+                  (seat) => seat.seatNumber === seatNumber
+                );
+                const isAvailable = seatData?.available;
+                const label = getSeatLabel(seatNumber, isPergi);
                 return (
                   <button
-                    key={seatId}
-                    id={seatId}
-                    onClick={() => isAvailable && toggleSeat(seat, isPergi)}
+                    key={seatData?.id || seatNumber}
+                    onClick={() =>
+                      isAvailable && toggleSeat(seatNumber, isPergi)
+                    }
                     className={`w-12 h-12 flex items-center justify-center border rounded ${
                       !isAvailable
                         ? "bg-gray-400 cursor-not-allowed text-white"
@@ -236,16 +240,18 @@ const SeatSelection = () => {
               (_, i) => layout.startRow + i
             ).map((col) =>
               rightRows.map((row) => {
-                const seat = `${col}${row}`;
-                const seatId = `${isPergi ? "P" : "R"}-${seat}`;
-                const isAvailable = !unavailableSeats.includes(seat);
-                const label = getSeatLabel(seat, isPergi);
-
+                const seatNumber = `${col}${row}`;
+                const seatData = seats.find(
+                  (seat) => seat.seatNumber === seatNumber
+                );
+                const isAvailable = seatData?.available;
+                const label = getSeatLabel(seatNumber, isPergi);
                 return (
                   <button
-                    key={seatId}
-                    id={seatId}
-                    onClick={() => isAvailable && toggleSeat(seat, isPergi)}
+                    key={seatData?.id || seatNumber}
+                    onClick={() =>
+                      isAvailable && toggleSeat(seatNumber, isPergi)
+                    }
                     className={`w-12 h-12 flex items-center justify-center border rounded ${
                       !isAvailable
                         ? "bg-gray-400 cursor-not-allowed text-white"
