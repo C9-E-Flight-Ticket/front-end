@@ -4,7 +4,7 @@ import { useState } from "react";
 import Menu from "@/components/MainNavbar/Menu";
 
 const NavListMenu = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
   return (
     <>
       {isAuthenticated ? (

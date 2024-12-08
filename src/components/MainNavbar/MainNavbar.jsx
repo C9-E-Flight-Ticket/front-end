@@ -2,8 +2,10 @@ import { Navbar, Typography } from "@material-tailwind/react";
 
 import NavListMenu from "@/components/MainNavbar/NavListMenu";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
 
 const MainNavbar = () => {
+  const navigate = useNavigate();
   return (
     <Navbar
       fullWidth
@@ -11,7 +13,10 @@ const MainNavbar = () => {
     >
       <div className="w-full lg:mx-20 flex items-center justify-between text-blue-gray-900">
         <div className="flex lg:w-[35rem] gap-4 items-center">
-          <Typography className="mr-4 py-1.5 font-medium">
+          <Typography
+            className="mr-4 py-1.5 font-medium hover:cursor-pointer"
+            onClick={() => navigate("/")}
+          >
             <img src="/logo.png" alt="Logo" className="w-28" />
           </Typography>
           <div className="relative w-full flex items-center">
