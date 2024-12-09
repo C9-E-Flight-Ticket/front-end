@@ -24,7 +24,11 @@ export default function FlightSelectionPage() {
     {
       departureCity,
       arrivalCity,
-      departureDate: isReturnToggleActive ? flightDate.from : flightDate,
+      departureDate: isReturnToggleActive
+        ? stage == "departure"
+          ? flightDate.from
+          : flightDate.to
+        : flightDate,
       returnDate: isReturnToggleActive ? flightDate.to : "",
       seatClass,
       limit: 100,

@@ -20,6 +20,7 @@ const days = [
 
 import { useNavigate } from "react-router-dom";
 import { updateFlightDate } from "@/services/homepageSlice";
+import { changeFlightStage } from "@/services/flightSlice";
 
 const SelectFlightButton = () => {
   const currentDate = new Date().toISOString();
@@ -35,8 +36,12 @@ const SelectFlightButton = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (stage == "return") setSelectedDate(flightDate.to);
-  }, [stage, flightDate]);
+    if (stage == "return") {
+      setSelectedDate(flightDate.to);
+    } else {
+      setSelectedDate(isReturnToggleActive ? flightDate.from : flightDate);
+    }
+  }, [stage, flightDate, isReturnToggleActive]);
 
   /**
  * Ready For Return Flight
@@ -62,6 +67,11 @@ const SelectFlightButton = () => {
     );
   };
 
+  const handleBackToHomepage = () => {
+    dispatch(changeFlightStage("departure"));
+    navigate("/");
+  };
+
   return (
     <div className="block px-4 py-2 gap-[10px] border-b border-b-[#D0D0D0]">
       <div className="flex gap-3 h-[55px]">
@@ -77,7 +87,7 @@ const SelectFlightButton = () => {
         <div className="flex justify-center">
           <button
             className="bg-[#73CA5C] hover:bg-light-green-900 transition duration-300 w-[220px] h-[50px] rounded-xl font-bold text-white text-base"
-            onClick={() => navigate("/")}
+            onClick={handleBackToHomepage}
           >
             <div className="flex justify-center ml-2">Ubah Pencarian</div>
           </button>
