@@ -12,6 +12,7 @@ import RegisterPage from "@/features/auth/pages/RegisterPage";
 import OTPPage from "@/features/auth/pages/OTPPage";
 import AccountPage from "@/features/account/pages/AccountPage";
 import Login from "@/features/auth/pages/Login";
+import ProtectedRoute from "@/utils/ProtectedRoute";
 
 const routes = [
   {
@@ -24,15 +25,27 @@ const routes = [
   },
   {
     path: "/payment",
-    element: <Payment />,
+    element: (
+      <ProtectedRoute>
+        <Payment />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/success",
-    element: <PaymentSuccessPage />,
+    element: (
+      <ProtectedRoute>
+        <PaymentSuccessPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/history",
-    element: <HistoryPage />,
+    element: (
+      <ProtectedRoute>
+        <HistoryPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/history-not-found",
@@ -40,11 +53,19 @@ const routes = [
   },
   {
     path: "/notification",
-    element: <NotificationPage />,
+    element: (
+      <ProtectedRoute>
+        <NotificationPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/account",
-    element: <AccountPage />,
+    element: (
+      <ProtectedRoute>
+        <AccountPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "*",
