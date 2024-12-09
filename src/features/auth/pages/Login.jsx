@@ -4,6 +4,7 @@ import InputField from "../components/InputField";
 import { Button } from "@material-tailwind/react";
 import Notification from "../components/Notification";
 import { useLoginMutation } from "@/services/api/authApi";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [login, { isLoading, isSuccess }] = useLoginMutation();
@@ -15,13 +16,16 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
   async function onSubmit(data) {
     try {
-      const response = await login({
+      await login({
         email: data["email/phoneNumber"],
         password: data.password,
       }).unwrap();
-      console.log(response);
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     } catch (err) {
       console.log(err);
 
@@ -91,9 +95,9 @@ const Login = () => {
           type="submit"
           fullWidth
           className="bg-purple-700"
-          disabled={isLoading || Object.keys(errors).length > 0}
+          disabled={isLoading || Object.keys(errors).length > 0 || isSuccess}
         >
-          {isLoading ? "Loading..." : "Masuk"}
+          {isLoading ? "Loading..." : isSuccess ? "Redirecting..." : "Masuk"}
         </Button>
       </form>
       <Notification
