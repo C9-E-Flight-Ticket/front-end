@@ -1,27 +1,25 @@
 import { useState } from "react";
 import FlightCard from "./FlightCard";
-import SelectOrderCard from "./SelectOrderCard";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { changeFlightStage } from "@/services/flightSlice";
 
-export default function AccordionFlight({ flightData }) {
+export default function AccordionFlight({
+  flightData,
+  setSelectedDepartureFlight,
+  setSelectedReturnFlight,
+  setOpen,
+  handleOpen,
+  open,
+}) {
   const { stage } = useSelector((state) => state.flight);
   const { isReturnToggleActive } = useSelector((state) => state.homepage);
-
-  const [open, setOpen] = useState(null);
-  const [selectedDeparture, setSelectedDeparture] = useState(null);
-  const [selectedReturn, setSelectedReturn] = useState(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleOpen = (value) => {
-    setOpen(open === value ? null : value);
-  };
-
   const handleSelectDeparture = (flight) => {
-    setSelectedDeparture(flight);
+    setSelectedDepartureFlight(flight);
     setOpen(null);
     isReturnToggleActive
       ? dispatch(changeFlightStage())
@@ -29,7 +27,7 @@ export default function AccordionFlight({ flightData }) {
   };
 
   const handleSelectReturn = (flight) => {
-    setSelectedReturn(flight);
+    setSelectedReturnFlight(flight);
     dispatch(changeFlightStage());
     navigate("/transaction", {
       // state: {
@@ -38,16 +36,6 @@ export default function AccordionFlight({ flightData }) {
       // },
     });
   };
-
-  const handleReset = () => {
-    dispatch(changeFlightStage("departure"));
-    setSelectedDeparture(null);
-    setSelectedReturn(null);
-    setOpen(null);
-  };
-
-  // const currentFlightData =
-  //   stage === "departure" ? flightData : returnFlightData;
 
   return (
     <div className="flex flex-col items-center space-y-5 py-5 relative">
@@ -69,11 +57,6 @@ export default function AccordionFlight({ flightData }) {
           }
         />
       ))}
-
-      <SelectOrderCard
-        selectedFlight={selectedDeparture || selectedReturn}
-        onClose={handleReset}
-      />
     </div>
   );
 }

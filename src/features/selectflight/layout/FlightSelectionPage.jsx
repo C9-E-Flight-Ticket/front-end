@@ -4,8 +4,11 @@ import AccordionFlight from "../components/AccordionFlight";
 import TicketSold from "../components/TicketSold";
 import FlightEmpty from "../components/FlightEmpty";
 import LoadingTicket from "../components/LoadingTicket";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useGetTicketBySearchingQuery } from "@/services/api/flightApi";
+import { useState } from "react";
+import { changeFlightStage } from "@/services/flightSlice";
+import SelectOrderCard from "../components/SelectOrderCard";
 
 export default function FlightSelectionPage() {
   const { stage } = useSelector((state) => state.flight);
@@ -30,7 +33,24 @@ export default function FlightSelectionPage() {
     { refetchOnMountOrArgChange: true }
   );
 
+  const dispatch = useDispatch();
+
+  const [accordionOpen, setAccordionOpen] = useState(null);
+  const [selectedDepartureFlight, setSelectedDepartureFlight] = useState(null);
+  const [selectedReturnFlight, setSelectedReturnFlight] = useState(null);
+
   const flightData = data?.payload?.datas;
+
+  const handleOpen = (value) => {
+    setAccordionOpen(accordionOpen === value ? null : value);
+  };
+
+  const handleReset = () => {
+    dispatch(changeFlightStage("departure"));
+    setSelectedDepartureFlight(null);
+    setSelectedReturnFlight(null);
+    setAccordionOpen(null);
+  };
 
   return (
     <>
@@ -44,11 +64,22 @@ export default function FlightSelectionPage() {
           }`}
         >
           <FilterCard />
+          <SelectOrderCard
+            selectedFlight={selectedDepartureFlight}
+            onClose={handleReset}
+          />
         </div>
 
         {!isLoading && flightData?.length > 0 && !isError && !isFetching && (
           <div className="ms-auto">
-            <AccordionFlight flightData={flightData} />
+            <AccordionFlight
+              flightData={flightData}
+              handleOpen={handleOpen}
+              setOpen={setAccordionOpen}
+              open={accordionOpen}
+              setSelectedDepartureFlight={setSelectedDepartureFlight}
+              setSelectedReturnFlight={setSelectedReturnFlight}
+            />
           </div>
         )}
         {isLoading || isFetching ? (

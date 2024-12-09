@@ -13,7 +13,7 @@ const SelectOrderCard = ({ selectedFlight, onClose }) => {
 
   return (
     <Card
-      className="fixed left-[31.2rem] top-[19.5rem] translate-y-[260px] -translate-x-[66%] w-[268px] h-[25 0px] shadow border bg-white opacity-100 rounded-tl-lg z-50"
+      className="absolute top-[17.5rem] w-[268px] h-[25 0px] shadow border bg-white opacity-100 rounded-tl-lg z-50"
       style={{ padding: "24px" }}
     >
       <div className="flex justify-between items-center mb-4">
