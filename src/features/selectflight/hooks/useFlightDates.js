@@ -1,12 +1,16 @@
 import { useState, useEffect } from "react";
 
-export function useFlightDates(flightDate, isReturnToggleActive) {
+export function useFlightDates(flightDate, isReturnToggleActive, stage) {
   const [dates, setDates] = useState([]);
 
   useEffect(() => {
     const tempDates = [];
     const threeDaysBefore = new Date(
-      isReturnToggleActive ? flightDate.from : flightDate
+      isReturnToggleActive
+        ? stage == "departure"
+          ? flightDate.from
+          : flightDate.to
+        : flightDate
     );
     threeDaysBefore.setDate(threeDaysBefore.getDate() - 3);
 
@@ -17,7 +21,7 @@ export function useFlightDates(flightDate, isReturnToggleActive) {
     }
 
     setDates(tempDates);
-  }, [isReturnToggleActive]);
+  }, [isReturnToggleActive, stage]);
 
   return dates;
 }

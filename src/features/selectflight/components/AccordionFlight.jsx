@@ -2,8 +2,6 @@ import { useState } from "react";
 import FlightCard from "./FlightCard";
 import SelectOrderCard from "./SelectOrderCard";
 import { useNavigate } from "react-router-dom";
-import flightData from "../data/flightData";
-import returnFlightData from "../data/returnFlightData";
 import { useDispatch, useSelector } from "react-redux";
 import { changeFlightStage } from "@/services/flightSlice";
 
@@ -32,11 +30,12 @@ export default function AccordionFlight({ flightData }) {
 
   const handleSelectReturn = (flight) => {
     setSelectedReturn(flight);
+    dispatch(changeFlightStage());
     navigate("/transaction", {
-      state: {
-        departureFlight: selectedDeparture,
-        returnFlight: flight,
-      },
+      // state: {
+      //   departureFlight: selectedDeparture,
+      //   returnFlight: flight,
+      // },
     });
   };
 

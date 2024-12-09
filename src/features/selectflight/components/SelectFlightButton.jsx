@@ -3,7 +3,7 @@ import {
   formatDateToForwardSlash,
   formatDateToDash,
 } from "@/utils/helper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFlightDates } from "../hooks/useFlightDates";
 
@@ -23,15 +23,20 @@ import { updateFlightDate } from "@/services/homepageSlice";
 
 const SelectFlightButton = () => {
   const currentDate = new Date().toISOString();
+  const { stage } = useSelector((state) => state.flight);
   const { flightDate, isReturnToggleActive, seatClass, passengers } =
     useSelector((state) => state.homepage);
   const [selectedDate, setSelectedDate] = useState(
     isReturnToggleActive ? flightDate.from : flightDate
   );
-  const datesInWeek = useFlightDates(flightDate, isReturnToggleActive);
+  const datesInWeek = useFlightDates(flightDate, isReturnToggleActive, stage);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (stage == "return") setSelectedDate(flightDate.to);
+  }, [stage, flightDate]);
 
   /**
  * Ready For Return Flight
@@ -49,7 +54,9 @@ const SelectFlightButton = () => {
     dispatch(
       updateFlightDate(
         isReturnToggleActive
-          ? { ...flightDate, from: formatDateToDash(date) }
+          ? stage == "departure"
+            ? { ...flightDate, from: formatDateToDash(date) }
+            : { ...flightDate, to: formatDateToDash(date) }
           : formatDateToDash(date)
       )
     );

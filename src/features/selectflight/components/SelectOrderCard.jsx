@@ -1,11 +1,14 @@
+import { dateToTime } from "@/utils/helper";
 import {
   Card,
   CardBody,
   Typography,
   IconButton,
 } from "@material-tailwind/react";
+import { useSelector } from "react-redux";
 
 const SelectOrderCard = ({ selectedFlight, onClose }) => {
+  const { seatClass } = useSelector((state) => state.homepage);
   if (!selectedFlight) return null;
 
   return (
@@ -43,15 +46,15 @@ const SelectOrderCard = ({ selectedFlight, onClose }) => {
       <CardBody className="p-0">
         <div className="flex items-center space-x-4 mb-4">
           <img
-            src={selectedFlight.airlineLogo}
+            src={selectedFlight.airline?.urlImage}
             alt="Airline Logo"
             className="w-10 h-10"
           />
           <div>
             <p className="font-semibold text-gray-800">
-              {selectedFlight.airline}
+              {selectedFlight.airline?.name}
             </p>
-            <p className="text-sm text-gray-600">{selectedFlight.class}</p>
+            <p className="text-sm text-gray-600">{seatClass}</p>
           </div>
         </div>
 
@@ -59,14 +62,16 @@ const SelectOrderCard = ({ selectedFlight, onClose }) => {
           <div>
             <p className="text-xs text-gray-600">Keberangkatan</p>
             <p className="font-medium text-gray-800">
-              {selectedFlight.departureTime} - {selectedFlight.departurePlace}
+              {dateToTime(selectedFlight.departureTime)} -{" "}
+              {selectedFlight.departureAirport?.code}
             </p>
           </div>
 
           <div>
             <p className="text-xs text-gray-600">Kedatangan</p>
             <p className="font-medium text-gray-800">
-              {selectedFlight.arrivalTime} - {selectedFlight.arrivalPlace}
+              {dateToTime(selectedFlight.arrivalTime)} -{" "}
+              {selectedFlight.arrivalAirport?.code}
             </p>
           </div>
         </div>
