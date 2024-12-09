@@ -11,6 +11,7 @@ import NotificationPage from "@/features/notification/pages/NotificationPage";
 import RegisterPage from "@/features/auth/pages/RegisterPage";
 import OTPPage from "@/features/auth/pages/OTPPage";
 import AccountPage from "@/features/account/pages/AccountPage";
+import Login from "@/features/auth/pages/Login";
 
 const routes = [
   {
@@ -56,6 +57,10 @@ const routes = [
   {
     path: "/register",
     element: <RegisterPage />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
   {
     path: "/otp",

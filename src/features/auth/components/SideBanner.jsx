@@ -1,5 +1,3 @@
-import React from "react";
-
 const SideBanner = () => {
   return (
     <div className="basis-1/2 relative">

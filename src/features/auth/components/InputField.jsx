@@ -1,5 +1,3 @@
-import React from "react";
-
 const InputField = ({
   label,
   name,
@@ -20,12 +18,16 @@ const InputField = ({
   const isNameValid = name === "name" && nameRegex.test(value || "");
   const isPhoneValid = name === "phone" && phoneRegex.test(value || "");
   const isPasswordValid = type === "password" && value?.length >= 8;
+  const isEmailOrPhoneNumberValid =
+    (type === "email/phoneNumber" && emailRegex.test(value || "")) ||
+    phoneRegex.test(value || "");
 
   const isValid =
     (type === "email" && isEmailValid) ||
     (name === "name" && isNameValid) ||
     (name === "phone" && isPhoneValid) ||
-    (type === "password" && isPasswordValid);
+    (type === "password" && isPasswordValid) ||
+    (type === "email/phoneNumber" && isEmailOrPhoneNumberValid);
 
   return (
     <div className="w-full" style={{ width: "452px", marginBottom: "16px" }}>
