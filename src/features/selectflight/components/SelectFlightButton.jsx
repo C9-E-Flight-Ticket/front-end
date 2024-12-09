@@ -19,7 +19,7 @@ const days = [
 ];
 
 import { useNavigate } from "react-router-dom";
-import { updateFlightDate } from "@/services/homepageSlice";
+import { switchSearchCity, updateFlightDate } from "@/services/homepageSlice";
 import { changeFlightStage } from "@/services/flightSlice";
 
 const SelectFlightButton = () => {
@@ -68,6 +68,7 @@ const SelectFlightButton = () => {
   };
 
   const handleBackToHomepage = () => {
+    if (stage == "return") dispatch(switchSearchCity());
     dispatch(changeFlightStage("departure"));
     navigate("/");
   };
@@ -76,7 +77,7 @@ const SelectFlightButton = () => {
     <div className="block px-4 py-2 gap-[10px] border-b border-b-[#D0D0D0]">
       <div className="flex gap-3 h-[55px]">
         <div className="flex items-center rounded-xl w-[700px] h-[50px] bg-[#A06ECE] px-4 py-[5px] gap-2">
-          <button>
+          <button onClick={handleBackToHomepage}>
             <img src="/arrow-left.png" />
           </button>
           <div className="text-white font-medium text-base px-[10px]">

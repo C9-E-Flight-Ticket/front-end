@@ -9,6 +9,7 @@ import { useGetTicketBySearchingQuery } from "@/services/api/flightApi";
 import { useState } from "react";
 import { changeFlightStage } from "@/services/flightSlice";
 import SelectOrderCard from "../components/SelectOrderCard";
+import { switchSearchCity } from "@/services/homepageSlice";
 
 export default function FlightSelectionPage() {
   const { stage } = useSelector((state) => state.flight);
@@ -51,6 +52,7 @@ export default function FlightSelectionPage() {
 
   const handleReset = () => {
     dispatch(changeFlightStage("departure"));
+    dispatch(switchSearchCity());
     setSelectedDepartureFlight(null);
     setSelectedReturnFlight(null);
     setAccordionOpen(null);

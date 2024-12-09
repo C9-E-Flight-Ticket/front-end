@@ -62,7 +62,9 @@ export default function FlightCard({
               <p className="text-gray-800 font-bold text-sm">
                 {dateToTime(flight.departureTime)}
               </p>
-              <p className="text-gray-600 text-xs">{flight.departurePlace}</p>
+              <p className="text-gray-600 text-xs">
+                {flight.departureAirport?.code}
+              </p>
             </div>
             <div className="flex flex-col items-center gap-[4px]">
               <p className="text-gray-600 text-sm">{flight.duration}</p>
@@ -80,7 +82,9 @@ export default function FlightCard({
               <p className="text-gray-800 font-bold text-sm">
                 {dateToTime(flight.arrivalTime)}
               </p>
-              <p className="text-gray-600 text-xs">{flight.arrivalPlace}</p>
+              <p className="text-gray-600 text-xs">
+                {flight.arrivalAirport?.code}
+              </p>
             </div>
             <div>
               <img

@@ -3,6 +3,7 @@ import FlightCard from "./FlightCard";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { changeFlightStage } from "@/services/flightSlice";
+import { switchSearchCity } from "@/services/homepageSlice";
 
 export default function AccordionFlight({
   flightData,
@@ -24,6 +25,7 @@ export default function AccordionFlight({
     isReturnToggleActive
       ? dispatch(changeFlightStage())
       : navigate("/transaction");
+    dispatch(switchSearchCity());
   };
 
   const handleSelectReturn = (flight) => {
