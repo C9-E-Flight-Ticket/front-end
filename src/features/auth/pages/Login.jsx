@@ -29,25 +29,25 @@ const Login = () => {
     } catch (err) {
       console.log(err);
 
+      const handleError = (field, message) => {
+        setError(field, {
+          type: "manual",
+          message: message || "Network Error",
+        });
+      };
+
       if (
         err.status == 404 ||
-        err.data?.payload?.message ==
+        err.data?.payload?.message ===
           "Akun belum terverifikasi. Silakan verifikasi email Anda."
       ) {
-        setError("email/phoneNumber", {
-          type: "manual",
-          message: err.data?.payload?.message || "Network Error",
-        });
-        setError("password", {
-          type: "manual",
-          message: err.data?.payload?.message || "Network Error",
-        });
-      }
-      if (err.status == 401) {
-        setError("password", {
-          type: "manual",
-          message: err.data?.payload?.message || "Network Error",
-        });
+        handleError("email/phoneNumber", err.data?.payload?.message);
+        handleError("password", err.data?.payload?.message);
+      } else if (err.status == 401) {
+        handleError("password", err.data?.payload?.message);
+      } else {
+        handleError("email/phoneNumber", err.data?.payload?.message);
+        handleError("password", err.data?.payload?.message);
       }
     }
   }
