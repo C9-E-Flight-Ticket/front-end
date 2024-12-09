@@ -10,6 +10,7 @@ import HistoryNotFoundPage from "@/features/history/pages/HistoryNotFoundPage";
 import NotificationPage from "@/features/notification/pages/NotificationPage";
 import RegisterPage from "@/features/auth/pages/RegisterPage";
 import OTPPage from "@/features/auth/pages/OTPPage";
+import AccountPage from "@/features/account/pages/AccountPage";
 
 const routes = [
   {
@@ -39,6 +40,10 @@ const routes = [
   {
     path: "/notification",
     element: <NotificationPage />,
+  },
+  {
+    path: "/account",
+    element: <AccountPage />,
   },
   {
     path: "*",
