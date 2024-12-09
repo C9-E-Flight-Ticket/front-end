@@ -5,6 +5,7 @@ import FilteredDestinationCard from "./FilteredDestinationCard";
 import { useGetTicketByContinentQuery } from "@/services/api/flightApi";
 import DataNotFound from "./DataNotFound";
 import DestinationSkeleton from "./DestinationSkeleton";
+import { formatNumberToRupiah } from "@/utils/helper";
 
 const continents = [
   "Semua",
@@ -33,6 +34,8 @@ const Destination = ({ className }) => {
 
   const pagination = data?.pagination;
   const flightData = data?.payload.datas;
+
+  console.log(data);
 
   useEffect(() => {
     setOffset(0);
@@ -78,7 +81,7 @@ const Destination = ({ className }) => {
               airline={flight.airline.name}
               departureDate={"20"}
               returnDate={"30 Maret 2024"}
-              price={"300.000"}
+              price={formatNumberToRupiah(flight.seats[0]?.price)}
               image={flight.departureAirport.urlImage}
             />
           ))}

@@ -33,3 +33,7 @@ export const formatDateToUI = (date) => {
 export const convertLocalDateToUTC = (date) => {
   return new Date(date.getTime() - date.getTimezoneOffset() * 60000);
 };
+
+export const formatNumberToRupiah = (number) => {
+  return new Intl.NumberFormat("id-ID").format(number || 600000);
+};
