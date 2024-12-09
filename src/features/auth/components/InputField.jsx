@@ -17,7 +17,7 @@ const InputField = ({
   const isEmailValid = type === "email" && emailRegex.test(value || "");
   const isNameValid = name === "name" && nameRegex.test(value || "");
   const isPhoneValid = name === "phone" && phoneRegex.test(value || "");
-  const isPasswordValid = type === "password" && value?.length >= 8;
+  const isPasswordValid = type === "password" && value?.length >= 6;
   const isEmailOrPhoneNumberValid =
     (type === "email/phoneNumber" && emailRegex.test(value || "")) ||
     phoneRegex.test(value || "");
@@ -51,8 +51,8 @@ const InputField = ({
         />
         {value?.length > 0 && (
           <img
-            src={isValid ? "/icon-check.png" : "/icon-x.png"}
-            alt={isValid ? "Valid" : "Invalid"}
+            src={isValid && !error ? "/icon-check.png" : "/icon-x.png"}
+            alt={isValid && !error ? "Valid" : "Invalid"}
             className="absolute right-3 top-1/2 transform -translate-y-1/2 w-6 h-6"
           />
         )}

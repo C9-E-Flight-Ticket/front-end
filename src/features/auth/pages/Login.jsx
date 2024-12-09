@@ -3,21 +3,49 @@ import { useForm } from "react-hook-form";
 import InputField from "../components/InputField";
 import { Button } from "@material-tailwind/react";
 import Notification from "../components/Notification";
-import { useState } from "react";
+import { useLoginMutation } from "@/services/api/authApi";
 
 const Login = () => {
+  const [login, { isLoading, isSuccess }] = useLoginMutation();
   const {
     register,
     handleSubmit,
     watch,
+    setError,
     formState: { errors },
   } = useForm();
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  async function onSubmit(data) {
+    try {
+      const response = await login({
+        email: data["email/phoneNumber"],
+        password: data.password,
+      }).unwrap();
+      console.log(response);
+    } catch (err) {
+      console.log(err);
 
-  function onSubmit(data) {
-    setIsSubmitted(true);
-    console.log(data);
+      if (
+        err.status == 404 ||
+        err.data?.payload?.message ==
+          "Akun belum terverifikasi. Silakan verifikasi email Anda."
+      ) {
+        setError("email/phoneNumber", {
+          type: "manual",
+          message: err.data?.payload?.message || "Network Error",
+        });
+        setError("password", {
+          type: "manual",
+          message: err.data?.payload?.message || "Network Error",
+        });
+      }
+      if (err.status == 401) {
+        setError("password", {
+          type: "manual",
+          message: err.data?.payload?.message || "Network Error",
+        });
+      }
+    }
   }
 
   return (
@@ -52,21 +80,26 @@ const Login = () => {
           rules={{
             required: "Password wajib diisi",
             minLength: {
-              value: 8,
-              message: "Password minimal 8 karakter",
+              value: 6,
+              message: "Password minimal 6 karakter",
             },
           }}
           error={errors.password}
           watch={watch}
         />
-        <Button type="submit" fullWidth className="bg-purple-700">
-          Masuk
+        <Button
+          type="submit"
+          fullWidth
+          className="bg-purple-700"
+          disabled={isLoading || Object.keys(errors).length > 0}
+        >
+          {isLoading ? "Loading..." : "Masuk"}
         </Button>
       </form>
       <Notification
         errors={errors}
         successMessage={"Berhasil Login !"}
-        isSubmitted={isSubmitted}
+        isSubmitted={isSuccess}
       />
     </AuthLayout>
   );

@@ -95,8 +95,8 @@ const RegisterPage = () => {
             rules={{
               required: "Password wajib diisi",
               minLength: {
-                value: 8,
-                message: "Password minimal 8 karakter",
+                value: 6,
+                message: "Password minimal 6 karakter",
               },
             }}
             error={errors.password}
