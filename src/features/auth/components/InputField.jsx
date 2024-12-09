@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom";
+
 const InputField = ({
   label,
   name,
   type,
+  withForgotPassword = false,
   placeholder,
   register,
   rules,
@@ -29,11 +32,23 @@ const InputField = ({
     (type === "password" && isPasswordValid) ||
     (type === "email/phoneNumber" && isEmailOrPhoneNumberValid);
 
+  const navigate = useNavigate();
+
   return (
     <div className="w-full" style={{ width: "452px", marginBottom: "16px" }}>
-      <label className="block text-sm font-medium text-gray-700 mb-2">
-        {label}
-      </label>
+      <div className="flex justify-between">
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          {label}
+        </label>
+        {withForgotPassword && (
+          <p
+            className="text-sm text-purple-500 font-medium hover:cursor-pointer"
+            onClick={() => navigate("/reset-password")}
+          >
+            Lupa Kata Sandi
+          </p>
+        )}
+      </div>
       <div className="relative">
         <input
           {...register(name, rules)}

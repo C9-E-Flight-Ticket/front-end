@@ -8,7 +8,11 @@ const AuthLayout = ({ page = "", children }) => {
       <SideBanner />
       <div className="flex-1 pt-36 bg-white p-12 flex flex-col justify-center items-center">
         <h2 className="text-2xl font-bold mb-6 text-left w-full max-w-md">
-          {page === "register" ? "Daftar" : "Masuk"}
+          {page === "register"
+            ? "Daftar"
+            : page === "forgotPassword"
+            ? "Reset Password"
+            : "Masuk"}
         </h2>
 
         {children}

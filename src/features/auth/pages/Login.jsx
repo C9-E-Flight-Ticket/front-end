@@ -84,6 +84,7 @@ const Login = () => {
           label="Password"
           name="password"
           type="password"
+          withForgotPassword={true}
           placeholder="********"
           register={register}
           rules={{
