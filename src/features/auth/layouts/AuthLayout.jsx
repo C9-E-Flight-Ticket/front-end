@@ -10,14 +10,14 @@ const AuthLayout = ({ page = "", children }) => {
         <h2 className="text-2xl font-bold mb-6 text-left w-full max-w-md">
           {page === "register"
             ? "Daftar"
-            : page === "forgotPassword"
+            : page === "resetPassword"
             ? "Reset Password"
             : "Masuk"}
         </h2>
 
         {children}
 
-        {page != "forgotPassword" && (
+        {page != "resetPassword" && (
           <p className="text-sm mt-10">
             {page === "register" ? "Sudah" : "Belum"} punya akun?{" "}
             <span

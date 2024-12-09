@@ -13,6 +13,7 @@ import OTPPage from "@/features/auth/pages/OTPPage";
 import AccountPage from "@/features/account/pages/AccountPage";
 import Login from "@/features/auth/pages/Login";
 import ProtectedRoute from "@/utils/ProtectedRoute";
+import ResetPassword from "@/features/auth/pages/resetPassword";
 
 const routes = [
   {
@@ -78,6 +79,14 @@ const routes = [
   {
     path: "/register",
     element: <RegisterPage />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />,
   },
   {
     path: "/login",
