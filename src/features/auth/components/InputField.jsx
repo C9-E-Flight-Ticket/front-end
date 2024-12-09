@@ -45,7 +45,7 @@ const InputField = ({
             height: "48px",
             padding: "12px 16px",
             borderRadius: "16px",
-            border: `1px solid ${error ? "#FF6B6B" : "#D0D0D0"}`,
+            border: `1.5px solid ${error ? "#FF6B6B" : "#D0D0D0"}`,
             outline: "none",
           }}
         />

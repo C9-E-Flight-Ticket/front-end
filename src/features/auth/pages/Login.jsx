@@ -2,6 +2,8 @@ import AuthLayout from "@/features/auth/layouts/AuthLayout";
 import { useForm } from "react-hook-form";
 import InputField from "../components/InputField";
 import { Button } from "@material-tailwind/react";
+import Notification from "../components/Notification";
+import { useState } from "react";
 
 const Login = () => {
   const {
@@ -11,7 +13,10 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   function onSubmit(data) {
+    setIsSubmitted(true);
     console.log(data);
   }
 
@@ -29,6 +34,11 @@ const Login = () => {
           register={register}
           rules={{
             required: "Email wajib diisi",
+            pattern: {
+              value:
+                /^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|(\+?\d{1,3}|\d{1,4})?\s?\d+)$/,
+              message: "Format Email/No Telepon tidak valid",
+            },
           }}
           error={errors["email/phoneNumber"]}
           watch={watch}
@@ -53,6 +63,11 @@ const Login = () => {
           Masuk
         </Button>
       </form>
+      <Notification
+        errors={errors}
+        successMessage={"Berhasil Login !"}
+        isSubmitted={isSubmitted}
+      />
     </AuthLayout>
   );
 };
