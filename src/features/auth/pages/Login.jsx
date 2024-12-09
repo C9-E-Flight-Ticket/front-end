@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 import AuthLayout from "@/features/auth/layouts/AuthLayout";
 import { useForm } from "react-hook-form";
 import InputField from "../components/InputField";
@@ -19,10 +21,13 @@ const Login = () => {
   const navigate = useNavigate();
   async function onSubmit(data) {
     try {
-      await login({
+      const response = await login({
         email: data["email/phoneNumber"],
         password: data.password,
       }).unwrap();
+      const token = response.payload?.datas;
+
+      Cookies.set("token", token);
       setTimeout(() => {
         navigate("/");
       }, 1000);
