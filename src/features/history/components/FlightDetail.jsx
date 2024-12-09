@@ -17,6 +17,14 @@ const FlightDetail = ({ selectedTicketId }) => {
   const totalBaby = tickets.flightInfo.penumpang.filter(
     (passenger) => passenger.type === "baby"
   ).length;
+  const totalAdultPrice = tickets.flightInfo.penumpang
+    .filter((passenger) => passenger.type === "adult")
+    .reduce((sum, passenger) => sum + passenger.price, 0);
+  const totalChildrenPrice = tickets.flightInfo.penumpang
+    .filter((passenger) => passenger.type === "children")
+    .reduce((sum, passenger) => sum + passenger.price, 0);
+  const tax = 300000;
+  const grandTotal = totalAdultPrice + totalChildrenPrice + tax;
 
   return (
     <div className="fixed">
@@ -93,7 +101,7 @@ const FlightDetail = ({ selectedTicketId }) => {
         {totalAdult ? (
           <div className="flex justify-between text-sm text-black">
             <p>{totalAdult} Adults</p>
-            <p>IDR 9.550.000</p>
+            <p>IDR {totalAdultPrice.toLocaleString("id-ID")}</p>
           </div>
         ) : (
           ""
@@ -101,7 +109,7 @@ const FlightDetail = ({ selectedTicketId }) => {
         {totalChildren ? (
           <div className="flex justify-between text-sm text-black">
             <p>{totalChildren} Child</p>
-            <p>IDR 9.550.000</p>
+            <p>IDR {totalChildrenPrice.toLocaleString("id-ID")}</p>
           </div>
         ) : (
           ""
@@ -116,17 +124,30 @@ const FlightDetail = ({ selectedTicketId }) => {
         )}
         <div className="flex justify-between text-sm text-black">
           <p>Tax</p>
-          <p>IDR 300.000</p>
+          <p>IDR {tax.toLocaleString("id-ID")}</p>
         </div>
 
         <div className="mt-2 flex justify-between text-lg font-bold border-t text-textPurple">
           <p>Total</p>
-          <p>IDR 9.850.000</p>
+          <p>IDR {grandTotal.toLocaleString("id-ID")}</p>
         </div>
       </div>
-      <Button className="w-[350px] h-[62px] mt-[12px] text-[20px] rounded-[12px] normal-case font-normal bg-textPurple text-white ">
-        Cetak Tiket
-      </Button>
+      <div className="w-[350px] h-[62px] mt-[12px] text-[20px] rounded-[12px] normal-case font-normal">
+        {tickets.payment === "Cancelled" ? null : (
+          <Button
+            className={`w-[350px] h-[62px] mt-[12px] text-[20px] rounded-[12px] normal-case font-normal text-white ${
+              tickets.payment === "Issued"
+                ? "bg-textPurple"
+                : tickets.payment === "Unpaid"
+                ? "bg-primaryRed"
+                : ""
+            } `}
+          >
+            {tickets.payment === "Issued" && "Cetak Tiket"}
+            {tickets.payment === "Unpaid" && "Lanjut Bayar"}
+          </Button>
+        )}
+      </div>
     </div>
   );
 };
