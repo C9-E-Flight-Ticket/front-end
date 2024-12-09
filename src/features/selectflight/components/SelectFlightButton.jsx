@@ -23,19 +23,18 @@ import { updateFlightDate } from "@/services/homepageSlice";
 
 const SelectFlightButton = () => {
   const currentDate = new Date().toISOString();
-  const { flightDate, isReturnToggleActive } = useSelector(
-    (state) => state.homepage
-  );
+  const { flightDate, isReturnToggleActive, seatClass, passengers } =
+    useSelector((state) => state.homepage);
   const [selectedDate, setSelectedDate] = useState(
     isReturnToggleActive ? flightDate.from : flightDate
   );
   const datesInWeek = useFlightDates(flightDate, isReturnToggleActive);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   /**
  * Ready For Return Flight
-  const dispatch = useDispatch();
     dispatch(
       updateFlightDate(
         isReturnToggleActive
@@ -47,6 +46,13 @@ const SelectFlightButton = () => {
 
   const handleSelectDay = (date) => {
     setSelectedDate(formatDateToDash(date));
+    dispatch(
+      updateFlightDate(
+        isReturnToggleActive
+          ? { ...flightDate, from: formatDateToDash(date) }
+          : formatDateToDash(date)
+      )
+    );
   };
 
   return (
@@ -57,7 +63,8 @@ const SelectFlightButton = () => {
             <img src="/arrow-left.png" />
           </button>
           <div className="text-white font-medium text-base px-[10px]">
-            JKT {">"} MLB - 2 Penumpang - Economy
+            JKT {">"} MLB - {passengers.child + passengers.adult} Penumpang -{" "}
+            {seatClass}
           </div>
         </div>
         <div className="flex justify-center">

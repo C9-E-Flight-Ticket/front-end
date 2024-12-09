@@ -17,15 +17,18 @@ export default function FlightSelectionPage() {
     isReturnToggleActive,
   } = useSelector((state) => state.homepage);
 
-  const { data, isLoading, error } = useGetTicketBySearchingQuery({
-    departureCity,
-    arrivalCity,
-    departureDate: isReturnToggleActive ? flightDate.from : flightDate,
-    returnDate: isReturnToggleActive ? flightDate.to : "",
-    seatClass,
-    limit: 100,
-    offset: 0,
-  });
+  const { data, isLoading, isError, isFetching } = useGetTicketBySearchingQuery(
+    {
+      departureCity,
+      arrivalCity,
+      departureDate: isReturnToggleActive ? flightDate.from : flightDate,
+      returnDate: isReturnToggleActive ? flightDate.to : "",
+      seatClass,
+      limit: 100,
+      offset: 0,
+    },
+    { refetchOnMountOrArgChange: true }
+  );
 
   const flightData = data?.payload?.datas;
 
@@ -43,17 +46,17 @@ export default function FlightSelectionPage() {
           <FilterCard />
         </div>
 
-        {!isLoading && flightData?.length > 0 && (
+        {!isLoading && flightData?.length > 0 && !isError && !isFetching && (
           <div className="ms-auto">
             <AccordionFlight flightData={flightData} />
           </div>
         )}
-        {isLoading ? (
+        {isLoading || isFetching ? (
           <div className="w-[80%] flex justify-center items-center h-96 ms-auto">
             <LoadingTicket />
           </div>
         ) : (
-          !flightData && (
+          isError && (
             <div className="w-[80%] flex justify-center items-center h-96 ms-auto">
               <FlightEmpty />
             </div>

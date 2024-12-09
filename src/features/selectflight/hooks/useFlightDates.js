@@ -17,7 +17,7 @@ export function useFlightDates(flightDate, isReturnToggleActive) {
     }
 
     setDates(tempDates);
-  }, [isReturnToggleActive, flightDate]);
+  }, [isReturnToggleActive]);
 
   return dates;
 }
