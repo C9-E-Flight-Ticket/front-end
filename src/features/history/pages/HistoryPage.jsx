@@ -6,9 +6,7 @@ export default function HistoryPage() {
   return (
     <MainLayout>
       <HeaderMenu title={"Riwayat Pemesanan"} headerId={1} />
-      <div>
-        <HistoryContent />
-      </div>
+      <HistoryContent />
     </MainLayout>
   );
 }

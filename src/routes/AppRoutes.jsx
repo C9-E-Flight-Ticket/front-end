@@ -6,7 +6,6 @@ import Transaction from "@/features/transaction/pages/TransactionPage";
 import Payment from "@/features/transaction/pages/PaymentPage";
 import PaymentSuccessPage from "@/features/transaction/pages/PaymentSuccessPage";
 import HistoryPage from "@/features/history/pages/HistoryPage";
-import HistoryNotFoundPage from "@/features/history/pages/HistoryNotFoundPage";
 import NotificationPage from "@/features/notification/pages/NotificationPage";
 import RegisterPage from "@/features/auth/pages/RegisterPage";
 import OTPPage from "@/features/auth/pages/OTPPage";
@@ -32,10 +31,6 @@ const routes = [
   {
     path: "/history",
     element: <HistoryPage />,
-  },
-  {
-    path: "/history-not-found",
-    element: <HistoryNotFoundPage />,
   },
   {
     path: "/notification",
