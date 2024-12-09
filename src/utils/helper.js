@@ -37,3 +37,11 @@ export const convertLocalDateToUTC = (date) => {
 export const formatNumberToRupiah = (number) => {
   return new Intl.NumberFormat("id-ID").format(number || 600000);
 };
+
+export const dateToTime = (date) => {
+  const dateFormat = new Date(date);
+  const hours = dateFormat.getHours().toString().padStart(2, "0");
+  const minutes = dateFormat.getMinutes().toString().padStart(2, "0");
+
+  return `${hours}:${minutes}`;
+};

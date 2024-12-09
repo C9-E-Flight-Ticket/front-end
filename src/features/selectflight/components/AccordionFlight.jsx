@@ -7,7 +7,7 @@ import returnFlightData from "../data/returnFlightData";
 import { useDispatch, useSelector } from "react-redux";
 import { changeFlightStage } from "@/services/flightSlice";
 
-export default function AccordionFlight() {
+export default function AccordionFlight({ flightData }) {
   const { stage } = useSelector((state) => state.flight);
   const { isReturnToggleActive } = useSelector((state) => state.homepage);
 
@@ -47,8 +47,8 @@ export default function AccordionFlight() {
     setOpen(null);
   };
 
-  const currentFlightData =
-    stage === "departure" ? flightData : returnFlightData;
+  // const currentFlightData =
+  //   stage === "departure" ? flightData : returnFlightData;
 
   return (
     <div className="flex flex-col items-center space-y-5 py-5 relative">
@@ -59,7 +59,7 @@ export default function AccordionFlight() {
             : "Pilih Tiket Kepulangan"}
         </h2>
       </div>
-      {currentFlightData.map((flight) => (
+      {flightData.map((flight) => (
         <FlightCard
           key={flight.id}
           flight={flight}

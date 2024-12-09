@@ -25,4 +25,5 @@ export const flightApi = api.injectEndpoints({
   }),
 });
 
-export const { useGetTicketByContinentQuery } = flightApi;
+export const { useGetTicketByContinentQuery, useGetTicketBySearchingQuery } =
+  flightApi;
