@@ -7,7 +7,6 @@ import {
 import Icon from "./Icon";
 import FlightDetail from "./FlightDetail";
 import { flightDetailsData } from "../data/flightDetailsData";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { dateToTime, formatNumberToRupiah } from "@/utils/helper";
 
@@ -67,7 +66,7 @@ export default function FlightCard({
               </p>
             </div>
             <div className="flex flex-col items-center gap-[4px]">
-              <p className="text-gray-600 text-sm">{flight.duration}</p>
+              <p className="text-gray-600 text-sm">{"3h 15m"}</p>
               <div className="flex items-center">
                 <div className="w-64 h-[1px] bg-gray-400"></div>
                 <img
@@ -76,7 +75,7 @@ export default function FlightCard({
                   className=" -translate-y-[4%] -translate-x-[50%] w-3 h-3"
                 />
               </div>
-              <p className="text-gray-600 text-xs">{flight.type}</p>
+              <p className="text-gray-600 text-xs">{"Direct"}</p>
             </div>
             <div className="-translate-x-[50%] text-center flex flex-col gap-[4px]">
               <p className="text-gray-800 font-bold text-sm">
@@ -108,9 +107,7 @@ export default function FlightCard({
         </AccordionHeader>
 
         <AccordionBody>
-          <FlightDetail
-            flight={flightDetailsData.find((flight) => flight.id === 1)}
-          />
+          <FlightDetail flight={flight} />
         </AccordionBody>
       </Accordion>
     </Card>
