@@ -11,7 +11,7 @@ import OTPPage from "@/features/auth/pages/OTPPage";
 import AccountPage from "@/features/account/pages/AccountPage";
 import Login from "@/features/auth/pages/Login";
 import ProtectedRoute from "@/utils/ProtectedRoute";
-import ResetPassword from "@/features/auth/pages/resetPassword";
+import ResetPassword from "@/features/auth/pages/ResetPassword";
 import SelectFlight from "@/features/selectFlight/pages/SelectFlight";
 
 const routes = [
