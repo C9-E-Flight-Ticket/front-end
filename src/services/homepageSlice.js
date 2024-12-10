@@ -66,6 +66,9 @@ const homepageSlice = createSlice({
     changeReturnToggle(state) {
       state.isReturnToggleActive = !state.isReturnToggleActive;
     },
+    resetHomepageState() {
+      return initialState;
+    },
   },
 });
 
@@ -79,5 +82,6 @@ export const {
   updatePassengers,
   chooseSeatClass,
   changeReturnToggle,
+  resetHomepageState,
 } = homepageSlice.actions;
 export default homepageSlice.reducer;

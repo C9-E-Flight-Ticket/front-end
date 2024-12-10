@@ -2,6 +2,8 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 const useCheckToken = () => {
   const accessToken = Cookies.get("token");
+  const access_token = Cookies.get("access_token");
+  console.log("access_token : ", access_token);
 
   if (!accessToken) {
     console.log("Token not found");

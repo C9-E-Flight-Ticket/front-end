@@ -1,4 +1,10 @@
+import { useNavigate } from "react-router-dom";
+
 const HeaderMenu = ({ title, headerId }) => {
+  const navigate = useNavigate();
+  function handleBackToHomepage() {
+    navigate("/");
+  }
   return (
     <div className="fixed w-full h-[260px] shadow-md z-50 bg-white">
       <div className="fixed top-[131px] left-1/2 -translate-x-[490px] text-xl font-bold">
@@ -10,7 +16,7 @@ const HeaderMenu = ({ title, headerId }) => {
             headerId === 1 ? "w-[777px]" : "w-[936px]"
           }`}
         >
-          <button>
+          <button onClick={handleBackToHomepage}>
             <img src="/arrow-left.png" />
           </button>
           <div className="py-2 px-[10px]">Beranda</div>

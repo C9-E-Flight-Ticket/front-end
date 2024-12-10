@@ -23,9 +23,16 @@ const flightSlice = createSlice({
     changeReturnFlight(state, action) {
       state.returnFlightId = action.payload;
     },
+    resetFlightState() {
+      return initialState;
+    },
   },
 });
 
-export const { changeDepartureFlight, changeReturnFlight, changeFlightStage } =
-  flightSlice.actions;
+export const {
+  changeDepartureFlight,
+  changeReturnFlight,
+  changeFlightStage,
+  resetFlightState,
+} = flightSlice.actions;
 export default flightSlice.reducer;
