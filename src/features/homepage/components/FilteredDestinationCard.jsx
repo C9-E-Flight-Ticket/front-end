@@ -27,7 +27,9 @@ const FilteredDestinationCard = ({
         </div>
         <div className="text-[12px] font-normal">
           Mulai dari{" "}
-          <span className="text-[#FF0000] font-bold">IDR {price}</span>
+          <span className="text-[#FF0000] font-bold">
+            IDR {price || "600.000"}
+          </span>
         </div>
       </div>
     </div>

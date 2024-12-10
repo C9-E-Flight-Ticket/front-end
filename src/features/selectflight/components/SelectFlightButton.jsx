@@ -3,7 +3,7 @@ import {
   formatDateToForwardSlash,
   formatDateToDash,
 } from "@/utils/helper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFlightDates } from "../hooks/useFlightDates";
 
@@ -19,23 +19,32 @@ const days = [
 ];
 
 import { useNavigate } from "react-router-dom";
-import { updateFlightDate } from "@/services/homepageSlice";
+import { switchSearchCity, updateFlightDate } from "@/services/homepageSlice";
+import { changeFlightStage } from "@/services/flightSlice";
 
 const SelectFlightButton = () => {
   const currentDate = new Date().toISOString();
-  const { flightDate, isReturnToggleActive } = useSelector(
-    (state) => state.homepage
-  );
+  const { stage } = useSelector((state) => state.flight);
+  const { flightDate, isReturnToggleActive, seatClass, passengers } =
+    useSelector((state) => state.homepage);
   const [selectedDate, setSelectedDate] = useState(
     isReturnToggleActive ? flightDate.from : flightDate
   );
-  const datesInWeek = useFlightDates(flightDate, isReturnToggleActive);
+  const datesInWeek = useFlightDates(flightDate, isReturnToggleActive, stage);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (stage == "return") {
+      setSelectedDate(flightDate.to);
+    } else {
+      setSelectedDate(isReturnToggleActive ? flightDate.from : flightDate);
+    }
+  }, [stage, flightDate, isReturnToggleActive]);
 
   /**
  * Ready For Return Flight
-  const dispatch = useDispatch();
     dispatch(
       updateFlightDate(
         isReturnToggleActive
@@ -47,23 +56,39 @@ const SelectFlightButton = () => {
 
   const handleSelectDay = (date) => {
     setSelectedDate(formatDateToDash(date));
+    dispatch(
+      updateFlightDate(
+        isReturnToggleActive
+          ? stage == "departure"
+            ? { ...flightDate, from: formatDateToDash(date) }
+            : { ...flightDate, to: formatDateToDash(date) }
+          : formatDateToDash(date)
+      )
+    );
+  };
+
+  const handleBackToHomepage = () => {
+    if (stage == "return") dispatch(switchSearchCity());
+    dispatch(changeFlightStage("departure"));
+    navigate("/");
   };
 
   return (
     <div className="block px-4 py-2 gap-[10px] border-b border-b-[#D0D0D0]">
       <div className="flex gap-3 h-[55px]">
         <div className="flex items-center rounded-xl w-[700px] h-[50px] bg-[#A06ECE] px-4 py-[5px] gap-2">
-          <button>
+          <button onClick={handleBackToHomepage}>
             <img src="/arrow-left.png" />
           </button>
           <div className="text-white font-medium text-base px-[10px]">
-            JKT {">"} MLB - 2 Penumpang - Economy
+            JKT {">"} MLB - {passengers.child + passengers.adult} Penumpang -{" "}
+            {seatClass}
           </div>
         </div>
         <div className="flex justify-center">
           <button
             className="bg-[#73CA5C] hover:bg-light-green-900 transition duration-300 w-[220px] h-[50px] rounded-xl font-bold text-white text-base"
-            onClick={() => navigate("/")}
+            onClick={handleBackToHomepage}
           >
             <div className="flex justify-center ml-2">Ubah Pencarian</div>
           </button>

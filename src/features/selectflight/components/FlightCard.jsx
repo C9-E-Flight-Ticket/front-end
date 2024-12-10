@@ -7,7 +7,8 @@ import {
 import Icon from "./Icon";
 import FlightDetail from "./FlightDetail";
 import { flightDetailsData } from "../data/flightDetailsData";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { dateToTime, formatNumberToRupiah } from "@/utils/helper";
 
 export default function FlightCard({
   flight,
@@ -15,6 +16,8 @@ export default function FlightCard({
   handleOpen,
   onSelectFlight,
 }) {
+  const { seatClass } = useSelector((state) => state.homepage);
+
   const priceColorClass = flight.id === 2 ? "text-red-600" : "text-purple-800";
 
   const handleSelectTicket = (e) => {
@@ -40,12 +43,12 @@ export default function FlightCard({
           <div className="flex justify-between items-center w-full">
             <div className="flex items-center space-x-[12px]">
               <img
-                src={flight.airlineLogo}
+                src={flight.airline?.urlImage}
                 alt="logo"
                 className="w-[24px] h-[24px]"
               />
               <p className="font-medium text-[15px] leading-[18px] text-left">
-                {flight.airline} - {flight.class}
+                {flight.airline?.name} - {seatClass}
               </p>
             </div>
             <div className="ml-auto flex items-center">
@@ -56,38 +59,42 @@ export default function FlightCard({
           <div className="flex justify-between w-full py-15 items-center mt-4">
             <div className="text-center ps-8 flex flex-col gap-[4px]">
               <p className="text-gray-800 font-bold text-sm">
-                {flight.departureTime}
+                {dateToTime(flight.departureTime)}
               </p>
-              <p className="text-gray-600 text-xs">{flight.departurePlace}</p>
+              <p className="text-gray-600 text-xs">
+                {flight.departureAirport?.code}
+              </p>
             </div>
             <div className="flex flex-col items-center gap-[4px]">
-              <p className="text-gray-600 text-sm">{flight.duration}</p>
+              <p className="text-gray-600 text-sm">{"3h 15m"}</p>
               <div className="flex items-center">
                 <div className="w-64 h-[1px] bg-gray-400"></div>
                 <img
-                  src={flight.arrowIcon}
+                  src="/icon-arrow-right.png"
                   alt="Arrow"
                   className=" -translate-y-[4%] -translate-x-[50%] w-3 h-3"
                 />
               </div>
-              <p className="text-gray-600 text-xs">{flight.type}</p>
+              <p className="text-gray-600 text-xs">{"Direct"}</p>
             </div>
             <div className="-translate-x-[50%] text-center flex flex-col gap-[4px]">
               <p className="text-gray-800 font-bold text-sm">
-                {flight.arrivalTime}
+                {dateToTime(flight.arrivalTime)}
               </p>
-              <p className="text-gray-600 text-xs">{flight.arrivalPlace}</p>
+              <p className="text-gray-600 text-xs">
+                {flight.arrivalAirport?.code}
+              </p>
             </div>
             <div>
               <img
-                src={flight.baggageIcon}
+                src="/Icon-baggage.png"
                 alt="Baggage Icon"
                 className="-translate-x-[200%] w-4 h-4 text-purple-800"
               />
             </div>
             <div className="flex flex-col items-end gap-[8px]">
               <p className={`font-semibold ${priceColorClass}`}>
-                {flight.price}
+                {formatNumberToRupiah(1000000)}
               </p>
               <div
                 className="w-[100px] h-auto px-[12px] py-[4px] rounded-[12px] bg-purple-800 hover:bg-purple-900 text-white text-center cursor-pointer"
@@ -100,9 +107,7 @@ export default function FlightCard({
         </AccordionHeader>
 
         <AccordionBody>
-          <FlightDetail
-            flight={flightDetailsData.find((flight) => flight.id === 1)}
-          />
+          <FlightDetail flight={flight} />
         </AccordionBody>
       </Accordion>
     </Card>

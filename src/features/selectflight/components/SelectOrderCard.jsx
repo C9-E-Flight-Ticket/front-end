@@ -1,16 +1,19 @@
+import { dateToTime } from "@/utils/helper";
 import {
   Card,
   CardBody,
   Typography,
   IconButton,
 } from "@material-tailwind/react";
+import { useSelector } from "react-redux";
 
 const SelectOrderCard = ({ selectedFlight, onClose }) => {
+  const { seatClass } = useSelector((state) => state.homepage);
   if (!selectedFlight) return null;
 
   return (
     <Card
-      className="fixed left-[31.2rem] top-[19.5rem] translate-y-[260px] -translate-x-[66%] w-[268px] h-[25 0px] shadow border bg-white opacity-100 rounded-tl-lg z-50"
+      className="absolute top-[17.5rem] w-[268px] h-[25 0px] shadow border bg-white opacity-100 rounded-tl-lg z-50"
       style={{ padding: "24px" }}
     >
       <div className="flex justify-between items-center mb-4">
@@ -43,15 +46,15 @@ const SelectOrderCard = ({ selectedFlight, onClose }) => {
       <CardBody className="p-0">
         <div className="flex items-center space-x-4 mb-4">
           <img
-            src={selectedFlight.airlineLogo}
+            src={selectedFlight.airline?.urlImage}
             alt="Airline Logo"
             className="w-10 h-10"
           />
           <div>
             <p className="font-semibold text-gray-800">
-              {selectedFlight.airline}
+              {selectedFlight.airline?.name}
             </p>
-            <p className="text-sm text-gray-600">{selectedFlight.class}</p>
+            <p className="text-sm text-gray-600">{seatClass}</p>
           </div>
         </div>
 
@@ -59,14 +62,16 @@ const SelectOrderCard = ({ selectedFlight, onClose }) => {
           <div>
             <p className="text-xs text-gray-600">Keberangkatan</p>
             <p className="font-medium text-gray-800">
-              {selectedFlight.departureTime} - {selectedFlight.departurePlace}
+              {dateToTime(selectedFlight.departureTime)} -{" "}
+              {selectedFlight.departureAirport?.code}
             </p>
           </div>
 
           <div>
             <p className="text-xs text-gray-600">Kedatangan</p>
             <p className="font-medium text-gray-800">
-              {selectedFlight.arrivalTime} - {selectedFlight.arrivalPlace}
+              {dateToTime(selectedFlight.arrivalTime)} -{" "}
+              {selectedFlight.arrivalAirport?.code}
             </p>
           </div>
         </div>
