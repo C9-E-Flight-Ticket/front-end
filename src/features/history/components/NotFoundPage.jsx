@@ -1,3 +1,5 @@
+import React from "react";
+
 const HistoryNotFound = () => {
   return (
     <div className="flex justify-center items-center flex-col">

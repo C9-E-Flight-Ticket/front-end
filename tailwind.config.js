@@ -16,6 +16,7 @@ module.exports = withMT({
         veryLightPurple: "#D0B7E6",
         lightGreen: "#73CA5C",
         lightGray: "#F2F2F2",
+        primaryRed: "#FF0000",
       },
       fontFamily: {
         sans: ["Poppins", "sans-serif"],

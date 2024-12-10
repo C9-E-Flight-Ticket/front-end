@@ -1,10 +1,10 @@
 const HeaderMenu = ({ title, headerId }) => {
   return (
-    <div className="w-full h-[260px] shadow-md">
-      <div className="absolute top-[131px] left-1/2 -translate-x-[490px] text-xl font-bold">
+    <div className="fixed w-full h-[260px] shadow-md z-50 bg-white">
+      <div className="fixed top-[131px] left-1/2 -translate-x-[490px] text-xl font-bold">
         {title}
       </div>
-      <div className="absolute top-[185px] left-1/2 -translate-x-1/2 w-[968px] py-2 px-4 flex gap-3">
+      <div className="fixed top-[185px] left-1/2 -translate-x-1/2 w-[968px] py-2 px-4 flex gap-3">
         <div
           className={`h-[50px] flex gap-2 bg-[#A06ECE] py-[5px] px-4 rounded-xl text-white ${
             headerId === 1 ? "w-[777px]" : "w-[936px]"

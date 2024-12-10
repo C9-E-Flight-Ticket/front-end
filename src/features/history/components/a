@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import { Button } from "@material-tailwind/react";
 import ticketData from "../data/flightData";
-import { Button, Card } from "@material-tailwind/react";
 
 const groupTicketsByMonth = (tickets) => {
   return tickets.reduce((acc, ticket) => {
@@ -16,10 +16,10 @@ const groupTicketsByMonth = (tickets) => {
   }, {});
 };
 
-const TicketCard = ({ onSelectTicket }) => {
+const TicketCard = () => {
+  const [activeTicket, setActiveTicket] = useState(null);
+
   const tickets = [...ticketData].reverse();
-  const firstTicketId = tickets[0]?.id || 0;
-  const [activeTicket, setActiveTicket] = useState(firstTicketId);
   const groupedTickets = groupTicketsByMonth(tickets);
 
   const calculateTotalPrice = (penumpang) => {
@@ -27,8 +27,7 @@ const TicketCard = ({ onSelectTicket }) => {
   };
 
   const handleClick = (id) => {
-    setActiveTicket(id) || firstTicketId;
-    onSelectTicket(id) || firstTicketId;
+    setActiveTicket(id);
   };
 
   return (
@@ -37,7 +36,7 @@ const TicketCard = ({ onSelectTicket }) => {
         <div key={monthYear}>
           <p className="my-[12px] text-[16px] font-bold">{monthYear}</p>
           {groupedTickets[monthYear].map((ticket) => (
-            <Card
+            <Button
               key={ticket.id}
               onClick={() => handleClick(ticket.id)}
               className={`w-[468px] h-[204px] py-[12px] px-[16px] mt-[8px] rounded-[10px] border-[2px] bg-white ${
@@ -46,17 +45,8 @@ const TicketCard = ({ onSelectTicket }) => {
                   : "border-lightGray"
               }`}
             >
-              <p
-                className={`w-[70px] h-[28px] my-[4px] rounded-[16px] text-[14px] font-light flex items-center justify-center text-white 
-                  ${ticket.payment === "Issued" ? "bg-lightGreen w-[70px]" : ""}
-                  ${ticket.payment === "Unpaid" ? "bg-red-500 w-[75px]" : ""}
-                  ${
-                    ticket.payment === "Cancelled" ? "bg-gray-500 w-[96px]" : ""
-                  }`}
-              >
-                {ticket.payment === "Issued" && "Issued"}
-                {ticket.payment === "Unpaid" && "Unpaid"}
-                {ticket.payment === "Cancelled" && "Cancelled"}
+              <p className="w-[70px] h-[28px] my-[4px] rounded-[16px] text-[14px] font-light flex items-center justify-center bg-lightGreen text-white">
+                Issued
               </p>
               <div className="flex py-[16px]">
                 <div className="flex w-[120px] h-[60px]">
@@ -73,15 +63,12 @@ const TicketCard = ({ onSelectTicket }) => {
                     <p className="text-[12px]">{ticket.departureInfo.time}</p>
                   </div>
                 </div>
-                <div className="mx-[16px] flex items-center">
-                  <div>
-                    <p></p>
-                    <img
-                      src="arrow-1.png"
-                      alt="arrow-1.png"
-                      className="w-[164px]"
-                    />
-                  </div>
+                <div className="mx-[16px]">
+                  <img
+                    src="arrow-1.png"
+                    alt="arrow-1.png"
+                    className="w-[164px]"
+                  />
                 </div>
                 <div className="flex w-[120px] h-[60px]">
                   <img
@@ -119,7 +106,7 @@ const TicketCard = ({ onSelectTicket }) => {
                   </p>
                 </div>
               </div>
-            </Card>
+            </Button>
           ))}
         </div>
       ))}

@@ -1,5 +1,5 @@
 import CheckOutStep from "@/features/transaction/components/CheckOutStep";
-import FlightDetail from "@/components/FlightDetail/FlightDetail";
+import FlightDetail from "@/features/transaction/components/FlightDetail";
 import SeatSelection from "@/features/transaction/components/SeatSelection";
 import SaveButton from "@/features/transaction/components/SaveButton";
 import NotificationBox from "@/features/transaction/components/NotificationBox";
@@ -38,7 +38,7 @@ export default function TransactionPage() {
           type={isSubmitted ? "success" : "count"}
         />
       </div>
-      <div className="flex justify-center gap-12 2xl:gap-0">
+      <div className="flex justify-center ms-10">
         <div className="w-fit flex flex-col justify-center">
           <FormUserPassenger
             formId="userPassengerForm"
