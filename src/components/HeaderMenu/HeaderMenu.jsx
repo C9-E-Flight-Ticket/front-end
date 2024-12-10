@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 const HeaderMenu = ({ title, headerId }) => {
   const navigate = useNavigate();
   function handleBackToHomepage() {
-    navigate("/");
+    navigate(-1);
   }
   return (
     <div className="fixed w-full h-[260px] shadow-md z-50 bg-white">

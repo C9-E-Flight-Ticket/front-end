@@ -10,6 +10,7 @@ import { useState } from "react";
 import { changeFlightStage } from "@/services/flightSlice";
 import SelectOrderCard from "../components/SelectOrderCard";
 import { switchSearchCity } from "@/services/homepageSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function FlightSelectionPage() {
   const { stage } = useSelector((state) => state.flight);
@@ -39,6 +40,9 @@ export default function FlightSelectionPage() {
   );
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  if (!flightDate) navigate("/");
 
   const [accordionOpen, setAccordionOpen] = useState(null);
   const [selectedDepartureFlight, setSelectedDepartureFlight] = useState(null);
