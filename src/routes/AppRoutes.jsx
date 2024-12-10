@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Homepage from "@/features/homepage/pages/Homepage";
 import NotFound from "@/components/NotFound";
-import SelectFlight from "@/features/selectFlight/pages/SelectFlight";
 import Transaction from "@/features/transaction/pages/TransactionPage";
 import Payment from "@/features/transaction/pages/PaymentPage";
 import PaymentSuccessPage from "@/features/transaction/pages/PaymentSuccessPage";
@@ -12,7 +11,8 @@ import OTPPage from "@/features/auth/pages/OTPPage";
 import AccountPage from "@/features/account/pages/AccountPage";
 import Login from "@/features/auth/pages/Login";
 import ProtectedRoute from "@/utils/ProtectedRoute";
-import ResetPassword from "@/features/auth/pages/resetPassword";
+import ResetPassword from "@/features/auth/pages/ResetPassword";
+import SelectFlight from "@/features/selectFlight/pages/SelectFlight";
 
 const routes = [
   {
