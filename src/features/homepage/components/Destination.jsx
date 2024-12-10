@@ -35,6 +35,8 @@ const Destination = ({ className }) => {
   const pagination = data?.pagination;
   const flightData = data?.payload.datas;
 
+  console.log(data);
+
   useEffect(() => {
     setOffset(0);
     setCurrPage(1);
@@ -67,7 +69,7 @@ const Destination = ({ className }) => {
             <DestinationSkeleton key={i} />
           ))}
         </div>
-      ) : error ? (
+      ) : error || pagination.totalItems == 0 ? (
         <DataNotFound />
       ) : (
         <div className={"justify-start grid grid-cols-7 gap-4 mt-4"}>
@@ -86,7 +88,7 @@ const Destination = ({ className }) => {
         </div>
       )}
 
-      {!isLoading && !error && pagination.totalPages > 0 && (
+      {!isLoading && !error && pagination.totalPages > 1 && (
         <Pagination
           className={"mx-auto mt-8"}
           limit={limit.current}
