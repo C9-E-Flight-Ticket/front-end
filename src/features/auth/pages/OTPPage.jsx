@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import OtpInput from "../components/OtpInput";
 import Button from "../components/Button";
 import OtpHeader from "../components/OtpHeader";
+import OtpInput from "../components/OtpInput";
 
 const OtpPage = () => {
   const location = useLocation();
