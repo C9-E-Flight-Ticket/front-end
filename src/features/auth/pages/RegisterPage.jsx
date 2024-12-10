@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import InputField from "../components/InputField";
@@ -95,8 +95,8 @@ const RegisterPage = () => {
             rules={{
               required: "Password wajib diisi",
               minLength: {
-                value: 8,
-                message: "Password minimal 8 karakter",
+                value: 6,
+                message: "Password minimal 6 karakter",
               },
             }}
             error={errors.password}

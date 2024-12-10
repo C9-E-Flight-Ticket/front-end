@@ -10,6 +10,9 @@ import NotificationPage from "@/features/notification/pages/NotificationPage";
 import RegisterPage from "@/features/auth/pages/RegisterPage";
 import OTPPage from "@/features/auth/pages/OTPPage";
 import AccountPage from "@/features/account/pages/AccountPage";
+import Login from "@/features/auth/pages/Login";
+import ProtectedRoute from "@/utils/ProtectedRoute";
+import ResetPassword from "@/features/auth/pages/resetPassword";
 
 const routes = [
   {
@@ -22,23 +25,43 @@ const routes = [
   },
   {
     path: "/payment",
-    element: <Payment />,
+    element: (
+      <ProtectedRoute>
+        <Payment />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/success",
-    element: <PaymentSuccessPage />,
+    element: (
+      <ProtectedRoute>
+        <PaymentSuccessPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/history",
-    element: <HistoryPage />,
+    element: (
+      <ProtectedRoute>
+        <HistoryPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/notification",
-    element: <NotificationPage />,
+    element: (
+      <ProtectedRoute>
+        <NotificationPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/account",
-    element: <AccountPage />,
+    element: (
+      <ProtectedRoute>
+        <AccountPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "*",
@@ -51,6 +74,18 @@ const routes = [
   {
     path: "/register",
     element: <RegisterPage />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
   {
     path: "/otp",

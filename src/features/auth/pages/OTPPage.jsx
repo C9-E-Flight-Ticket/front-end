@@ -8,7 +8,9 @@ const OtpPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { email } = location.state || {};
+  const { email } = location.state || { email: "" };
+
+  if (!email) navigate("/register");
 
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [timer, setTimer] = useState(60);
@@ -56,7 +58,7 @@ const OtpPage = () => {
   return (
     <>
       <OtpHeader />
-      <div className="flex justify-center items-center min-h-screen pb-48">
+      <div className="flex justify-center items-center min-h-screen">
         <div className="w-[900px] h-[600px] bg-white p-8 flex flex-col items-center">
           <div
             onClick={() => navigate("/register")}
