@@ -35,8 +35,6 @@ const Destination = ({ className }) => {
   const pagination = data?.pagination;
   const flightData = data?.payload.datas;
 
-  console.log(data);
-
   useEffect(() => {
     setOffset(0);
     setCurrPage(1);

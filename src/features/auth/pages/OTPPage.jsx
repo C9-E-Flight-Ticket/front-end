@@ -1,25 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import Button from "../components/Button";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@material-tailwind/react";
 import OtpHeader from "../components/OtpHeader";
 import OtpInput from "../components/OtpInput";
+import {
+  useResendOTPMutation,
+  useVerifyEmailMutation,
+} from "@/services/api/authApi";
 
 const OtpPage = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const { email } = location.state || { email: "" };
-
-  if (!email) navigate("/register");
-
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [timer, setTimer] = useState(60);
   const [otpError, setOtpError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const formattedEmail = email
-    ? email.replace(/(.{3})(.*)(@.*)/, "$1***$3")
-    : "";
+  const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
+
+  const [sendOTP, { isSuccess, isLoading }] = useVerifyEmailMutation();
+  const [resendOTP] = useResendOTPMutation();
+
+  useEffect(() => {
+    if (!user) navigate("/register");
+  }, [user, navigate]);
 
   useEffect(() => {
     if (timer > 0) {
@@ -35,24 +38,41 @@ const OtpPage = () => {
     setOtp(newOtp);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (otp.join("") === "123456") {
-      setSuccessMessage("Registrasi berhasil");
+    const userId = user.id;
+    const otpCode = otp.join("");
+
+    try {
+      await sendOTP({ userId, otp: otpCode }).unwrap();
+      setOtpError("");
+      setSuccessMessage("Registrasi berhasil!");
+      localStorage.clear();
       setTimeout(() => {
-        navigate("/");
+        navigate("/login");
       }, 2000);
-    } else {
-      setOtpError("Maaf, kode OTP salah!");
+    } catch (error) {
+      console.log(error);
+      if (error.status == 400) {
+        setOtpError(`Maaf, ${error.data?.payload.message}!`);
+      } else {
+        setOtpError(error.data?.payload.message);
+      }
       setSuccessMessage("");
+      setOtp(["", "", "", "", "", ""]);
     }
   };
 
-  const resendOtp = () => {
-    setTimer(60);
-    setOtpError("");
-    setSuccessMessage("");
+  const handleResendOtp = () => {
+    try {
+      resendOTP(user.id);
+      setTimer(60);
+      setOtpError("");
+      setSuccessMessage("");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -61,7 +81,10 @@ const OtpPage = () => {
       <div className="flex justify-center items-center min-h-screen">
         <div className="w-[900px] h-[600px] bg-white p-8 flex flex-col items-center">
           <div
-            onClick={() => navigate("/register")}
+            onClick={() => {
+              localStorage.clear();
+              navigate("/register");
+            }}
             className="cursor-pointer self-start"
           >
             <img src="/arrow-left-black.png" alt="Back" className="w-6 h-6" />
@@ -72,7 +95,7 @@ const OtpPage = () => {
           </h2>
           <p className="text-center mb-12 text-sm text-black">
             Ketik 6 digit kode yang dikirimkan ke{" "}
-            {email.replace(/(.{1}).+(@.*)/, "$1*****$2")}
+            {user?.email.replace(/(.{1}).+(@.*)/, "$1*****$2")}
           </p>
 
           <OtpInput value={otp} onChange={handleOtpChange} />
@@ -84,22 +107,23 @@ const OtpPage = () => {
           ) : (
             <p
               className="text-center text-red-500 text-sm mt-6 cursor-pointer"
-              onClick={resendOtp}
+              onClick={handleResendOtp}
             >
               Kirim Ulang
             </p>
           )}
 
           <Button
-            text="Simpan"
-            color="bg-purple-800"
             onClick={handleSubmit}
-            className="mt-32 w-[568px] rounded-2xl"
-          />
+            className="mt-32 w-[568px] rounded-2xl bg-purple-800"
+            disabled={isLoading}
+          >
+            {isLoading ? "Loading..." : isSuccess ? "Redirecting..." : "Simpan"}
+          </Button>
 
-          <div className="w-[273px] max-w-md mt-52">
+          <div className="w-fit mt-16">
             {otpError && (
-              <div className="px-4 py-2 bg-red-500 text-center text-white rounded-xl text-sm">
+              <div className="px-10 py-2 bg-red-500 text-center text-white rounded-xl text-sm">
                 <ul>
                   <li>{otpError}</li>
                 </ul>
