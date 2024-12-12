@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Button from "../components/Button";
+import { Button } from "@material-tailwind/react";
 import OtpHeader from "../components/OtpHeader";
 import OtpInput from "../components/OtpInput";
 
@@ -91,11 +91,11 @@ const OtpPage = () => {
           )}
 
           <Button
-            text="Simpan"
-            color="bg-purple-800"
             onClick={handleSubmit}
-            className="mt-32 w-[568px] rounded-2xl"
-          />
+            className="mt-32 w-[568px] rounded-2xl bg-purple-800"
+          >
+            Simpan
+          </Button>
 
           <div className="w-[273px] max-w-md mt-52">
             {otpError && (
