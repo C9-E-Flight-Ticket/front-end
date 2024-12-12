@@ -10,6 +10,30 @@ export const authApi = api.injectEndpoints({
         body: credentials,
       }),
     }),
+    register: build.mutation({
+      query: (credentials) => ({
+        url: `/api/auth/register`,
+        method: "POST",
+        credentials: "include",
+        body: credentials,
+      }),
+    }),
+    verifyEmail: build.mutation({
+      query: ({ userId, otp }) => ({
+        url: `/api/auth/verify-email/${userId}`,
+        method: "POST",
+        credentials: "include",
+        body: { otp },
+      }),
+    }),
+    resendOTP: build.mutation({
+      query: ({ userId, otp }) => ({
+        url: `/api/auth/resend-otp/${userId}`,
+        method: "POST",
+        credentials: "include",
+        body: { otp },
+      }),
+    }),
   }),
 });
 
