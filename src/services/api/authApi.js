@@ -27,11 +27,10 @@ export const authApi = api.injectEndpoints({
       }),
     }),
     resendOTP: build.mutation({
-      query: ({ userId, otp }) => ({
+      query: (userId) => ({
         url: `/api/auth/resend-otp/${userId}`,
         method: "POST",
         credentials: "include",
-        body: { otp },
       }),
     }),
   }),

@@ -20,6 +20,10 @@ const RegisterPage = () => {
 
   const [userRegister, { isLoading, isSuccess }] = useRegisterMutation();
 
+  // localStorage.setItem(
+  //   "user",
+  //   JSON.stringify({ id: 6, email: "fatihuliqmalzzz@gmail.com" })
+  // );
   const handleError = (field, message) => {
     setError(field, {
       type: "manual",
@@ -37,7 +41,10 @@ const RegisterPage = () => {
         phoneNumber,
         password,
       }).unwrap();
-      localStorage.setItem("userId", response.payload?.datas.user.id);
+      localStorage.setItem(
+        "user",
+        JSON.stringify(response.payload?.datas.user)
+      );
     } catch (error) {
       console.log(error);
       if (error.status == 400) {
