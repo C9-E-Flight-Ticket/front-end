@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import InputField from "../components/InputField";
@@ -6,6 +5,7 @@ import { Button } from "@material-tailwind/react";
 import AuthLayout from "../layouts/AuthLayout";
 import Notification from "../components/Notification";
 import { useRegisterMutation } from "@/services/api/authApi";
+import { useEffect } from "react";
 Button;
 
 const RegisterPage = () => {
@@ -20,10 +20,10 @@ const RegisterPage = () => {
 
   const [userRegister, { isLoading, isSuccess }] = useRegisterMutation();
 
-  // localStorage.setItem(
-  //   "user",
-  //   JSON.stringify({ id: 6, email: "fatihuliqmalzzz@gmail.com" })
-  // );
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+
   const handleError = (field, message) => {
     setError(field, {
       type: "manual",
