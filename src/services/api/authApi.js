@@ -37,4 +37,9 @@ export const authApi = api.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useResendOTPMutation,
+  useVerifyEmailMutation,
+} = authApi;

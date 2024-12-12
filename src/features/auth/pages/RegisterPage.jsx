@@ -5,6 +5,7 @@ import InputField from "../components/InputField";
 import { Button } from "@material-tailwind/react";
 import AuthLayout from "../layouts/AuthLayout";
 import Notification from "../components/Notification";
+import { useRegisterMutation } from "@/services/api/authApi";
 Button;
 
 const RegisterPage = () => {
@@ -13,21 +14,41 @@ const RegisterPage = () => {
     register,
     handleSubmit,
     watch,
+    setError,
     formState: { errors },
   } = useForm();
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [userRegister, { isLoading, isSuccess }] = useRegisterMutation();
 
-  const onSubmit = (data) => {
-    console.log("Form Data:", data);
-    setIsLoading(true);
-    setIsSuccess(true);
+  const handleError = (field, message) => {
+    setError(field, {
+      type: "manual",
+      message: message || "Network Error",
+    });
+  };
+
+  async function onSubmit(data) {
+    const { name, email, phone: phoneNumber, password } = data;
+
+    try {
+      const response = await userRegister({
+        name,
+        email,
+        phoneNumber,
+        password,
+      }).unwrap();
+      localStorage.setItem("userId", response.payload?.datas.user.id);
+    } catch (error) {
+      console.log(error);
+      if (error.status == 400) {
+        handleError("email", error.data?.payload.message);
+      }
+    }
 
     setTimeout(() => {
       navigate("/otp", { state: { email: data.email } });
     }, 2000);
-  };
+  }
 
   return (
     <AuthLayout page="register">
