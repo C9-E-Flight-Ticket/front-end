@@ -1,3 +1,5 @@
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const InputField = ({
@@ -33,6 +35,11 @@ const InputField = ({
     (type === "email/phoneNumber" && isEmailOrPhoneNumberValid);
 
   const navigate = useNavigate();
+  const [isShowed, setIsShowed] = useState(false);
+
+  function handleShowPassword() {
+    setIsShowed((prev) => !prev);
+  }
 
   return (
     <div className="w-full" style={{ width: "452px", marginBottom: "16px" }}>
@@ -52,7 +59,7 @@ const InputField = ({
       <div className="relative">
         <input
           {...register(name, rules)}
-          type={type}
+          type={type != "password" ? type : isShowed ? "text" : "password"}
           placeholder={placeholder}
           className="w-full"
           style={{
@@ -64,7 +71,25 @@ const InputField = ({
             outline: "none",
           }}
         />
-        {value?.length > 0 && (
+
+        {type === "password" && isShowed && (
+          <EyeIcon
+            className={`text-gray-800 absolute right-3 top-1/2 transform -translate-y-1/2 w-6 h-6 hover:cursor-pointer ${
+              error && "text-red-500"
+            }`}
+            onClick={handleShowPassword}
+          />
+        )}
+        {type === "password" && !isShowed && (
+          <EyeSlashIcon
+            className={`text-gray-800 absolute right-3 top-1/2 transform -translate-y-1/2 w-6 h-6 hover:cursor-pointer ${
+              error && "text-red-500"
+            }`}
+            onClick={handleShowPassword}
+          />
+        )}
+
+        {value?.length > 0 && type != "password" && (
           <img
             src={isValid && !error ? "/icon-check.png" : "/icon-x.png"}
             alt={isValid && !error ? "Valid" : "Invalid"}
