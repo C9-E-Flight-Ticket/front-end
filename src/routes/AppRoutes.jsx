@@ -26,9 +26,9 @@ const routes = [
   {
     path: "/payment",
     element: (
-      <ProtectedRoute>
-        <Payment />
-      </ProtectedRoute>
+      // <ProtectedRoute>
+      <Payment />
+      // </ProtectedRoute>
     ),
   },
   {
