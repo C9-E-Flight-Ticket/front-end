@@ -2,8 +2,17 @@ import TicketSearching from "@/features/homepage/layouts/TicketSearching";
 import Destination from "../components/Destination";
 import Banner from "../layouts/Banner";
 import MainLayout from "@/layouts/MainLayout";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { resetFlightState } from "@/services/flightSlice";
 
 export default function Homepage() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(resetFlightState());
+  }, [dispatch]);
+
   return (
     <MainLayout className={"mb-0"}>
       <Banner />

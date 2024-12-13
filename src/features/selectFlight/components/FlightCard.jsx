@@ -6,10 +6,8 @@ import {
 } from "@material-tailwind/react";
 import Icon from "./Icon";
 import FlightDetail from "./FlightDetail";
-import { flightDetailsData } from "../data/flightDetailsData";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { dateToTime, formatNumberToRupiah } from "@/utils/helper";
-import { changeDepartureFlight } from "@/services/flightSlice";
 
 export default function FlightCard({
   flight,
@@ -20,14 +18,12 @@ export default function FlightCard({
   const { seatClass } = useSelector((state) => state.homepage);
 
   const priceColorClass = flight.id === 2 ? "text-red-600" : "text-purple-800";
-  const dispatch = useDispatch();
 
   const handleSelectTicket = (e) => {
     e.stopPropagation();
     if (onSelectFlight) {
       onSelectFlight(flight);
     }
-    dispatch(changeDepartureFlight(1));
   };
 
   return (

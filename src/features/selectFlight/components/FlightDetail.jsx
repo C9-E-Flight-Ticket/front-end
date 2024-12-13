@@ -2,7 +2,6 @@ import { dateToTime } from "@/utils/helper.js";
 // import { flightDetailsData } from "../data/flightDetailsData.js";
 import { useSelector } from "react-redux";
 const FlightDetail = ({ flight }) => {
-  console.log(flight);
   const additionalDetails = [
     { id: 1, text: "No stopover" },
     { id: 2, text: "Free meal included" },
