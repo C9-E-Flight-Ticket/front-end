@@ -31,7 +31,7 @@ const Login = () => {
         email: data["email/phoneNumber"],
         password: data.password,
       }).unwrap();
-      const token = response.payload?.datas;
+      const token = response.payload?.data;
 
       Cookies.set("token", token);
       setTimeout(() => {

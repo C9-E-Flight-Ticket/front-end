@@ -49,7 +49,7 @@ export default function FlightSelectionPage() {
   const [accordionOpen, setAccordionOpen] = useState(null);
   const [selectedDepartureFlight, setSelectedDepartureFlight] = useState(null);
 
-  const flightData = data?.payload?.datas;
+  const flightData = data?.payload?.data;
 
   function handleOpen(value) {
     setAccordionOpen(accordionOpen === value ? null : value);

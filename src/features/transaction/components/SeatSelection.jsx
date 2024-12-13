@@ -28,7 +28,7 @@ const SeatSelection = () => {
     { refetchOnMountOrArgChange: true }
   );
 
-  const seats = data?.payload?.datas?.flights[0]?.seats || [];
+  const seats = data?.payload?.data?.flights[0]?.seats || [];
   // console.log(apiData);
   // console.log(seats);
   // console.log(selectedSeatsPergi);
