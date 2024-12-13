@@ -27,7 +27,7 @@ const FlightDetail = ({ selectedTicketId }) => {
   const grandTotal = totalAdultPrice + totalChildrenPrice + tax;
 
   return (
-    <div className="fixed">
+    <div className="fixed hidden md:block sm:block">
       <div className="flex items-center">
         <p className="mb-[6px] text-[18px] font-bold ">Detail Pesanan</p>
         <div className="flex justify-end ml-auto">
