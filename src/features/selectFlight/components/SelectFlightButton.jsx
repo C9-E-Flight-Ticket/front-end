@@ -20,7 +20,7 @@ const days = [
 
 import { useNavigate } from "react-router-dom";
 import { switchSearchCity, updateFlightDate } from "@/services/homepageSlice";
-import { changeFlightStage } from "@/services/flightSlice";
+import { changeFlightStage, resetFlightState } from "@/services/flightSlice";
 
 const SelectFlightButton = () => {
   const currentDate = new Date().toISOString();
@@ -43,17 +43,6 @@ const SelectFlightButton = () => {
     }
   }, [stage, flightDate, isReturnToggleActive]);
 
-  /**
- * Ready For Return Flight
-    dispatch(
-      updateFlightDate(
-        isReturnToggleActive
-        ? { ...flightDate, from: formatDateToDash(date) }
-        : formatDateToDash(date)
-      )
-    );
-    */
-
   const handleSelectDay = (date) => {
     setSelectedDate(formatDateToDash(date));
     dispatch(
@@ -69,7 +58,6 @@ const SelectFlightButton = () => {
 
   const handleBackToHomepage = () => {
     if (stage == "return") dispatch(switchSearchCity());
-    dispatch(changeFlightStage("departure"));
     navigate("/");
   };
 

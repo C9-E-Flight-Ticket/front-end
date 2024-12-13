@@ -6,8 +6,8 @@ import FlightEmpty from "../components/FlightEmpty";
 import LoadingTicket from "../components/LoadingTicket";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetTicketBySearchingQuery } from "@/services/api/flightApi";
-import { useState } from "react";
-import { changeFlightStage } from "@/services/flightSlice";
+import { useEffect, useState } from "react";
+import { resetFlightState } from "@/services/flightSlice";
 import SelectOrderCard from "../components/SelectOrderCard";
 import { switchSearchCity } from "@/services/homepageSlice";
 import { useNavigate } from "react-router-dom";
@@ -42,25 +42,26 @@ export default function FlightSelectionPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  if (!flightDate) navigate("/");
+  useEffect(() => {
+    if (!flightDate) navigate("/");
+  }, [flightDate, navigate]);
 
   const [accordionOpen, setAccordionOpen] = useState(null);
   const [selectedDepartureFlight, setSelectedDepartureFlight] = useState(null);
-  const [selectedReturnFlight, setSelectedReturnFlight] = useState(null);
 
-  const flightData = data?.payload?.datas;
+  const flightData = data?.payload?.data;
 
-  const handleOpen = (value) => {
+  function handleOpen(value) {
     setAccordionOpen(accordionOpen === value ? null : value);
-  };
+  }
 
-  const handleReset = () => {
-    dispatch(changeFlightStage("departure"));
-    dispatch(switchSearchCity());
+  function handleReset() {
+    if (stage == "return") dispatch(switchSearchCity());
+
+    dispatch(resetFlightState());
     setSelectedDepartureFlight(null);
-    setSelectedReturnFlight(null);
     setAccordionOpen(null);
-  };
+  }
 
   return (
     <>
@@ -74,10 +75,12 @@ export default function FlightSelectionPage() {
           }`}
         >
           <FilterCard />
-          <SelectOrderCard
-            selectedFlight={selectedDepartureFlight}
-            onClose={handleReset}
-          />
+          {selectedDepartureFlight && (
+            <SelectOrderCard
+              selectedFlight={selectedDepartureFlight}
+              onClose={handleReset}
+            />
+          )}
         </div>
 
         {!isLoading && flightData?.length > 0 && !isError && !isFetching && (
@@ -88,7 +91,6 @@ export default function FlightSelectionPage() {
               setOpen={setAccordionOpen}
               open={accordionOpen}
               setSelectedDepartureFlight={setSelectedDepartureFlight}
-              setSelectedReturnFlight={setSelectedReturnFlight}
             />
           </div>
         )}

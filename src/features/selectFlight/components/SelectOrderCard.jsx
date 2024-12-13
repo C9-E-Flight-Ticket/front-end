@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 
 const SelectOrderCard = ({ selectedFlight, onClose }) => {
   const { seatClass } = useSelector((state) => state.homepage);
-  if (!selectedFlight) return null;
 
   return (
     <Card

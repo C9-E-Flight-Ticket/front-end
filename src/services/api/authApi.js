@@ -6,7 +6,6 @@ export const authApi = api.injectEndpoints({
       query: (credentials) => ({
         url: `/api/auth/login`,
         method: "POST",
-        credentials: "include",
         body: credentials,
       }),
     }),
@@ -14,7 +13,6 @@ export const authApi = api.injectEndpoints({
       query: (credentials) => ({
         url: `/api/auth/register`,
         method: "POST",
-        credentials: "include",
         body: credentials,
       }),
     }),
@@ -22,7 +20,6 @@ export const authApi = api.injectEndpoints({
       query: ({ userId, otp }) => ({
         url: `/api/auth/verify-email/${userId}`,
         method: "POST",
-        credentials: "include",
         body: { otp },
       }),
     }),
@@ -30,7 +27,6 @@ export const authApi = api.injectEndpoints({
       query: (userId) => ({
         url: `/api/auth/resend-otp/${userId}`,
         method: "POST",
-        credentials: "include",
       }),
     }),
   }),

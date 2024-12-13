@@ -33,7 +33,7 @@ const Destination = ({ className }) => {
   );
 
   const pagination = data?.pagination;
-  const flightData = data?.payload.datas;
+  const flightData = data?.payload.data;
 
   useEffect(() => {
     setOffset(0);

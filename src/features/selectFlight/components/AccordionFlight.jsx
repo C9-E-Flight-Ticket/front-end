@@ -1,14 +1,16 @@
-import { useState } from "react";
 import FlightCard from "./FlightCard";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { changeFlightStage } from "@/services/flightSlice";
+import {
+  changeDepartureFlight,
+  changeFlightStage,
+  changeReturnFlight,
+} from "@/services/flightSlice";
 import { switchSearchCity } from "@/services/homepageSlice";
 
 export default function AccordionFlight({
   flightData,
   setSelectedDepartureFlight,
-  setSelectedReturnFlight,
   setOpen,
   handleOpen,
   open,
@@ -22,21 +24,21 @@ export default function AccordionFlight({
   const handleSelectDeparture = (flight) => {
     setSelectedDepartureFlight(flight);
     setOpen(null);
+
     isReturnToggleActive
-      ? dispatch(changeFlightStage())
+      ? dispatch(changeFlightStage("return"))
       : navigate("/transaction");
+
+    dispatch(changeDepartureFlight(flight.id));
     dispatch(switchSearchCity());
   };
 
   const handleSelectReturn = (flight) => {
-    setSelectedReturnFlight(flight);
-    dispatch(changeFlightStage());
-    navigate("/transaction", {
-      // state: {
-      //   departureFlight: selectedDeparture,
-      //   returnFlight: flight,
-      // },
-    });
+    dispatch(changeReturnFlight(flight.id));
+    dispatch(changeFlightStage("departure"));
+    dispatch(switchSearchCity());
+
+    navigate("/transaction");
   };
 
   return (

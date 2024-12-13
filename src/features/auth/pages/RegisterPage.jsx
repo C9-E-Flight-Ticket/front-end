@@ -41,10 +41,7 @@ const RegisterPage = () => {
         phoneNumber,
         password,
       }).unwrap();
-      localStorage.setItem(
-        "user",
-        JSON.stringify(response.payload?.datas.user)
-      );
+      localStorage.setItem("user", JSON.stringify(response.payload?.data.user));
     } catch (error) {
       console.log(error);
       if (error.status == 400) {

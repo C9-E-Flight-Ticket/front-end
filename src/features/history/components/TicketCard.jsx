@@ -115,7 +115,10 @@ const TicketCard = ({ onSelectTicket }) => {
                 </div>
                 <div className="w-[100px] h-[36x] py-[8px] flex items-center ">
                   <p className="text-[14px] text-primaryPurple font-bold ">
-                    IDR {calculateTotalPrice(ticket.flightInfo.penumpang)}
+                    IDR{" "}
+                    {calculateTotalPrice(
+                      ticket.flightInfo.penumpang
+                    ).toLocaleString("id-ID")}
                   </p>
                 </div>
               </div>

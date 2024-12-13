@@ -7,6 +7,7 @@ import { Button } from "@material-tailwind/react";
 import Notification from "../components/Notification";
 import { useLoginMutation } from "@/services/api/authApi";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Login = () => {
   const [login, { isLoading, isSuccess }] = useLoginMutation();
@@ -19,13 +20,18 @@ const Login = () => {
   } = useForm();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+
   async function onSubmit(data) {
     try {
       const response = await login({
         email: data["email/phoneNumber"],
         password: data.password,
       }).unwrap();
-      const token = response.payload?.datas;
+      const token = response.payload?.data;
 
       Cookies.set("token", token);
       setTimeout(() => {
