@@ -8,11 +8,17 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 import { useSelector } from "react-redux";
+import { useGetDetailFlightQuery } from "@/services/api/detailFlightApi";
 
 const FlightDetail = () => {
   const [activeTab, setActiveTab] = React.useState("pergi");
   const { isReturnToggleActive } = useSelector((state) => state.homepage);
-  const data = [
+  const { departureFlightId, returnFlightId } = useSelector(
+    (state) => state.flight
+  );
+  console.log("departureId", departureFlightId);
+
+  const flight = [
     {
       label: "Pergi",
       value: "pergi",
@@ -54,7 +60,7 @@ const FlightDetail = () => {
                 "bg-transparent border-b-2 border-gray-900 shadow-none rounded-none",
             }}
           >
-            {data.map(({ label, value }) => (
+            {flight.map(({ label, value }) => (
               <Tab
                 key={value}
                 value={value}
@@ -68,7 +74,7 @@ const FlightDetail = () => {
         )}
 
         <TabsBody>
-          {data.map(({ value, desc }) => (
+          {flight.map(({ value, desc }) => (
             <TabPanel className="text-black" key={value} value={value}>
               {desc}
             </TabPanel>

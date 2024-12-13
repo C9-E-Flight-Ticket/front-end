@@ -6,7 +6,6 @@ import {
 } from "@material-tailwind/react";
 import Icon from "./Icon";
 import FlightDetail from "./FlightDetail";
-import { flightDetailsData } from "../data/flightDetailsData";
 import { useSelector } from "react-redux";
 import { dateToTime, formatNumberToRupiah } from "@/utils/helper";
 
