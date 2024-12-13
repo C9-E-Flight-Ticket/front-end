@@ -48,7 +48,7 @@ const OtpPage = () => {
       await sendOTP({ userId, otp: otpCode }).unwrap();
       setOtpError("");
       setSuccessMessage("Registrasi berhasil!");
-      localStorage.clear();
+
       setTimeout(() => {
         navigate("/login");
       }, 2000);
