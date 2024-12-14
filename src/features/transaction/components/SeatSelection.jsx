@@ -29,6 +29,7 @@ const SeatSelection = () => {
   );
 
   const seats = data?.payload?.data?.flights[0]?.seats || [];
+  console.log(data);
   // console.log(apiData);
   // console.log(seats);
   // console.log(selectedSeatsPergi);
