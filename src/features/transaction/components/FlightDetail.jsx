@@ -8,7 +8,6 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 import { useSelector } from "react-redux";
-import { useGetDetailFlightQuery } from "@/services/api/detailFlightApi";
 
 const FlightDetail = () => {
   const [activeTab, setActiveTab] = React.useState("pergi");

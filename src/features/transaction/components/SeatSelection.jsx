@@ -7,7 +7,7 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
-import { useGetDetailFlightQuery } from "@/services/api/detailFlightApi";
+import { useGetDetailFlightQuery } from "@/services/api/flightApi";
 
 const SeatSelection = () => {
   const { seatClass, passengers, isReturnToggleActive } = useSelector(
