@@ -57,4 +57,10 @@ export const transactionApi = api.injectEndpoints({
   }),
 });
 
-export const { useGetAllUserTransactionsQuery } = transactionApi;
+export const {
+  useGetAllUserTransactionsQuery,
+  useGetTransactionByBookingCodeQuery,
+  useCreateTransactionMutation,
+  useGeneratePDFQuery,
+  useDownloadPDFQuery,
+} = transactionApi;
