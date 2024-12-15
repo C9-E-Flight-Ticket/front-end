@@ -1,9 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
 import homepageReducer from "@/services/homepageSlice";
 import flightReducer from "@/services/flightSlice";
+import { configureStore } from "@reduxjs/toolkit";
 import { flightApi } from "@/services/api/flightApi";
 import { authApi } from "@/services/api/authApi";
-import { ticketApi } from "@/services/api/ticketApi";
+import { transactionApi } from "@/services/api/transactionApi";
 
 const store = configureStore({
   reducer: {
@@ -11,14 +11,14 @@ const store = configureStore({
     flight: flightReducer,
     [flightApi.reducerPath]: flightApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
-    [ticketApi.reducerPath]: ticketApi.reducer,
+    [transactionApi.reducerPath]: transactionApi.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(flightApi.middleware)
       .concat(authApi.middleware)
-      .concat(ticketApi.middleware),
+      .concat(transactionApi.middleware),
 });
 
 export default store;
