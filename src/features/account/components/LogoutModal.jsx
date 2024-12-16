@@ -3,17 +3,29 @@ import { resetFlightState } from "@/services/flightSlice";
 import { resetHomepageState } from "@/services/homepageSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useLogoutQuery } from "@/services/api/authApi";
 const LogoutModal = ({ handleLogoutModal }) => {
+  const { refetch: logoutQuery } = useLogoutQuery();
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   function handleLogout() {
-    Cookie.remove("access_token");
+    if (import.meta.env.VITE_NODE_ENV != "production") {
+      Cookie.remove("access_token");
+    } else {
+      try {
+        logoutQuery();
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
     dispatch(resetHomepageState());
     dispatch(resetFlightState());
     navigate("/login");
   }
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-[100]">
       <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 py-2 px-4 bg-white rounded-2xl">
