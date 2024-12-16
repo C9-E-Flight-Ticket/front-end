@@ -8,7 +8,7 @@ import { useState } from "react";
 
 const LogoutModal = ({ handleLogoutModal }) => {
   const [fetch, setFetch] = useState(true);
-  useLogoutQuery(null, { skip: fetch });
+  const { refetch: logoutQuery } = useLogoutQuery(null, { skip: fetch });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,6 +19,7 @@ const LogoutModal = ({ handleLogoutModal }) => {
         Cookie.remove("access_token");
       } else {
         setFetch(false);
+        logoutQuery();
       }
 
       dispatch(resetHomepageState());
