@@ -115,7 +115,7 @@ const SeatSelection = () => {
 
   const renderSeatMap = (isPergi = true) => {
     return (
-      <div className="flex justify-center gap-4">
+      <div className="flex justify-center gap-2 sm:gap-3 lg:gap-4">
         <div>
           <div
             className={`grid ${
@@ -128,12 +128,12 @@ const SeatSelection = () => {
                 : seatClass === "First Class"
                 ? "grid-cols-2 "
                 : "grid-cols-3 "
-            } gap-x-4 gap-y-3 text-gray-600`}
+            } gap-x-2 gap-y-2 sm:gap-x-3 lg:gap-x-4 lg:gap-y-3 text-gray-600`}
           >
             {leftRows.map((row) => (
               <div
                 key={row}
-                className="flex items-center justify-center w-12 h-12 font-bold"
+                className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 lg:w-12 lg:h-12 font-bold"
               >
                 {row}
               </div>
@@ -150,7 +150,7 @@ const SeatSelection = () => {
                 : seatClass === "First Class"
                 ? "grid-cols-2 "
                 : "grid-cols-3 "
-            } gap-x-4 gap-y-3`}
+            } gap-x-2 gap-y-2 sm:gap-x-3 lg:gap-x-4 lg:gap-y-3`}
           >
             {Array.from(
               { length: layout.endRow - layout.startRow + 1 },
@@ -169,7 +169,7 @@ const SeatSelection = () => {
                     onClick={() =>
                       isAvailable && toggleSeat(seatNumber, isPergi)
                     }
-                    className={`w-12 h-12 flex items-center justify-center border rounded ${
+                    className={`w-8 h-8 sm:w-9 sm:h-9 lg:w-12 lg:h-12 flex items-center justify-center border rounded ${
                       !isAvailable
                         ? "bg-gray-400 cursor-not-allowed text-white"
                         : label
@@ -186,14 +186,14 @@ const SeatSelection = () => {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-center pt-12 gap-y-3">
+        <div className="flex flex-col items-center justify-center pt-8 sm:pt-9 lg:pt-12 gap-y-2 lg:gap-y-3">
           {Array.from(
             { length: layout.endRow - layout.startRow + 1 },
             (_, i) => layout.startRow + i
           ).map((col) => (
             <div
               key={col}
-              className="flex items-center justify-center w-6 h-12 font-medium text-gray-600 border rounded-lg bg-gray-200"
+              className="flex items-center justify-center w-5 h-8 sm:w-6 sm:h-9 lg:h-12 font-medium text-sm md:text-base text-gray-600 border rounded-lg bg-gray-200"
             >
               {col}
             </div>
@@ -212,12 +212,12 @@ const SeatSelection = () => {
                 : seatClass === "First Class"
                 ? "grid-cols-2 "
                 : "grid-cols-3 "
-            } gap-x-4 gap-y-3 text-gray-600`}
+            } gap-x-2 gap-y-2 sm:gap-x-3 lg:gap-x-4 lg:gap-y-3 text-gray-600`}
           >
             {rightRows.map((row) => (
               <div
                 key={row}
-                className="flex items-center justify-center w-12 h-12 font-bold"
+                className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 lg:w-12 lg:h-12 font-bold"
               >
                 {row}
               </div>
@@ -234,7 +234,7 @@ const SeatSelection = () => {
                 : seatClass === "First Class"
                 ? "grid-cols-2 "
                 : "grid-cols-3 "
-            } gap-x-4 gap-y-3`}
+            } gap-x-2 gap-y-2 sm:gap-x-3 lg:gap-x-4 lg:gap-y-3`}
           >
             {Array.from(
               { length: layout.endRow - layout.startRow + 1 },
@@ -253,7 +253,7 @@ const SeatSelection = () => {
                     onClick={() =>
                       isAvailable && toggleSeat(seatNumber, isPergi)
                     }
-                    className={`w-12 h-12 flex items-center justify-center border rounded ${
+                    className={`w-8 h-8 sm:w-9 sm:h-9 lg:w-12 lg:h-12 flex items-center justify-center border rounded ${
                       !isAvailable
                         ? "bg-gray-400 cursor-not-allowed text-white"
                         : label
@@ -275,7 +275,7 @@ const SeatSelection = () => {
 
   return (
     <div className="w-full p-5 mx-auto">
-      <div className="p-5 border border-gray-300">
+      <div className="p-3 md:p-5 border border-gray-300">
         <h1 className="mb-2 text-xl font-semibold">Pilih Kursi</h1>
 
         <Tabs value={activeTrip}>
@@ -300,7 +300,7 @@ const SeatSelection = () => {
           )}
 
           <TabsBody>
-            <TabPanel key="Pergi" value="Pergi">
+            <TabPanel className="p-2 md:p-4" key="Pergi" value="Pergi">
               <div className="p-3 text-center rounded-md bg-green-500">
                 <p className="text-xs font-normal text-white">
                   {seatClass} - {totalSeats} Seats available
