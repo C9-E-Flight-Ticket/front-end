@@ -3,12 +3,10 @@ import { resetFlightState } from "@/services/flightSlice";
 import { resetHomepageState } from "@/services/homepageSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useLogoutQuery } from "@/services/api/authApi";
-import { useState } from "react";
+import { useLogoutMutation } from "@/services/api/authApi";
 
 const LogoutModal = ({ handleLogoutModal }) => {
-  const [fetch, setFetch] = useState(true);
-  const { refetch: logoutQuery } = useLogoutQuery(null, { skip: fetch });
+  const [logoutQuery] = useLogoutMutation();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,7 +16,6 @@ const LogoutModal = ({ handleLogoutModal }) => {
       if (import.meta.env.VITE_NODE_ENV !== "production") {
         Cookie.remove("access_token");
       } else {
-        setFetch(false);
         await logoutQuery().unwrap();
       }
       dispatch(resetHomepageState());

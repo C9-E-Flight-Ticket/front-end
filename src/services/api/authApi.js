@@ -16,7 +16,7 @@ export const authApi = api.injectEndpoints({
         body: credentials,
       }),
     }),
-    logout: build.query({
+    logout: build.mutation({
       query: () => ({
         url: `/api/auth/logout`,
         method: "GET",
@@ -68,7 +68,7 @@ export const authApi = api.injectEndpoints({
 export const {
   useLoginMutation,
   useRegisterMutation,
-  useLogoutQuery,
+  useLogoutMutation,
   useResendOTPMutation,
   useVerifyEmailMutation,
   useRequestForgotPasswordByEmailMutation,
