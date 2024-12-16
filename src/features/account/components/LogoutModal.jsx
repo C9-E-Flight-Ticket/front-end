@@ -21,13 +21,12 @@ const LogoutModal = ({ handleLogoutModal }) => {
         setFetch(false);
         logoutQuery();
       }
-
-      dispatch(resetHomepageState());
-      dispatch(resetFlightState());
-      navigate("/login");
     } catch (error) {
       console.log(error);
     }
+    dispatch(resetHomepageState());
+    dispatch(resetFlightState());
+    navigate("/login");
   };
 
   return (
