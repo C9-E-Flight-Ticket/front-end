@@ -4,9 +4,11 @@ import { resetHomepageState } from "@/services/homepageSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLogoutQuery } from "@/services/api/authApi";
+import { useState } from "react";
 
 const LogoutModal = ({ handleLogoutModal }) => {
-  const { refetch: logoutQuery } = useLogoutQuery(null, { skip: true });
+  const [fetch, setFetch] = useState(true);
+  useLogoutQuery(null, { skip: fetch });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -16,7 +18,7 @@ const LogoutModal = ({ handleLogoutModal }) => {
       if (import.meta.env.VITE_NODE_ENV !== "production") {
         Cookie.remove("access_token");
       } else {
-        await logoutQuery();
+        setFetch(false);
       }
 
       dispatch(resetHomepageState());
