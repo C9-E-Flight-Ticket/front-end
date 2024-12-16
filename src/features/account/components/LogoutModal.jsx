@@ -19,7 +19,7 @@ const LogoutModal = ({ handleLogoutModal }) => {
         Cookie.remove("access_token");
       } else {
         setFetch(false);
-        logoutQuery();
+        await logoutQuery().unwrap();
       }
       dispatch(resetHomepageState());
       dispatch(resetFlightState());
