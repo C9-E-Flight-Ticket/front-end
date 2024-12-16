@@ -10,8 +10,8 @@ const HistoryContent = () => {
   });
 
   const transactionData = data?.payload?.data || [];
-  const firstId = transactionData.length > 0 ? transactionData[0].id : null;
-  const [activeTicket, setActiveTicket] = useState(firstId);
+  // const firstId = transactionData.length - 1;
+  const [activeTicket, setActiveTicket] = useState(23);
 
   console.log(transactionData);
 
@@ -33,13 +33,13 @@ const HistoryContent = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="w-[500px] mt-[270px] mr-[50px]">
+      <div className="w-[500px] mt-[240px] mr-[50px]">
         <TicketCard
           onSelectTicket={handleSelectTicket}
           data={transactionData}
         />
       </div>
-      <div className="w-[346px] mt-[270px]">
+      <div className="w-[346px] mt-[250px]">
         <FlightDetail selectedTicketId={activeTicket} data={transactionData} />
       </div>
     </div>
