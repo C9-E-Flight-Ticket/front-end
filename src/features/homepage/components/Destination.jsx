@@ -80,7 +80,7 @@ const Destination = ({ className }) => {
               departureDate={"20"}
               returnDate={"30 Maret 2024"}
               price={formatNumberToRupiah(flight.seats[0]?.price)}
-              image={flight.departureAirport.urlImage}
+              image={flight.arrivalAirport.urlImage}
             />
           ))}
         </div>
