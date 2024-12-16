@@ -8,7 +8,6 @@ const LogoutModal = ({ handleLogoutModal }) => {
   const dispatch = useDispatch();
 
   function handleLogout() {
-    Cookie.remove("token");
     Cookie.remove("access_token");
 
     dispatch(resetHomepageState());

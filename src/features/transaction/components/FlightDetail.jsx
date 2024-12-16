@@ -8,7 +8,6 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 import { useSelector } from "react-redux";
-import { useGetDetailFlightQuery } from "@/services/api/detailFlightApi";
 
 const FlightDetail = () => {
   const [activeTab, setActiveTab] = React.useState("pergi");
@@ -50,7 +49,9 @@ const FlightDetail = () => {
   ];
   return (
     <>
-      <h2 className="text-lg font-bold text-black mb-4">Detail Penerbangan</h2>
+      <h2 className="pl-2 md:pl-0 text-base lg:text-lg font-bold text-black mb-4">
+        Detail Penerbangan
+      </h2>
       <Tabs value={activeTab}>
         {isReturnToggleActive && (
           <TabsHeader

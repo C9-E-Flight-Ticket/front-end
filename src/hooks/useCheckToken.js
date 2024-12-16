@@ -1,17 +1,15 @@
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 const useCheckToken = () => {
-  const accessToken = Cookies.get("token");
   const access_token = Cookies.get("access_token");
-  console.log("access_token : ", access_token);
 
-  if (!accessToken) {
+  if (!access_token) {
     console.log("Token not found");
     return false;
   }
 
   try {
-    const decodedToken = jwtDecode(accessToken);
+    const decodedToken = jwtDecode(access_token);
     const currentTime = Math.floor(Date.now() / 1000); // Waktu saat ini dalam detik
 
     if (decodedToken.exp && decodedToken.exp < currentTime) {

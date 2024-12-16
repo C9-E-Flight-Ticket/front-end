@@ -13,6 +13,7 @@ import Login from "@/features/auth/pages/Login";
 import ProtectedRoute from "@/utils/ProtectedRoute";
 import ResetPassword from "@/features/auth/pages/ResetPassword";
 import SelectFlight from "@/features/selectFlight/pages/SelectFlight";
+import EmailVerificationForResetPassword from "@/features/auth/pages/EmailVerificationForResetPassword";
 
 const routes = [
   {
@@ -26,9 +27,9 @@ const routes = [
   {
     path: "/payment",
     element: (
-      // <ProtectedRoute>
-      <Payment />
-      // </ProtectedRoute>
+      <ProtectedRoute>
+        <Payment />
+      </ProtectedRoute>
     ),
   },
   {
@@ -82,6 +83,10 @@ const routes = [
   {
     path: "/reset-password",
     element: <ResetPassword />,
+  },
+  {
+    path: "/reset-password/email-verification",
+    element: <EmailVerificationForResetPassword />,
   },
   {
     path: "/login",

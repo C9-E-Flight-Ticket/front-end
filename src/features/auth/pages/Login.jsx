@@ -33,7 +33,9 @@ const Login = () => {
       }).unwrap();
       const token = response.payload?.data;
 
-      Cookies.set("token", token);
+      if (import.meta.env.VITE_NODE_ENV != "production")
+        Cookies.set("access_token", token);
+
       setTimeout(() => {
         navigate("/");
       }, 1000);

@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
 import OtpHeader from "../components/OtpHeader";
 import OtpInput from "../components/OtpInput";
 import {
+  useResendForgotPasswordOTPMutation,
   useResendOTPMutation,
   useVerifyEmailMutation,
+  useVerifyForgotPasswordOTPMutation,
 } from "@/services/api/authApi";
 
 const OtpPage = () => {
@@ -14,14 +16,29 @@ const OtpPage = () => {
   const [otpError, setOtpError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = useMemo(() => JSON.parse(localStorage.getItem("user")), []);
   const navigate = useNavigate();
 
-  const [sendOTP, { isSuccess, isLoading }] = useVerifyEmailMutation();
+  const [
+    sendEmailVerifyOTP,
+    { isSuccess: isVerifyEmailSuccess, isLoading: isVerifyEmailLoading },
+  ] = useVerifyEmailMutation();
+  const [
+    sendForgotPasswordOTP,
+    {
+      isSuccess: isVerifyForgotPasswordSuccess,
+      isLoading: isVerifyForgotPasswordLoading,
+    },
+  ] = useVerifyForgotPasswordOTPMutation();
+
   const [resendOTP] = useResendOTPMutation();
+  const [resendForgotPasswordOTP] = useResendForgotPasswordOTPMutation();
+
+  const isLoading = isVerifyEmailLoading || isVerifyForgotPasswordLoading;
+  const isSuccess = isVerifyEmailSuccess || isVerifyForgotPasswordSuccess;
 
   useEffect(() => {
-    if (!user) navigate("/register");
+    if (!user) navigate("/login");
   }, [user, navigate]);
 
   useEffect(() => {
@@ -45,13 +62,21 @@ const OtpPage = () => {
     const otpCode = otp.join("");
 
     try {
-      await sendOTP({ userId, otp: otpCode }).unwrap();
-      setOtpError("");
-      setSuccessMessage("Registrasi berhasil!");
-
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
+      if (user.action == "resetPassword") {
+        await sendForgotPasswordOTP({ userId, otp: otpCode }).unwrap();
+        setSuccessMessage("OTP terverifikasi!");
+        setOtpError("");
+        setTimeout(() => {
+          navigate("/reset-password");
+        }, 2000);
+      } else {
+        await sendEmailVerifyOTP({ userId, otp: otpCode }).unwrap();
+        setSuccessMessage("Registrasi berhasil!");
+        setOtpError("");
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      }
     } catch (error) {
       console.log(error);
       if (error.status == 400) {
@@ -64,9 +89,11 @@ const OtpPage = () => {
     }
   };
 
-  const handleResendOtp = () => {
+  const handleResendOtp = async () => {
     try {
-      resendOTP(user.id);
+      user.action == "resetPassword"
+        ? resendForgotPasswordOTP(user.id)
+        : resendOTP(user.id);
       setTimer(60);
       setOtpError("");
       setSuccessMessage("");
@@ -83,7 +110,7 @@ const OtpPage = () => {
           <div
             onClick={() => {
               localStorage.clear();
-              navigate("/register");
+              navigate(-1);
             }}
             className="cursor-pointer self-start"
           >
@@ -116,9 +143,9 @@ const OtpPage = () => {
           <Button
             onClick={handleSubmit}
             className="mt-32 w-[568px] rounded-2xl bg-purple-800"
-            disabled={isLoading}
+            disabled={isLoading || isSuccess}
           >
-            {isLoading ? "Loading..." : isSuccess ? "Redirecting..." : "Simpan"}
+            {isLoading ? "Loading..." : isSuccess ? "Redirecting..." : "Kirim"}
           </Button>
 
           <div className="w-fit mt-16">
