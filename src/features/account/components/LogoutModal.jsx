@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useLogoutQuery } from "@/services/api/authApi";
 
 const LogoutModal = ({ handleLogoutModal }) => {
-  const { refetch: logoutQuery } = useLogoutQuery();
+  const { refetch: logoutQuery } = useLogoutQuery(null, { skip: true });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
