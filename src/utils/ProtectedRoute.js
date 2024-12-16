@@ -9,6 +9,7 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     if (!isTokenValid) {
       navigate("/");
+      return;
     }
   }, [isTokenValid, navigate]);
 

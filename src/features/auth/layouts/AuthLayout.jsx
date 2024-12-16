@@ -12,24 +12,27 @@ const AuthLayout = ({ page = "", children }) => {
             ? "Daftar"
             : page === "resetPassword"
             ? "Reset Password"
+            : page === "emailVerificationForResetPassword"
+            ? "Reset Password"
             : "Masuk"}
         </h2>
 
         {children}
 
-        {page != "resetPassword" && (
-          <p className="text-sm mt-10">
-            {page === "register" ? "Sudah" : "Belum"} punya akun?{" "}
-            <span
-              className="text-purple-500 font-medium hover:cursor-pointer"
-              onClick={() =>
-                navigate(page === "register" ? "/login" : "/register")
-              }
-            >
-              {page === "register" ? "Masuk" : "Daftar"} di sini
-            </span>
-          </p>
-        )}
+        {page !== "login" ||
+          (page !== "register" && (
+            <p className="text-sm mt-10">
+              {page === "register" ? "Sudah" : "Belum"} punya akun?{" "}
+              <span
+                className="text-purple-500 font-medium hover:cursor-pointer"
+                onClick={() =>
+                  navigate(page === "register" ? "/login" : "/register")
+                }
+              >
+                {page === "register" ? "Masuk" : "Daftar"} di sini
+              </span>
+            </p>
+          ))}
       </div>
     </div>
   );
