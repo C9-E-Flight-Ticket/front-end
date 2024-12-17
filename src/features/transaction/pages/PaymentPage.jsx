@@ -1,29 +1,51 @@
 import CheckOutStep from "@/features/transaction/components/CheckOutStep";
 import FlightDetail from "@/features/transaction/components/FlightDetail";
-// import PaymentMethod from "@/features/transaction/components/PaymentMethod";
 import NotificationBox from "../components/NotificationBox";
 import MainLayout from "@/layouts/MainLayout";
 import useMidtransEmbed from "@/hooks/useMidtransEmbed";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useSendSuccessTransactionMutation } from "@/services/api/transactionApi";
 
 const PaymentPage = () => {
-  function handleSuccess(result) {
-    alert("payment success!");
+  const { bookingCode, transactionToken } = useSelector(
+    (state) => state.transaction
+  );
+  const [sendPaymentSuccess] = useSendSuccessTransactionMutation();
+
+  const navigate = useNavigate();
+
+  async function handleSuccess(result) {
     console.log(result);
+    try {
+      await sendPaymentSuccess({
+        orderId: result.order_id,
+        fraud_status: result.fraud_status,
+        transaction_status: result.transaction_status,
+      }).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
+
+    navigate("/success");
   }
   function handlePending(result) {
-    alert("waiting your payment!");
     console.log(result);
   }
   function handleError(result) {
     alert("payment failed!");
     console.log(result);
+
+    navigate("/");
   }
   function handleCancelTransaction(result) {
-    alert("you closed the popup without finishing the payment");
+    // alert("you closed the popup without finishing the payment");
+
+    navigate("/");
   }
 
   useMidtransEmbed(
-    "token",
+    transactionToken,
     handleSuccess,
     handlePending,
     handleError,

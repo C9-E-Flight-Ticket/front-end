@@ -10,12 +10,18 @@ import { useState, useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import useCheckToken from "@/hooks/useCheckToken";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useTicketInputCheck from "@/hooks/useTicketInputCheck";
 import {
   useGetDetailFlightQuery,
   useGetDetailFlightWithReturnQuery,
 } from "@/services/api/flightApi";
+import { useCreateTransactionMutation } from "@/services/api/transactionApi";
+import {
+  updateBookingCode,
+  updateFormData,
+  updateTransactionToken,
+} from "@/services/transactionSlice";
 
 export default function TransactionPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -48,13 +54,17 @@ export default function TransactionPage() {
     baby: passengers.baby,
   });
 
+  const [createTransaction, { isLoading, isSuccess }] =
+    useCreateTransactionMutation();
+
   const { data } = isReturnToggleActive
     ? detailFlightWithReturnQuery
     : detailFlightQuery;
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function handleSubmit(data) {
+  async function handleSubmit(data) {
     const totalPassengers = passengers.adult + passengers.child;
     const seats = selectedSeatsPergi.map((seatData) => seatData.id);
     const returnSeats = isReturnToggleActive
@@ -76,7 +86,18 @@ export default function TransactionPage() {
       total: 13320000,
     };
 
-    console.log(payload);
+    try {
+      const response = await createTransaction(payload).unwrap();
+      const data = response.payload.data;
+
+      dispatch(updateFormData(payload));
+      dispatch(updateBookingCode(data.bookingCode));
+      dispatch(updateTransactionToken(data.midtransToken));
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
 
     setIsSubmitted(true);
     window.scrollTo({
@@ -129,14 +150,14 @@ export default function TransactionPage() {
           <div className="md:w-[300px] lg:w-[370px] flex justify-center relative mb-8">
             <div className="[@media(max-width:539px)]:w-[300px] md:w-[370px] pt-0 md:p-6 md:fixed">
               <FlightDetail />
-              {isSubmitted && (
+              {(isLoading || isSuccess) && (
                 <Button
                   color="red"
                   className="!bg-red-500 mt-5"
                   fullWidth
                   onClick={() => navigate("/payment")}
                 >
-                  Lanjut Bayar
+                  {isLoading ? "Creating Payment..." : "Lanjut Bayar"}
                 </Button>
               )}
             </div>
