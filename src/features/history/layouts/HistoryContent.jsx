@@ -33,7 +33,7 @@ const HistoryContent = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="w-[500px] mt-[240px] mr-[50px]">
+      <div className="lg:w-[500px] w-[150px] lg:mt-[240px] mt-[175px] lg:mr-[60px] ml-[10px]">
         <TicketCard
           onSelectTicket={handleSelectTicket}
           data={transactionData}
