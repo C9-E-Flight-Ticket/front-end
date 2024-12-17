@@ -55,8 +55,28 @@ export default function TransactionPage() {
   const navigate = useNavigate();
 
   function handleSubmit(data) {
-    // No error in form handler
-    console.log({ ...data, selectedSeatsPergi, selectedSeatsPulang });
+    const totalPassengers = passengers.adult + passengers.child;
+    const seats = selectedSeatsPergi.map((seatData) => seatData.id);
+    const returnSeats = isReturnToggleActive
+      ? selectedSeatsPulang.map((seatData) => seatData.id)
+      : [];
+    const passengerDetails = [];
+
+    for (let index = 0; index < totalPassengers; index++) {
+      const passengerKey = `passenger${index + 1}`;
+      passengerDetails.push({
+        ...data[passengerKey],
+        category: index + 1 <= passengers.adult ? "Adult" : "Child",
+      });
+    }
+    const payload = {
+      passengerDetails,
+      seats: [...seats, ...returnSeats],
+      tax: 1320000,
+      total: 13320000,
+    };
+
+    console.log(payload);
 
     setIsSubmitted(true);
     window.scrollTo({
@@ -64,7 +84,6 @@ export default function TransactionPage() {
       behavior: "smooth",
     });
   }
-  // console.log(data?.payload?.data?.flights[0]);
 
   return (
     <MainLayout className="mt-56">

@@ -3,7 +3,7 @@ const CheckoutSteps = ({ currentStepIndex }) => {
 
   return (
     <div className="fixed z-50 top-0 w-full h-48 md:h-52 shadow-md bg-white flex justify-center md:justify-start">
-      <div className="relative top-[90px] md:top-[120px] md:left-[15%] space-x-2 flex text-base lg:text-lg font-bold">
+      <div className="relative top-[90px] md:top-[120px] md:left-[15%] space-x-2 flex text-base lg:text-lg font-bold h-fit">
         {steps.map((step, index) => (
           <div key={index} className="flex">
             <span

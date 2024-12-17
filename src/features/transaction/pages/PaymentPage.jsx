@@ -11,7 +11,7 @@ const PaymentPage = () => {
     console.log(result);
   }
   function handlePending(result) {
-    alert("wating your payment!");
+    alert("waiting your payment!");
     console.log(result);
   }
   function handleError(result) {
