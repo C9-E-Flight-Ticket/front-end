@@ -11,33 +11,52 @@ import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import useCheckToken from "@/hooks/useCheckToken";
 import { useSelector } from "react-redux";
+import useTicketInputCheck from "@/hooks/useTicketInputCheck";
+import {
+  useGetDetailFlightQuery,
+  useGetDetailFlightWithReturnQuery,
+} from "@/services/api/flightApi";
 
 export default function TransactionPage() {
-  const isTokenValid = useCheckToken();
-
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const { passengers } = useSelector((state) => state.homepage);
+  const [selectedSeatsPergi, setSelectedSeatsPergi] = useState([]);
+  const [selectedSeatsPulang, setSelectedSeatsPulang] = useState([]);
+  const { passengers, seatClass, isReturnToggleActive } = useSelector(
+    (state) => state.homepage
+  );
+
+  const isTokenValid = useCheckToken();
+  useTicketInputCheck(isTokenValid, passengers);
+
+  const { departureFlightId, returnFlightId } = useSelector(
+    (state) => state.flight
+  );
+
+  const detailFlightQuery = useGetDetailFlightQuery({
+    flightId: [departureFlightId],
+    seatClass: seatClass,
+    adult: passengers.adult,
+    child: passengers.child,
+    baby: passengers.baby,
+  });
+
+  const detailFlightWithReturnQuery = useGetDetailFlightWithReturnQuery({
+    flightId: [departureFlightId, returnFlightId],
+    seatClass: seatClass,
+    adult: passengers.adult,
+    child: passengers.child,
+    baby: passengers.baby,
+  });
+
+  const { data } = isReturnToggleActive
+    ? detailFlightWithReturnQuery
+    : detailFlightQuery;
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isTokenValid) {
-      document.body.style.overflow = "hidden";
-      setTimeout(() => navigate("/"), 2000);
-    } else {
-      document.body.style.overflow = "";
-      const totalPassenger = passengers.adult + passengers.child;
-      if (totalPassenger == 0) navigate("/");
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isTokenValid, navigate, passengers]);
-
   function handleSubmit(data) {
     // No error in form handler
-    console.log(data);
+    console.log({ ...data, selectedSeatsPergi, selectedSeatsPulang });
 
     setIsSubmitted(true);
     window.scrollTo({
@@ -45,6 +64,7 @@ export default function TransactionPage() {
       behavior: "smooth",
     });
   }
+  // console.log(data?.payload?.data?.flights[0]);
 
   return (
     <MainLayout className="mt-56">
@@ -76,7 +96,15 @@ export default function TransactionPage() {
               formId="userPassengerForm"
               onSubmit={handleSubmit}
             />
-            <SeatSelection />
+            <SeatSelection
+              seats={data?.payload?.data?.flights[0]?.seats || []}
+              returnSeats={data?.payload?.data?.flights[1]?.seats || []}
+              selectedSeatsPergi={selectedSeatsPergi}
+              selectedSeatsPulang={selectedSeatsPulang}
+              setSelectedSeatsPergi={setSelectedSeatsPergi}
+              setSelectedSeatsPulang={setSelectedSeatsPulang}
+            />
+
             <SaveButton targetFormId="userPassengerForm" />
           </div>
           <div className="md:w-[300px] lg:w-[370px] flex justify-center relative mb-8">

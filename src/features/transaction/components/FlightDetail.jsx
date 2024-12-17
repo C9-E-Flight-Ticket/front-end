@@ -15,7 +15,6 @@ const FlightDetail = () => {
   const { departureFlightId, returnFlightId } = useSelector(
     (state) => state.flight
   );
-  console.log("departureId", departureFlightId);
 
   const flight = [
     {

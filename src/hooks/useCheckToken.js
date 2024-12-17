@@ -2,7 +2,6 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 const useCheckToken = () => {
   const access_token = Cookies.get("access_token");
-  console.log(access_token);
 
   if (!access_token) {
     return false;
