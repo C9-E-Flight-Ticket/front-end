@@ -6,16 +6,13 @@ import NotificationBox from "@/features/transaction/components/NotificationBox";
 import FormUserPassenger from "@/features/transaction/components/FormUserPassenger";
 import MainLayout from "@/layouts/MainLayout";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import useCheckToken from "@/hooks/useCheckToken";
 import { useDispatch, useSelector } from "react-redux";
 import useTicketInputCheck from "@/hooks/useTicketInputCheck";
-import {
-  useGetDetailFlightQuery,
-  useGetDetailFlightWithReturnQuery,
-} from "@/services/api/flightApi";
+import { useGetDetailFlightQuery } from "@/services/api/flightApi";
 import { useCreateTransactionMutation } from "@/services/api/transactionApi";
 import {
   updateBookingCode,
@@ -38,16 +35,10 @@ export default function TransactionPage() {
     (state) => state.flight
   );
 
-  const detailFlightQuery = useGetDetailFlightQuery({
-    flightId: [departureFlightId],
-    seatClass: seatClass,
-    adult: passengers.adult,
-    child: passengers.child,
-    baby: passengers.baby,
-  });
-
-  const detailFlightWithReturnQuery = useGetDetailFlightWithReturnQuery({
-    flightId: [departureFlightId, returnFlightId],
+  const { data } = useGetDetailFlightQuery({
+    flightId: isReturnToggleActive
+      ? [departureFlightId, returnFlightId]
+      : [departureFlightId],
     seatClass: seatClass,
     adult: passengers.adult,
     child: passengers.child,
@@ -56,10 +47,6 @@ export default function TransactionPage() {
 
   const [createTransaction, { isLoading, isSuccess }] =
     useCreateTransactionMutation();
-
-  const { data } = isReturnToggleActive
-    ? detailFlightWithReturnQuery
-    : detailFlightQuery;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

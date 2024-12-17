@@ -4,6 +4,7 @@ const initialState = {
   stage: "departure",
   departureFlightId: null,
   returnFlightId: null,
+  detailFlight: null,
 };
 
 const flightSlice = createSlice({
