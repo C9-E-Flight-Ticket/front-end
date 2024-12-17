@@ -62,33 +62,34 @@ const SelectFlightButton = () => {
   };
 
   return (
-    <div className="block px-4 py-2 gap-[10px] border-b border-b-[#D0D0D0]">
-      <div className="flex gap-3 h-[55px]">
-        <div className="flex items-center rounded-xl w-[700px] h-[50px] bg-[#A06ECE] px-4 py-[5px] gap-2">
+    <div className="block px-2 md:px-4 py-2 gap-2 border-b border-[#D0D0D0]">
+      <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 mb-2">
+        <div className="flex items-center rounded-xl w-full md:w-[700px] h-[50px] bg-[#A06ECE] px-4 py-[5px] gap-2">
           <button onClick={handleBackToHomepage}>
-            <img src="/arrow-left.png" />
+            <img src="/arrow-left.png" className="h-4 w-4 md:h-5 md:w-5" />
           </button>
-          <div className="text-white font-medium text-base px-[10px]">
+          <div className="text-white font-medium text-sm md:text-base px-[10px]">
             JKT {">"} MLB - {passengers.child + passengers.adult} Penumpang -{" "}
             {seatClass}
           </div>
         </div>
-        <div className="flex justify-center">
+        <div className="w-full md:w-[200px]">
           <button
-            className="bg-[#73CA5C] hover:bg-light-green-900 transition duration-300 w-[220px] h-[50px] rounded-xl font-bold text-white text-base"
+            className="bg-[#73CA5C] hover:bg-light-green-900 transition duration-300 w-full h-[45px] rounded-xl font-bold text-white text-base"
             onClick={handleBackToHomepage}
           >
-            <div className="flex justify-center ml-2">Ubah Pencarian</div>
+            Ubah Pencarian
           </button>
         </div>
       </div>
-      <div className="flex pt-2 pb-4">
+
+      <div className="flex flex-wrap justify-center pt-4 md:pt-2 pb-4 ">
         {datesInWeek.map((date, index) => (
           <div key={index} className="flex items-center">
             <div className="p-2">
               <button
                 onClick={() => handleSelectDay(date)}
-                className={`w-[100px] p-1 rounded-lg 
+                className={`w-[80px] md:w-[100px] p-1 rounded-lg 
                     ${
                       formatDateToForwardSlash(selectedDate) ==
                       formatDateToForwardSlash(date)
@@ -99,10 +100,12 @@ const SelectFlightButton = () => {
                         : ""
                     }`}
               >
-                <div className="block text-center ">
-                  <p className="font-bold text-sm">{getDayName(date)}</p>
+                <div className="block text-center">
+                  <p className="font-bold text-xs md:text-sm">
+                    {getDayName(date)}
+                  </p>
                   <p
-                    className={`w-[92px] text-xs 
+                    className={`w-[72px] md:w-[92px] text-xs 
                         ${currentDate == date ? "text-white" : "text-[#8A8A8A]"}
                         ${
                           formatDateToForwardSlash(selectedDate) ==
@@ -119,7 +122,7 @@ const SelectFlightButton = () => {
               </button>
             </div>
             {index !== days.length - 1 && (
-              <div className="h-6 border-l border-[#D0D0D0]"></div>
+              <div className="hidden md:block h-6 border-l border-[#D0D0D0]"></div>
             )}
           </div>
         ))}
