@@ -64,7 +64,7 @@ const SelectFlightButton = () => {
   return (
     <div className="block px-2 md:px-4 py-2 gap-2 border-b border-[#D0D0D0]">
       <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 mb-2">
-        <div className="flex items-center rounded-xl w-full md:w-[700px] h-[50px] bg-[#A06ECE] px-4 py-[5px] gap-2">
+        <div className="flex items-center rounded-xl w-full md:w-[700px] h-[30px] lg:h-[50px] bg-[#A06ECE] px-4 py-[5px] gap-2">
           <button onClick={handleBackToHomepage}>
             <img src="/arrow-left.png" className="h-4 w-4 md:h-5 md:w-5" />
           </button>
@@ -75,7 +75,7 @@ const SelectFlightButton = () => {
         </div>
         <div className="w-full md:w-[200px]">
           <button
-            className="bg-[#73CA5C] hover:bg-light-green-900 transition duration-300 w-full h-[45px] rounded-xl font-bold text-white text-base"
+            className="bg-[#73CA5C] hover:bg-light-green-900 transition duration-300 w-full h-[30px] lg:[45px] rounded-xl font-bold text-white text-base"
             onClick={handleBackToHomepage}
           >
             Ubah Pencarian
@@ -83,7 +83,7 @@ const SelectFlightButton = () => {
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-center pt-4 md:pt-2 pb-4 ">
+      <div className="flex flex-wrap justify-center pt-1 md:pt-2 pb-4 ">
         {datesInWeek.map((date, index) => (
           <div key={index} className="flex items-center">
             <div className="p-2">
