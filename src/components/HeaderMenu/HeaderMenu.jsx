@@ -6,13 +6,13 @@ const HeaderMenu = ({ title, headerId }) => {
     navigate(-1);
   }
   return (
-    <div className="fixed w-full h-[235px] shadow-md z-50 bg-white">
-      <div className="fixed top-[106px] left-1/2 -translate-x-[490px] text-xl font-bold">
+    <div className="fixed w-full lg:h-[235px] h-[175px] shadow-md z-50 bg-white">
+      <div className="fixed lg:top-[106px] top-[86px] lg:left-1/2 left-4 lg:-translate-x-[490px] lg:text-xl text-base font-bold">
         {title}
       </div>
-      <div className="fixed top-[150px] left-1/2 -translate-x-1/2 w-[968px] py-2 px-4 flex gap-3">
+      <div className="fixed lg:top-[150px] top-[105px] lg:left-1/2 lg:-translate-x-1/2 lg:w-[968px] w-[330px] py-2 px-4 flex items-center lg:gap-3 gap:2">
         <div
-          className={`h-[50px] flex gap-2 bg-[#A06ECE] py-[5px] px-4 rounded-xl text-white ${
+          className={`lg:h-[50px] h-[35px] flex items-center gap-2 bg-[#A06ECE] py-[5px] px-4 rounded-xl text-white ${
             headerId === 1 ? "w-[777px]" : "w-[936px]"
           }`}
         >
@@ -22,7 +22,7 @@ const HeaderMenu = ({ title, headerId }) => {
           <div className="py-2 px-[10px]">Beranda</div>
         </div>
         {headerId === 1 && (
-          <div className="w-[147px] h-[50px] py-[5px] px-[6px] flex items-center gap-4">
+          <div className="py-[5px] px-[6px] flex items-center gap-4">
             <button className="h-[32px] rounded-2xl px-1 border border-[#7126B5]">
               <div className="flex">
                 <div className="py-[2px] pl-1 flex items-center">
