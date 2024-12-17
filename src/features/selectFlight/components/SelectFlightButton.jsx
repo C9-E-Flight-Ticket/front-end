@@ -75,7 +75,7 @@ const SelectFlightButton = () => {
         </div>
         <div className="w-full md:w-[200px]">
           <button
-            className="bg-[#73CA5C] hover:bg-light-green-900 transition duration-300 w-full h-[30px] lg:[45px] rounded-xl font-bold text-white text-base"
+            className="bg-[#73CA5C] hover:bg-light-green-900 transition duration-300 w-full h-[30px] lg:h-[45px] rounded-xl font-bold text-white text-base"
             onClick={handleBackToHomepage}
           >
             Ubah Pencarian
@@ -83,7 +83,7 @@ const SelectFlightButton = () => {
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-center pt-1 md:pt-2 pb-4 ">
+      <div className="flex flex-wrap justify-center pt-1 md:pt-2  ">
         {datesInWeek.map((date, index) => (
           <div key={index} className="flex items-center">
             <div className="p-2">
