@@ -2,7 +2,7 @@ import NotificationCard from "./NotificationCard";
 
 const NotificationSection = () => {
   return (
-    <div className="absolute top-[304px] left-1/2 -translate-x-[60%] w-[780px] grid gap-[17px]">
+    <div className="absolute top-[304px] left-1/2 -translate-x-[60%] grid gap-[17px]">
       <NotificationCard
         navigasi={"/"}
         title={"Promosi"}
