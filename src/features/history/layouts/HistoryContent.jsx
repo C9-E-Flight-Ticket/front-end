@@ -32,14 +32,14 @@ const HistoryContent = () => {
   }
 
   return (
-    <div className="flex justify-center">
-      <div className="lg:w-[500px] w-[150px] lg:mt-[240px] mt-[175px] lg:mr-[60px] ml-[10px]">
+    <div className="flex lg:justify-center">
+      <div className="lg:w-[500px] md:w-[380px] w-[150px] lg:mt-[240px] md:mt-[240px] mt-[175px] lg:mr-[60px] ml-[10px]">
         <TicketCard
           onSelectTicket={handleSelectTicket}
           data={transactionData}
         />
       </div>
-      <div className="w-[346px] mt-[250px]">
+      <div className="lg:w-[346px] w-full md:w-[380px] mt-[250px] lg:relative md:relative absolute lg:bottom-0 md:bottom-0 bottom-20 left-0">
         <FlightDetail selectedTicketId={activeTicket} data={transactionData} />
       </div>
     </div>
