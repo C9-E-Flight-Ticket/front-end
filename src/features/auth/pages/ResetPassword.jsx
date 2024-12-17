@@ -4,6 +4,8 @@ import InputField from "../components/InputField";
 import { Button } from "@material-tailwind/react";
 import Notification from "../components/Notification";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useResetPasswordMutation } from "@/services/api/authApi";
 
 const ResetPassword = () => {
   const {
@@ -14,11 +16,39 @@ const ResetPassword = () => {
     formState: { errors },
   } = useForm();
 
+  const [resetPassword, { isLoading, isSuccess }] = useResetPasswordMutation();
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const navigate = useNavigate();
-  const isSuccess = false;
+
+  useEffect(() => {
+    if (!user) navigate("/login");
+  }, [user, navigate]);
 
   async function onSubmit(data) {
-    console.log(data);
+    try {
+      const response = await resetPassword({
+        userId: user.id,
+        newPassword: data.newPassword,
+        retypePassword: data.retypePassword,
+      }).unwrap();
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      setError("newPassword", {
+        type: "manual",
+        message: error.data?.payload.message || "Network Error",
+      });
+      setError("retypePassword", {
+        type: "manual",
+        message: error.data?.payload.message || "Network Error",
+      });
+    }
   }
 
   return (
@@ -29,7 +59,7 @@ const ResetPassword = () => {
       >
         <InputField
           label="Masukkan Password Baru"
-          name="oldPassword"
+          name="retypePassword"
           type="password"
           placeholder="********"
           register={register}
@@ -40,7 +70,7 @@ const ResetPassword = () => {
               message: "Password minimal 6 karakter",
             },
           }}
-          error={errors.oldPassword}
+          error={errors.retypePassword}
           watch={watch}
         />
         <InputField
@@ -59,13 +89,18 @@ const ResetPassword = () => {
           error={errors.newPassword}
           watch={watch}
         />
-        <Button type="submit" fullWidth className="bg-purple-700">
-          Simpan
+        <Button
+          type="submit"
+          fullWidth
+          className="bg-purple-700"
+          disabled={isLoading || isLoading || Object.keys(errors).length > 0}
+        >
+          {isLoading ? "Loading..." : isSuccess ? "Redirecting..." : "Simpan"}
         </Button>
       </form>
       <Notification
         errors={errors}
-        successMessage={"Berhasil ResetPassword !"}
+        successMessage={"Berhasil Mengubah Password !"}
         isSubmitted={isSuccess}
       />
     </AuthLayout>
