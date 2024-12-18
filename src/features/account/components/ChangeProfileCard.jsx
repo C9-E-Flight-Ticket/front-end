@@ -49,14 +49,14 @@ const ChangeProfileCard = () => {
   };
 
   return (
-    <div className="w-[550px] py-[6px] px-4">
+    <div className="lg:w-[550px] md:w-[480px] sm:w-[550px] w-[440px] py-[6px] px-4">
       <div
         style={{
           boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.15)",
         }}
         className="rounded-[4px] py-6"
       >
-        <div className="w-[518px]">
+        <div className="lg:w-[518px] md:w-[448px] sm:w-[518px] w-[408px] xs:w-full">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-4 p-4">
               <div className="text-xl font-bold">Profil Pengguna</div>
