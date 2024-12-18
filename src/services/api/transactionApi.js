@@ -31,7 +31,7 @@ export const transactionApi = api.injectEndpoints({
       },
     }),
     sendSuccessTransaction: build.mutation({
-      query: ({ orderId, transaction_status, fraud_status }) => {
+      query: ({ order_id, transaction_status, fraud_status, payment_type }) => {
         const headers = {};
         if (import.meta.env.VITE_NODE_ENV !== "production") {
           headers.Authorization = `Bearer ${Cookies.get("access_token")}`;
@@ -39,7 +39,7 @@ export const transactionApi = api.injectEndpoints({
         return {
           url: `/api/transaction/midtrans-callback`,
           method: "POST",
-          body: { orderId, transaction_status, fraud_status },
+          body: { order_id, transaction_status, fraud_status, payment_type },
         };
       },
     }),

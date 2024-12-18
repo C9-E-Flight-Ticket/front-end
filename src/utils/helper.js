@@ -30,6 +30,17 @@ export const formatDateToUI = (date) => {
     return "Pilih Tanggal";
   }
 };
+
+export const formattedTime = (date) => {
+  const dateFormat = new Date(date);
+  const hours = dateFormat.getHours();
+  let minutes = dateFormat.getMinutes();
+
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+
+  return `${hours}.${minutes}`;
+};
+
 export const convertLocalDateToUTC = (date) => {
   return new Date(date.getTime() - date.getTimezoneOffset() * 60000);
 };

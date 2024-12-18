@@ -101,10 +101,10 @@ export default function TransactionPage() {
         {isTokenValid ? (
           <NotificationBox
             message={
-              isSubmitted ? "Data Anda berhasil tersimpan!" : "Selesaikan dalam"
+              isSuccess ? "Data Anda berhasil tersimpan!" : "Selesaikan dalam"
             }
             initialTime={900}
-            type={isSubmitted ? "success" : "count"}
+            type={isSuccess ? "success" : "count"}
           />
         ) : (
           <>
@@ -132,19 +132,24 @@ export default function TransactionPage() {
               setSelectedSeatsPulang={setSelectedSeatsPulang}
             />
 
-            <SaveButton targetFormId="userPassengerForm" />
+            {!isSuccess && (
+              <SaveButton
+                targetFormId="userPassengerForm"
+                isLoading={isLoading}
+              />
+            )}
           </div>
           <div className="md:w-[300px] lg:w-[370px] flex justify-center relative mb-8">
             <div className="[@media(max-width:539px)]:w-[300px] md:w-[370px] pt-0 md:p-6 md:fixed">
               <FlightDetail />
-              {(isLoading || isSuccess) && (
+              {isSuccess && (
                 <Button
                   color="red"
                   className="!bg-red-500 mt-5"
                   fullWidth
                   onClick={() => navigate("/payment")}
                 >
-                  {isLoading ? "Creating Payment..." : "Lanjut Bayar"}
+                  Lanjut Bayar
                 </Button>
               )}
             </div>

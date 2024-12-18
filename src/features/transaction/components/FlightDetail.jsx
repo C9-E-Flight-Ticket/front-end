@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { useSelector } from "react-redux";
 
-const FlightDetail = () => {
+const FlightDetail = ({ bookingCode = "" }) => {
   const [activeTab, setActiveTab] = React.useState("pergi");
   const { isReturnToggleActive } = useSelector((state) => state.homepage);
   const { departureFlightId, returnFlightId } = useSelector(
@@ -49,7 +49,14 @@ const FlightDetail = () => {
   return (
     <>
       <h2 className="pl-2 md:pl-0 text-base lg:text-lg font-bold text-black mb-4">
-        Detail Penerbangan
+        {bookingCode ? (
+          <>
+            Booking Code:{" "}
+            <span className="text-primaryPurple">{bookingCode}</span>
+          </>
+        ) : (
+          "Detail Penerbangan"
+        )}
       </h2>
       <Tabs value={activeTab}>
         {isReturnToggleActive && (
