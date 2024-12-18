@@ -49,10 +49,6 @@ const FlightDetail = ({ bookingCode = "" }) => {
     }
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   const flight = [
     {
       label: "Pergi",
@@ -98,6 +94,7 @@ const FlightDetail = ({ bookingCode = "" }) => {
           childrenPrice={dataTicket?.pricesByFlight[0]?.subTotalPrice?.child}
           tax={dataTicket?.pricesByFlight[0]?.tax}
           total={dataTicket?.pricesByFlight[0]?.total}
+          loading={isLoading}
         />
       ),
     },
@@ -161,6 +158,7 @@ const FlightDetail = ({ bookingCode = "" }) => {
                 }
                 tax={dataTicket?.pricesByFlight?.[1]?.tax}
                 total={dataTicket?.pricesByFlight?.[1]?.total}
+                loading={isLoading}
               />
             ),
           },
