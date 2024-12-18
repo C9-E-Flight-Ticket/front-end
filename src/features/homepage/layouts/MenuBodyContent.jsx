@@ -8,8 +8,8 @@ import FlightDate from "@/features/homepage/components/FlightDate";
 
 const MenuBodyContent = () => {
   return (
-    <div className="grid grid-cols-2 gap-y-8 gap-x-14">
-      <div className="flex gap-10">
+    <div className="grid grid-cols-1 xl:grid-cols-2 gap-y-8 gap-x-14">
+      <div className="flex gap-10 relative">
         <InputGroupLayout>
           <div className="flex gap-3 items-center">
             <img
