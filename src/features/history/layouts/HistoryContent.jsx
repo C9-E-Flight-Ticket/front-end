@@ -9,7 +9,7 @@ const HistoryContent = () => {
     refetchOnMountOrArgChange: true,
   });
 
-  const transactionData = data?.payload?.data || [];
+  const transactionData = [];
   const firstId = transactionData[0]?.id;
   const [activeTicket, setActiveTicket] = useState(firstId);
 

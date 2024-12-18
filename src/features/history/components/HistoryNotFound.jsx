@@ -2,7 +2,7 @@ import React from "react";
 
 const HistoryNotFound = () => {
   return (
-    <div className="flex justify-center items-center flex-col">
+    <div className="flex justify-center items-center flex-col w-full h-screen">
       <img
         src="cart-shopping.png"
         alt="cart-shopping.png"
