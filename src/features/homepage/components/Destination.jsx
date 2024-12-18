@@ -62,7 +62,11 @@ const Destination = ({ className }) => {
       </div>
 
       {isLoading || isFetching ? (
-        <div className={"justify-start grid grid-cols-6 gap-4 mt-4"}>
+        <div
+          className={
+            "justify-start grid [@media(max-width:470px)]:grid-cols-1 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 [@media(min-width:1445px)]:grid-cols-6 gap-4 mt-4"
+          }
+        >
           {Array.from({ length: skeletonCount.current }).map((_, i) => (
             <DestinationSkeleton key={i} />
           ))}
@@ -70,7 +74,11 @@ const Destination = ({ className }) => {
       ) : error || pagination.totalItems == 0 ? (
         <DataNotFound />
       ) : (
-        <div className={"justify-start grid grid-cols-6 gap-4 mt-4"}>
+        <div
+          className={
+            "justify-start grid [@media(max-width:470px)]:grid-cols-1 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 [@media(min-width:1445px)]:grid-cols-6 gap-4 mt-4"
+          }
+        >
           {flightData.map((flight, index) => (
             <FilteredDestinationCard
               key={flight.id}

@@ -8,11 +8,11 @@ const FilteredDestinationCard = ({
   image,
 }) => {
   return (
-    <div className="relative w-[170px] h-[194px] border rounded shadow bg-white transition-transform transform hover:scale-110 hover:shadow-lg hover:cursor-pointer">
+    <div className="relative max-w-[255px] min-w-[170px] min-h-[194px] border rounded shadow bg-white transition-transform transform hover:scale-110 hover:shadow-lg hover:cursor-pointer">
       <div className="absolute w-[72px] h-[24px] bg-[#A06ECE] rounded-tl-xl rounded-bl-xl top-[5px] right-[3px] flex items-center justify-center">
         <div className="text-white text-[10px] ml-2">50% OFF</div>
       </div>
-      <div className="w-[149.82px] h-[94.17px] mt-[7.53px] mx-[8.56px]">
+      <div className="min-w-[149.82px] h-[94.17px] mt-[7.53px] mx-[8.56px]">
         <img className="rounded w-full h-full object-cover" src={image} />
       </div>
       <div className="block mx-[9px] mt-[10px]">
