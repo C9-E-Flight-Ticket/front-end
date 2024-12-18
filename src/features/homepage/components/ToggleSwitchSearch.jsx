@@ -8,7 +8,7 @@ const ToggleSwitchSearch = () => {
     dispatch(switchSearchCity());
   }
   return (
-    <button className="w-[35px] absolute xl:static right-0">
+    <button className="w-[30px] lg:w-[35px] absolute xl:static right-0">
       <img
         src="/return.png"
         alt="return"

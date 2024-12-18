@@ -64,7 +64,7 @@ const FlightDate = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 z-[998]"></div>
       )}
       <Popover handler={handleOpen} open={isOpen}>
-        <div className="flex w-full gap-10">
+        <div className="flex md:flex-row flex-col w-full gap-10">
           <FlightDateInput
             date={flightDate}
             label={"Departure"}
