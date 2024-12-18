@@ -69,28 +69,30 @@ export default function TransactionPage() {
           </>
         )}
       </div>
-      <div className="flex justify-center ms-10">
-        <div className="w-fit flex flex-col justify-center">
-          <FormUserPassenger
-            formId="userPassengerForm"
-            onSubmit={handleSubmit}
-          />
-          <SeatSelection />
-          <SaveButton targetFormId="userPassengerForm" />
-        </div>
-        <div className="w-1/4 flex justify-center relative">
-          <div className="max-w-md p-6 fixed">
-            <FlightDetail />
-            {isSubmitted && (
-              <Button
-                color="red"
-                className="!bg-red-500 mt-5"
-                fullWidth
-                onClick={() => navigate("/payment")}
-              >
-                Lanjut Bayar
-              </Button>
-            )}
+      <div className="flex justify-center">
+        <div className="flex flex-col-reverse md:flex-row gap-[10px]">
+          <div className="lg:w-[550px] flex flex-col justify-center">
+            <FormUserPassenger
+              formId="userPassengerForm"
+              onSubmit={handleSubmit}
+            />
+            <SeatSelection />
+            <SaveButton targetFormId="userPassengerForm" />
+          </div>
+          <div className="md:w-[300px] lg:w-[370px] flex justify-center relative mb-8">
+            <div className="[@media(max-width:539px)]:w-[300px] md:w-[370px] pt-0 md:p-6 md:fixed">
+              <FlightDetail />
+              {isSubmitted && (
+                <Button
+                  color="red"
+                  className="!bg-red-500 mt-5"
+                  fullWidth
+                  onClick={() => navigate("/payment")}
+                >
+                  Lanjut Bayar
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -50,7 +50,7 @@ const InputField = ({
         {withForgotPassword && (
           <p
             className="text-sm text-purple-500 font-medium hover:cursor-pointer"
-            onClick={() => navigate("/reset-password")}
+            onClick={() => navigate("/reset-password/email-verification")}
           >
             Lupa Kata Sandi
           </p>

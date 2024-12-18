@@ -16,6 +16,12 @@ export const authApi = api.injectEndpoints({
         body: credentials,
       }),
     }),
+    logout: build.mutation({
+      query: () => ({
+        url: `/api/auth/logout`,
+        method: "GET",
+      }),
+    }),
     verifyEmail: build.mutation({
       query: ({ userId, otp }) => ({
         url: `/api/auth/verify-email/${userId}`,
@@ -62,6 +68,7 @@ export const authApi = api.injectEndpoints({
 export const {
   useLoginMutation,
   useRegisterMutation,
+  useLogoutMutation,
   useResendOTPMutation,
   useVerifyEmailMutation,
   useRequestForgotPasswordByEmailMutation,
