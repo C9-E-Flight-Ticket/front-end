@@ -1,23 +1,26 @@
+import { Button } from "@material-tailwind/react";
 import React from "react";
 
 const SuccessContent = () => {
   return (
-    <div className="mt-20 flex items-center justify-center flex-col">
+    <div className="flex justify-center items-center flex-col w-full h-screen">
       <img
         src="/cart-shopping.png"
         alt="cart-shopping"
-        className="w-1/6 mb-5"
+        className="w-[204px] h-[208px]"
       />
-      <p className="text-lg font-medium text-textPurple">Selamat!</p>
-      <p className="text-lg font-medium text-black">
-        Transaksi Pembayaran Sukses
-      </p>
-      <button className="w-1/4 p-3 mt-10 rounded-2xl text-xl font-medium text-white bg-textPurple">
+      <div className="py-[10px] pl-[12px] pr-[2px] flex justify-center items-center flex-col">
+        <p className="text-[14px] font-normal text-primaryPurple ">Selamat!</p>
+        <p className="text-[14px] font-normal text-black">
+          Transaksi Pembayaran Sukses
+        </p>
+      </div>
+      <Button className="w-[347px] h-[48px] mt-[26px] rounded-[12px] bg-textPurple text-white">
         Terbitkan Tiket
-      </button>
-      <button className="w-1/4 p-3 mt-3 rounded-2xl text-xl font-medium text-white bg-veryLightPurple">
+      </Button>
+      <Button className="w-[347px] h-[48px] mt-[12px] rounded-[12px] bg-veryLightPurple text-white">
         Cari Penerbangan Lain
-      </button>
+      </Button>
     </div>
   );
 };

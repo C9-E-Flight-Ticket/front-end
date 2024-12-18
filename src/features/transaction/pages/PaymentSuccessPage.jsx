@@ -9,7 +9,7 @@ export default function PaymentSuccessPage() {
       <MainNavbar />
       <CheckOutStep currentStepIndex={2} />
       <NotificationBox
-        className={"bg-lightGreen"}
+        type="success"
         message={"Terimakasih atas pembayaran transaksi"}
       />
       <SuccessContent />
