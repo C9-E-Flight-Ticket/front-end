@@ -42,9 +42,9 @@ export default function AccordionFlight({
   };
 
   return (
-    <div className="flex flex-col items-center lg:space-y-5 lg:py-5 relative">
+    <div className="flex flex-col items-center lg:space-y-5 space-y-3 lg:py-5 relative">
       <div className="w-full">
-        <h2 className="text-xl font-bold mb-4 px-20 lg:px-24 pt-20 sm:pt-14 md:pt-12 lg:py-0">
+        <h2 className="text-xl font-bold mb-4 px-20 lg:px-24 pt-12 sm:pt-14 md:pt-12 lg:py-0">
           {stage === "departure"
             ? "Pilih Tiket Keberangkatan"
             : "Pilih Tiket Kepulangan"}
