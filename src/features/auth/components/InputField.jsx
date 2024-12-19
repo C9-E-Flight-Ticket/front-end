@@ -42,7 +42,7 @@ const InputField = ({
   }
 
   return (
-    <div className="w-full" style={{ width: "452px", marginBottom: "16px" }}>
+    <div className="w-full lg:w-[452px]" style={{ marginBottom: "16px" }}>
       <div className="flex justify-between">
         <label className="block text-sm font-medium text-gray-700 mb-2">
           {label}
@@ -56,15 +56,13 @@ const InputField = ({
           </p>
         )}
       </div>
-      <div className="relative">
+      <div className="relative w-full">
         <input
           {...register(name, rules)}
           type={type != "password" ? type : isShowed ? "text" : "password"}
           placeholder={placeholder}
           className="w-full"
           style={{
-            width: "452px",
-            height: "48px",
             padding: "12px 16px",
             borderRadius: "16px",
             border: `1.5px solid ${error ? "#FF6B6B" : "#D0D0D0"}`,
