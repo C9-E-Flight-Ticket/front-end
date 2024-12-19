@@ -11,6 +11,7 @@ import { formatDateToUI, formattedTime } from "@/utils/helper";
 import { useEffect } from "react";
 import {
   updateTransactionDate,
+  updateTransactionStatus,
   updateTransactionTime,
 } from "@/services/transactionSlice";
 
@@ -22,6 +23,10 @@ const PaymentPage = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!transactionToken) navigate("/");
+  }, [transactionToken, navigate]);
 
   useEffect(() => {
     if (!transactionDate || !transactionTime) {
@@ -52,11 +57,13 @@ const PaymentPage = () => {
       console.log(error);
     }
 
+    dispatch(updateTransactionStatus(true));
     navigate("/success");
   }
   function handlePending(result) {
     alert("Pending");
     console.log(result);
+    // when user close payment
   }
   function handleError(result) {
     alert("payment failed!");
@@ -65,6 +72,8 @@ const PaymentPage = () => {
     navigate("/");
   }
   function handleCancelTransaction(result) {
+    alert("payment cancel!");
+
     console.log("close");
     // alert("you closed the popup without finishing the payment");
     console.log(result);
@@ -89,7 +98,7 @@ const PaymentPage = () => {
       />
       <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-x-20 gap-y-14 mt-10">
         {isLoading || !transactionToken ? (
-          <div className="w-full flex justify-center items-center">
+          <div className="w-full flex justify-center md:justify-end items-center md:items-end">
             <Spinner className="h-16 w-16" />
           </div>
         ) : (

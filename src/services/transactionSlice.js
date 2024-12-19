@@ -5,6 +5,7 @@ const initialState = {
   transactionDate: null,
   transactionTime: null,
   bookingCode: null,
+  isTransactionSuccess: false,
   formData: null,
 };
 
@@ -27,6 +28,9 @@ const transactionSlice = createSlice({
     updateTransactionTime(state, action) {
       state.transactionTime = action.payload;
     },
+    updateTransactionStatus(state, action) {
+      state.isTransactionSuccess = action.payload;
+    },
     resetTransactionState() {
       return initialState;
     },
@@ -38,6 +42,7 @@ export const {
   updateBookingCode,
   updateTransactionDate,
   updateTransactionTime,
+  updateTransactionStatus,
   updateFormData,
   resetTransactionState,
 } = transactionSlice.actions;

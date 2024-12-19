@@ -9,9 +9,9 @@ import { resetFlightState } from "@/services/flightSlice";
 export default function Homepage() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(resetFlightState());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(resetFlightState());
+  // }, [dispatch]);
 
   return (
     <MainLayout className={"mb-0"}>
