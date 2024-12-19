@@ -1,7 +1,9 @@
 import { Button } from "@material-tailwind/react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const SuccessContent = () => {
+  const navigate = useNavigate();
   return (
     <div className="flex justify-center items-center flex-col w-full h-screen">
       <img
@@ -18,7 +20,10 @@ const SuccessContent = () => {
       <Button className="w-[347px] h-[48px] mt-[26px] rounded-[12px] bg-textPurple text-white">
         Terbitkan Tiket
       </Button>
-      <Button className="w-[347px] h-[48px] mt-[12px] rounded-[12px] bg-veryLightPurple text-white">
+      <Button
+        className="w-[347px] h-[48px] mt-[12px] rounded-[12px] bg-veryLightPurple text-white"
+        onClick={() => navigate("/")}
+      >
         Cari Penerbangan Lain
       </Button>
     </div>
