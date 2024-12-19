@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import loadingImage from "/loading.png"; // Pastikan path gambar benar
+import loadingImage from "/loading.png";
 
 function LoadingBar() {
   const [progress, setProgress] = useState(0);
