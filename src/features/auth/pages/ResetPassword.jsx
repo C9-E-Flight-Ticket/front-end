@@ -93,7 +93,7 @@ const ResetPassword = () => {
           type="submit"
           fullWidth
           className="bg-purple-700"
-          disabled={isLoading || isLoading || Object.keys(errors).length > 0}
+          disabled={isLoading || isSuccess || Object.keys(errors).length > 0}
         >
           {isLoading ? "Loading..." : isSuccess ? "Redirecting..." : "Simpan"}
         </Button>

@@ -106,7 +106,7 @@ const OtpPage = () => {
     <>
       <OtpHeader />
       <div className="flex justify-center items-center min-h-screen">
-        <div className="w-[900px] h-[600px] bg-white p-8 flex flex-col items-center">
+        <div className="w-full md:w-[900px] h-[600px] bg-white p-8 md:mt-10 mt-20 flex flex-col items-center justify-center">
           <div
             onClick={() => {
               localStorage.clear();
@@ -117,8 +117,8 @@ const OtpPage = () => {
             <img src="/arrow-left-black.png" alt="Back" className="w-6 h-6" />
           </div>
 
-          <h2 className="text-2xl font-bold text-center mb-10 self-start px-32">
-            Masukkan OTP
+          <h2 className="text-2xl font-bold text-center mb-10">
+            Masukkan Kode OTP
           </h2>
           <p className="text-center mb-12 text-sm text-black">
             Ketik 6 digit kode yang dikirimkan ke{" "}
@@ -142,7 +142,7 @@ const OtpPage = () => {
 
           <Button
             onClick={handleSubmit}
-            className="mt-32 w-[568px] rounded-2xl bg-purple-800"
+            className="mt-32 w-full md:w-[568px] rounded-2xl bg-purple-800"
             disabled={isLoading || isSuccess}
           >
             {isLoading ? "Loading..." : isSuccess ? "Redirecting..." : "Kirim"}
