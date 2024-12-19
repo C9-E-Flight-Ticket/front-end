@@ -38,12 +38,12 @@ export default function CircularPagination({
     <div className={cn("flex items-center justify-center gap-4", className)}>
       <Button
         variant="text"
-        className="flex items-center sm:gap-2 rounded-full"
+        className="flex justify-center items-center sm:gap-2 rounded-full"
         color="purple"
         onClick={prev}
         disabled={currPage === 1}
       >
-        <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" />
+        <ArrowLeftIcon strokeWidth={2} className="h-4 w-4 min-w-4" />
         <span className="hidden sm:block">Previous</span>
       </Button>
       <div className="flex items-center gap-2">
@@ -56,13 +56,13 @@ export default function CircularPagination({
       </div>
       <Button
         variant="text"
-        className="flex items-center gap-2 rounded-full"
+        className="flex justify-center items-center gap-2 rounded-full"
         color="purple"
         onClick={next}
         disabled={currPage == pagination.totalPages}
       >
         <span className="hidden sm:block">Next</span>
-        <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+        <ArrowRightIcon strokeWidth={2} className="h-4 w-4 min-w-4" />
       </Button>
     </div>
   );
