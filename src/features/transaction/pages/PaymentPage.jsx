@@ -60,25 +60,56 @@ const PaymentPage = () => {
     dispatch(updateTransactionStatus(true));
     navigate("/success");
   }
+
   function handlePending(result) {
-    alert("Pending");
+    try {
+      sendPaymentSuccess({
+        order_id: result.order_id,
+        fraud_status: result.fraud_status,
+        transaction_status: result.transaction_status,
+        payment_type: result.payment_type,
+      }).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
+    navigate("/");
+
     console.log(result);
     // when user close payment
   }
   function handleError(result) {
     alert("payment failed!");
-    console.log(result);
+
+    try {
+      sendPaymentSuccess({
+        order_id: result.order_id,
+        fraud_status: result.fraud_status,
+        transaction_status: result.transaction_status,
+        payment_type: result.payment_type,
+      }).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
+    navigate("/");
 
     navigate("/");
   }
   function handleCancelTransaction(result) {
-    alert("payment cancel!");
+    alert("payment canceled!");
 
-    console.log("close");
+    try {
+      sendPaymentSuccess({
+        order_id: result.order_id,
+        fraud_status: result.fraud_status,
+        transaction_status: result.transaction_status,
+        payment_type: result.payment_type,
+      }).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
+    navigate("/");
     // alert("you closed the popup without finishing the payment");
     console.log(result);
-
-    navigate("/");
   }
 
   useMidtransEmbed(

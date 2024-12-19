@@ -29,7 +29,6 @@ const FlightDetail = ({ bookingCode = "" }) => {
   });
 
   const dataTicket = data?.payload?.data;
-  console.log(dataTicket);
 
   const timeHandle = (time, type) => {
     const newTime = new Date(time);

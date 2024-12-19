@@ -4,7 +4,6 @@ import { Button } from "@material-tailwind/react";
 const FlightDetail = ({ selectedTicketId, data }) => {
   const [isVisible, setIsVisible] = useState(false);
   const tickets = data.find((ticket) => ticket.id === selectedTicketId);
-  console.log(selectedTicketId);
 
   const timeHandle = (time, type) => {
     const newTime = new Date(time);
@@ -45,8 +44,6 @@ const FlightDetail = ({ selectedTicketId, data }) => {
   ).reduce((sum, passenger) => sum + (Number(passenger.seat.price) || 0), 0);
 
   const total = totalChildrenPrice + totalAdultPrice;
-
-  console.log("departure", tickets.Tickets[0].seat.flight.departureTime);
 
   return (
     <>

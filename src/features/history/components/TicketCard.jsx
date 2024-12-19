@@ -21,8 +21,6 @@ const TicketCard = ({ onSelectTicket, data }) => {
   const [activeTicket, setActiveTicket] = useState(firstTicketId);
   const groupedTickets = groupTicketsByMonth(tickets);
 
-  console.log(tickets);
-
   const calculateTotalPrice = (tickets) => {
     return tickets.reduce((total, ticket) => {
       const price = Number(ticket.seat?.price) || 0;
