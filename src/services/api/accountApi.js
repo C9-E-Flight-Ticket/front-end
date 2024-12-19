@@ -4,12 +4,12 @@ import api from "@/app/api";
 export const accountApi = api.injectEndpoints({
   endpoints: (build) => ({
     getAllNotifications: build.query({
-      query: (userId) => {
+      query: () => {
         const headers = {};
         if (import.meta.env.VITE_NODE_ENV !== "production") {
           headers.Authorization = `Bearer ${Cookies.get("access_token")}`;
         }
-        return { url: `/api/notifications?userId=${userId}`, method: "GET" };
+        return { url: `/api/notification`, method: "GET" };
       },
     }),
     markNotificationAsRead: build.mutation({
