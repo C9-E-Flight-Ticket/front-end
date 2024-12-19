@@ -30,7 +30,7 @@ export default function AccordionFlight({
       : navigate("/transaction");
 
     dispatch(changeDepartureFlight(flight.id));
-    if (isReturnToggleActive) dispatch(switchSearchCity());
+    dispatch(switchSearchCity());
   };
 
   const handleSelectReturn = (flight) => {
@@ -44,7 +44,7 @@ export default function AccordionFlight({
   return (
     <div className="flex flex-col items-center lg:space-y-5 lg:py-5 relative">
       <div className="w-full">
-        <h2 className="text-xl font-bold mb-4 px-16 lg:px-24">
+        <h2 className="text-xl font-bold mb-4 px-20 lg:px-24 pt-20 sm:pt-14 md:pt-12 lg:py-0">
           {stage === "departure"
             ? "Pilih Tiket Keberangkatan"
             : "Pilih Tiket Kepulangan"}
