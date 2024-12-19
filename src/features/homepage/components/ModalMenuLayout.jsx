@@ -17,6 +17,7 @@ const ModalMenuLayout = ({
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add("overflow-hidden");
+      window.scrollTo({ top: 0, behavior: "instant" });
     } else {
       document.body.classList.remove("overflow-hidden");
     }
@@ -52,7 +53,7 @@ const ModalMenuLayout = ({
             {value}
           </Button>
         </MenuHandler>
-        <MenuList className="z-[999] px-0 py-0 !w-[27rem] absolute !top-1/2 !left-1/2 !transform !-translate-x-1/2 !-translate-y-1/2">
+        <MenuList className="z-[999] fixed px-0 py-0 w-[20rem] sm:w-[27rem] !top-1/2 !left-1/2 !transform !-translate-x-1/2 !-translate-y-1/2">
           <div className="w-full p-2 flex justify-end outline-none">
             <XMarkIcon
               className="w-6 h-6 text-black hover:cursor-pointer"

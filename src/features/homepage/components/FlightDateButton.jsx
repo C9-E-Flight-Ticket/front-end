@@ -2,7 +2,7 @@ import { Button } from "@material-tailwind/react";
 
 const FlightDateButton = ({ date, setDate, onSave, toggleIsOn }) => {
   return (
-    <div className="mb-5 mt-1 flex justify-between mx-10">
+    <div className="mb-5 mt-1 flex justify-between mx-0 sm:mx-10">
       <Button
         variant="outlined"
         color="red"
