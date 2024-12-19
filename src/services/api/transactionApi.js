@@ -30,6 +30,19 @@ export const transactionApi = api.injectEndpoints({
         return { url: `/api/transaction/order`, method: "POST", body: payload };
       },
     }),
+    sendSuccessTransaction: build.mutation({
+      query: ({ order_id, transaction_status, fraud_status, payment_type }) => {
+        const headers = {};
+        if (import.meta.env.VITE_NODE_ENV !== "production") {
+          headers.Authorization = `Bearer ${Cookies.get("access_token")}`;
+        }
+        return {
+          url: `/api/transaction/midtrans-callback`,
+          method: "POST",
+          body: { order_id, transaction_status, fraud_status, payment_type },
+        };
+      },
+    }),
     generatePDF: build.query({
       query: (bookingCode) => {
         const headers = {};
@@ -60,6 +73,7 @@ export const transactionApi = api.injectEndpoints({
 export const {
   useGetAllUserTransactionsQuery,
   useGetTransactionByBookingCodeQuery,
+  useSendSuccessTransactionMutation,
   useCreateTransactionMutation,
   useGeneratePDFQuery,
   useDownloadPDFQuery,

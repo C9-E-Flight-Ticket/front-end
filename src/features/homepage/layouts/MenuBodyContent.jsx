@@ -8,53 +8,67 @@ import FlightDate from "@/features/homepage/components/FlightDate";
 
 const MenuBodyContent = () => {
   return (
-    <div className="grid grid-cols-2 gap-y-8 gap-x-14">
-      <div className="flex gap-10">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-8 gap-x-5 lg:gap-x-3 xl:gap-x-10">
+      <div className="col-span-1 lg:col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-x-5 gap-y-8 lg:gap-x-10">
+        <div className="flex gap-10 relative">
+          <InputGroupLayout>
+            <div className="flex gap-3 items-center w-20 lg:w-auto">
+              <img
+                src="/plane-vector.png"
+                alt="plane-vector"
+                className="w-5 h-5"
+              />
+              <p className="text-[#8A8A8A] text-sm">From</p>
+            </div>
+            <SearchDepartureCity />
+          </InputGroupLayout>
+          <ToggleSwitchSearch />
+        </div>
         <InputGroupLayout>
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-3 items-center w-20 lg:w-auto">
             <img
               src="/plane-vector.png"
               alt="plane-vector"
               className="w-5 h-5"
             />
-            <p className="text-[#8A8A8A] text-sm">From</p>
+            <p className="text-[#8A8A8A] text-sm">To</p>
           </div>
-          <SearchDepartureCity />
+          <SearchReturnCity />
         </InputGroupLayout>
-        <ToggleSwitchSearch />
       </div>
       <InputGroupLayout>
-        <div className="flex gap-3 items-center">
-          <img src="/plane-vector.png" alt="plane-vector" className="w-5 h-5" />
-          <p className="text-[#8A8A8A] text-sm">To</p>
-        </div>
-        <SearchReturnCity />
-      </InputGroupLayout>
-      <InputGroupLayout>
-        <div className="flex gap-3 items-center">
-          <img
-            src="/calender-vector.png"
-            alt="plane-vector"
-            className="w-5 h-5"
-          />
-          <p className="text-[#8A8A8A] text-sm">Date</p>
-        </div>
-        <FlightDate />
-      </InputGroupLayout>
-      <div className="flex w-full gap-5 items-center">
-        <InputGroupLayout>
-          <div className="flex gap-3 items-center">
+        <div className="grid grid-cols-1 gap-y-5 justify-between h-full">
+          <div className="flex gap-3 items-center w-20 lg:w-auto">
             <img
-              src="/airline-seat-vector.png"
+              src="/calender-vector.png"
               alt="plane-vector"
               className="w-5 h-5"
             />
-            <p className="text-[#8A8A8A] text-sm">To</p>
+            <p className="text-[#8A8A8A] text-sm">Date</p>
           </div>
-          <PassengerMenu />
-        </InputGroupLayout>
+          <div className="flex gap-3 items-center w-20 lg:w-auto md:hidden">
+            <img
+              src="/calender-vector.png"
+              alt="plane-vector"
+              className="w-5 h-5"
+            />
+            <p className="text-[#8A8A8A] text-sm">Date</p>
+          </div>
+        </div>
+        <FlightDate />
+      </InputGroupLayout>
+      <InputGroupLayout>
+        <div className="gap-3 items-center w-24 hidden sm:flex">
+          <img
+            src="/airline-seat-vector.png"
+            alt="plane-vector"
+            className="w-5 h-5"
+          />
+          <p className="text-[#8A8A8A] text-sm">To</p>
+        </div>
+        <PassengerMenu />
         <SeatMenu />
-      </div>
+      </InputGroupLayout>
     </div>
   );
 };

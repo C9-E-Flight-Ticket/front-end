@@ -66,12 +66,10 @@ export default function FlightSelectionPage() {
   return (
     <>
       <Sorting />
-      <div className="relative top-[320px] flex w-[968px] mx-auto">
-        {flightData?.length == 0 && <TicketSold className="mt-10 mx-auto" />}
-
+      <div className="relative flex flex-col lg:flex-row top-[230px] lg:top-[320px] w-full max-w-screen-xl mx-auto px-4 lg:px-0 gap-6">
         <div
-          className={`fixed pt-4 -translate-x-[15%] w-[250px] ${
-            stage === "departure" ? "top-[390px]" : "top-[315px]"
+          className={`relative lg:fixed lg:pt-4 w-full lg:w-[250px] ${
+            stage === "departure" ? "lg:top-[390px]" : "lg:top-[315px]"
           }`}
         >
           <FilterCard />
@@ -83,8 +81,9 @@ export default function FlightSelectionPage() {
           )}
         </div>
 
-        {!isLoading && flightData?.length > 0 && !isError && !isFetching && (
-          <div className="ms-auto">
+        <div className="flex-grow mt-8 lg:mt-0 lg:pl-[250px]">
+          {flightData?.length === 0 && <TicketSold className="mt-10 mx-auto" />}
+          {!isLoading && flightData?.length > 0 && !isError && !isFetching && (
             <AccordionFlight
               flightData={flightData}
               handleOpen={handleOpen}
@@ -92,19 +91,18 @@ export default function FlightSelectionPage() {
               open={accordionOpen}
               setSelectedDepartureFlight={setSelectedDepartureFlight}
             />
-          </div>
-        )}
-        {isLoading || isFetching ? (
-          <div className="w-[80%] flex justify-center items-center h-96 ms-auto">
-            <LoadingTicket />
-          </div>
-        ) : (
-          isError && (
-            <div className="w-[80%] flex justify-center items-center h-96 ms-auto">
+          )}
+          {(isLoading || isFetching) && (
+            <div className="flex justify-center items-center h-96">
+              <LoadingTicket />
+            </div>
+          )}
+          {isError && (
+            <div className="flex justify-center items-center h-96">
               <FlightEmpty />
             </div>
-          )
-        )}
+          )}
+        </div>
       </div>
     </>
   );

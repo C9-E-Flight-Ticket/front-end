@@ -1,8 +1,11 @@
+import { Button } from "@material-tailwind/react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const HistoryNotFound = () => {
+  const navigate = useNavigate();
   return (
-    <div className="flex justify-center items-center flex-col">
+    <div className="flex justify-center items-center flex-col w-full h-screen">
       <img
         src="cart-shopping.png"
         alt="cart-shopping.png"
@@ -17,9 +20,12 @@ const HistoryNotFound = () => {
         </p>
       </div>
 
-      <button className="w-[347px] h-[48px] mt-[26px] rounded-[12px] bg-textPurple text-white ">
+      <Button
+        className="w-[347px] h-[48px] mt-[26px] rounded-[12px] bg-textPurple text-white"
+        onClick={() => navigate("/")}
+      >
         Cari Penerbangan
-      </button>
+      </Button>
     </div>
   );
 };

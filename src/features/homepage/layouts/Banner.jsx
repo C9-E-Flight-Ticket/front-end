@@ -11,7 +11,7 @@ const Banner = () => {
       <div className="absolute w-10/12 inset-0 bg-gradient-to-r from-[#FFE9CA] to-transparent rounded-3xl z-10 mx-auto"></div>
       <div className="absolute w-10/12 inset-0 bg-gradient-to-r from-[#FFE9CA] to-transparent rounded-3xl z-10 mx-auto"></div>
 
-      <div className="z-20 flex items-center justify-start w-10/12 mx-52">
+      <div className="z-20 flex items-center justify-start w-10/12 ms-16 sm:ms-24 md:ms-32 lg:ms-48 xl:ms-52 ">
         <h1 className="text-3xl font-bold italic">
           Diskon Hari Ini <br />{" "}
           <span className="text-primaryPurple not-italic">85%</span>

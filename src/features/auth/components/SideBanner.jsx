@@ -1,6 +1,6 @@
 const SideBanner = () => {
   return (
-    <div className="basis-1/2 relative bg-gradient-to-b from-purple-200 to-white">
+    <div className="basis-1/2 relative bg-gradient-to-b from-purple-200 to-white hidden lg:block">
       <img
         src="/bg-ungu.png"
         alt="bg"

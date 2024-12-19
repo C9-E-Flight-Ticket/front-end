@@ -21,10 +21,9 @@ const SortingModal = ({ closeModal, submitSorting, value }) => {
 
   return (
     <>
-      <div className="absolute left-[56%] top-[390px] z-50">
-        <div className="fixed inset-0 bg-black bg-opacity-50"></div>
-        <div className="absolute block bg-white rounded-2xl">
-          <div className="flex justify-end w-[400px] py-[14px] px-4 border-b">
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="bg-white rounded-2xl w-[90%] max-w-[400px]">
+          <div className="flex justify-end py-[14px] px-4 border-b">
             <button onClick={closeModal}>
               <div className="w-4">
                 <XMarkIcon />
@@ -35,7 +34,7 @@ const SortingModal = ({ closeModal, submitSorting, value }) => {
             <div key={choice}>
               <button
                 onClick={() => setSelected(choice)}
-                className={`w-[400px] px-4 ${
+                className={`w-full px-4 ${
                   selected === choice ? "bg-[#7126B5] text-white" : ""
                 }`}
               >

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import {
   Tabs,
@@ -7,33 +7,19 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
-import { useGetDetailFlightQuery } from "@/services/api/flightApi";
 
-const SeatSelection = () => {
+const SeatSelection = ({
+  seats,
+  returnSeats,
+  selectedSeatsPergi,
+  selectedSeatsPulang,
+  setSelectedSeatsPergi,
+  setSelectedSeatsPulang,
+}) => {
   const { seatClass, passengers, isReturnToggleActive } = useSelector(
     (state) => state.homepage
   );
   const [activeTrip, setActiveTrip] = useState("Pergi");
-  const [selectedSeatsPergi, setSelectedSeatsPergi] = useState([]);
-  const [selectedSeatsPulang, setSelectedSeatsPulang] = useState([]);
-
-  const { data, isLoading, error, isFetching } = useGetDetailFlightQuery(
-    {
-      flightId: [1],
-      seatClass: seatClass,
-      adult: passengers.adult,
-      child: passengers.child,
-      baby: passengers.baby,
-    },
-    { refetchOnMountOrArgChange: true }
-  );
-
-  const seats = data?.payload?.data?.flights[0]?.seats || [];
-  console.log(data);
-  // console.log(apiData);
-  // console.log(seats);
-  // console.log(selectedSeatsPergi);
-  // console.log(selectedSeatsPulang);
 
   const getSeatLayout = (seatClass) => {
     switch (seatClass) {
@@ -95,10 +81,12 @@ const SeatSelection = () => {
         return prev.filter((seat) => seat.seatNumber !== seatNumber);
       }
       if (prev.length < passengers.adult + passengers.child) {
-        const seatData = seats.find((seat) => seat.seatNumber === seatNumber);
+        const seatData = (
+          !isPergi && isReturnToggleActive ? returnSeats : seats
+        ).find((seat) => seat.seatNumber === seatNumber);
         return [
           ...prev,
-          { seatNumber, label: `P${prev.length + 1}`, seatData },
+          { seatNumber, label: `P${prev.length + 1}`, id: seatData.id },
         ];
       }
       return prev;
@@ -158,9 +146,9 @@ const SeatSelection = () => {
             ).map((col) =>
               leftRows.map((row) => {
                 const seatNumber = `${col}${row}`;
-                const seatData = seats.find(
-                  (seat) => seat.seatNumber === seatNumber
-                );
+                const seatData = (
+                  !isPergi && isReturnToggleActive ? returnSeats : seats
+                ).find((seat) => seat.seatNumber === seatNumber);
                 const isAvailable = seatData?.available;
                 const label = getSeatLabel(seatNumber, isPergi);
                 return (
@@ -242,9 +230,9 @@ const SeatSelection = () => {
             ).map((col) =>
               rightRows.map((row) => {
                 const seatNumber = `${col}${row}`;
-                const seatData = seats.find(
-                  (seat) => seat.seatNumber === seatNumber
-                );
+                const seatData = (
+                  !isPergi && isReturnToggleActive ? returnSeats : seats
+                ).find((seat) => seat.seatNumber === seatNumber);
                 const isAvailable = seatData?.available;
                 const label = getSeatLabel(seatNumber, isPergi);
                 return (
@@ -308,14 +296,16 @@ const SeatSelection = () => {
               </div>
               {renderSeatMap(true)}
             </TabPanel>
-            <TabPanel key="Pulang" value="Pulang">
-              <div className="p-3 text-center rounded-md bg-green-500">
-                <p className="text-xs font-normal text-white">
-                  {seatClass} - {totalSeats} Seats available
-                </p>
-              </div>
-              {renderSeatMap(false)}
-            </TabPanel>
+            {isReturnToggleActive && (
+              <TabPanel key="Pulang" value="Pulang">
+                <div className="p-3 text-center rounded-md bg-green-500">
+                  <p className="text-xs font-normal text-white">
+                    {seatClass} - {totalSeats} Seats available
+                  </p>
+                </div>
+                {renderSeatMap(false)}
+              </TabPanel>
+            )}
           </TabsBody>
         </Tabs>
       </div>

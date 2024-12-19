@@ -1,27 +1,50 @@
-import React, { useState } from "react";
-import ticketData from "../data/flightData";
+import { useState, useEffect } from "react";
 import FlightDetail from "../components/FlightDetail";
 import TicketCard from "../components/TicketCard";
-import HistoryButton from "../components/HistoryButton";
+import { useGetAllUserTransactionsQuery } from "@/services/api/transactionApi";
+import HistoryNotFound from "../components/HistoryNotFound";
+import { Spinner } from "@material-tailwind/react";
 
 const HistoryContent = () => {
-  const tickets = [...ticketData].reverse();
-  const firstTicketId = tickets[0]?.id || 0;
-  const [activeTicket, setActiveTicket] = useState(firstTicketId);
+  const { data, isLoading, error } = useGetAllUserTransactionsQuery({
+    refetchOnMountOrArgChange: true,
+  });
+
+  const transactionData = data?.payload?.data || [];
+  const firstId = transactionData[0]?.id;
+  const [activeTicket, setActiveTicket] = useState(firstId);
+
+  useEffect(() => {
+    if (!isLoading) setActiveTicket(firstId);
+  }, [isLoading, firstId]);
 
   const handleSelectTicket = (id) => {
-    setActiveTicket(id) || firstTicketId;
+    setActiveTicket(id);
   };
 
   return (
-    <div className="flex justify-center">
-      <div className="w-[500px] mt-[270px] mr-[50px]">
-        <TicketCard onSelectTicket={handleSelectTicket} />
-      </div>
-      <div className="w-[346px] mt-[270px]">
-        <FlightDetail selectedTicketId={activeTicket} />
-      </div>
-    </div>
+    <>
+      {isLoading ? (
+        <Spinner className="h-16 w-16 flex absolute top-1/2 left-1/2" />
+      ) : !isLoading && transactionData.length > 0 ? (
+        <div className="overflow-hidden flex flex-col lg:flex-row justify-center">
+          <div className="flex mt-[175px] md:mt-[240px] lg:mt-[240px] lg:mr-[60px]">
+            <TicketCard
+              onSelectTicket={handleSelectTicket}
+              data={transactionData}
+            />
+          </div>
+          <div className="w-full md:w-[380px] lg:w-[346px] mt-[250px]">
+            <FlightDetail
+              selectedTicketId={activeTicket}
+              data={transactionData}
+            />
+          </div>
+        </div>
+      ) : (
+        <HistoryNotFound />
+      )}
+    </>
   );
 };
 

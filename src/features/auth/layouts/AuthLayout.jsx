@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 const AuthLayout = ({ page = "", children }) => {
   const navigate = useNavigate();
   return (
-    <div className="flex h-screen">
+    <div className="block lg:flex h-screen">
       <SideBanner />
-      <div className="flex-1 pt-36 bg-white p-12 flex flex-col justify-center items-center">
-        <h2 className="text-2xl font-bold mb-6 text-left w-full max-w-md">
+      <div className="pt-36 bg-white p-12 flex flex-col justify-center items-center">
+        <h2 className="text-2xl font-bold mb-6 text-center lg:text-left w-full">
           {page === "register"
             ? "Daftar"
             : page === "resetPassword"
@@ -19,20 +19,30 @@ const AuthLayout = ({ page = "", children }) => {
 
         {children}
 
-        {page !== "login" ||
-          (page !== "register" && (
-            <p className="text-sm mt-10">
-              {page === "register" ? "Sudah" : "Belum"} punya akun?{" "}
-              <span
-                className="text-purple-500 font-medium hover:cursor-pointer"
-                onClick={() =>
-                  navigate(page === "register" ? "/login" : "/register")
-                }
-              >
-                {page === "register" ? "Masuk" : "Daftar"} di sini
-              </span>
-            </p>
-          ))}
+        {page === "emailVerificationForResetPassword" ||
+        page === "resetPassword" ? (
+          <p className="text-sm mt-10">
+            Ingin kembali ke halaman login?{" "}
+            <span
+              className="text-purple-500 font-medium hover:cursor-pointer"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </span>
+          </p>
+        ) : (
+          <p className="text-sm mt-10">
+            {page === "register" ? "Sudah" : "Belum"} punya akun?{" "}
+            <span
+              className="text-purple-500 font-medium hover:cursor-pointer"
+              onClick={() =>
+                navigate(page === "register" ? "/login" : "/register")
+              }
+            >
+              {page === "register" ? "Masuk" : "Daftar"} di sini
+            </span>
+          </p>
+        )}
       </div>
     </div>
   );

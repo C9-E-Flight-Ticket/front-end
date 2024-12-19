@@ -28,7 +28,7 @@ const ModalMenuLayout = ({
     setIsOpen((prev) => !prev);
   }
   return (
-    <div className="relative w-full">
+    <div className="relative w-full text-center sm:text-start">
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-[998]"></div>
       )}
@@ -46,7 +46,7 @@ const ModalMenuLayout = ({
             id="input"
             variant="text"
             fullWidth
-            className="text-start text-sm font-semibold px-0 hover:bg-transparent active:bg-transparent border-b rounded-none border-blue-gray-200 normal-case focus:outline-none focus:ring-0 transition-none"
+            className="text-center sm:text-start text-sm font-semibold px-0 hover:bg-transparent active:bg-transparent border-b rounded-none border-blue-gray-200 normal-case focus:outline-none focus:ring-0 transition-none"
             ripple={false}
           >
             {value}

@@ -17,8 +17,6 @@ export default function FlightCard({
 }) {
   const { seatClass } = useSelector((state) => state.homepage);
 
-  const priceColorClass = flight.id === 2 ? "text-red-600" : "text-purple-800";
-
   const handleSelectTicket = (e) => {
     e.stopPropagation();
     if (onSelectFlight) {
@@ -28,7 +26,7 @@ export default function FlightCard({
 
   return (
     <Card
-      className={`w-[700px] p-[0px_15px] border-t rounded-tl-[8px] gap-[12px] transition-all ${
+      className={`w-full lg:w-[700px] p-[0px_15px] border-t rounded-tl-[8px] gap-[12px] transition-all ${
         open === flight.id
           ? "border-2 border-purple-100"
           : "border border-gray-200"
@@ -54,9 +52,8 @@ export default function FlightCard({
               <Icon id={flight.id} open={open} />
             </div>
           </div>
-
-          <div className="flex justify-between w-full py-15 items-center mt-4">
-            <div className="text-center ps-8 flex flex-col gap-[4px]">
+          <div className="flex flex-wrap lg:flex-nowrap justify-between w-full items-center mt-2 lg:mt-4 gap-4">
+            <div className="text-center lg:ps-8  flex flex-col gap-1">
               <p className="text-gray-800 font-bold text-sm">
                 {dateToTime(flight.departureTime)}
               </p>
@@ -64,19 +61,19 @@ export default function FlightCard({
                 {flight.departureAirport?.code}
               </p>
             </div>
-            <div className="flex flex-col items-center gap-[4px]">
+            <div className="flex flex-col items-center gap-1">
               <p className="text-gray-600 text-sm">{"3h 15m"}</p>
               <div className="flex items-center">
-                <div className="w-64 h-[1px] bg-gray-400"></div>
+                <div className="w-32 lg:w-64 h-[1px] bg-gray-400"></div>
                 <img
                   src="/icon-arrow-right.png"
                   alt="Arrow"
-                  className=" -translate-y-[4%] -translate-x-[50%] w-3 h-3"
+                  className="w-3 h-3 -translate-y-[4%] -translate-x-[50%]"
                 />
               </div>
               <p className="text-gray-600 text-xs">{"Direct"}</p>
             </div>
-            <div className="-translate-x-[50%] text-center flex flex-col gap-[4px]">
+            <div className="lg:-translate-x-[50%] text-center flex flex-col gap-1">
               <p className="text-gray-800 font-bold text-sm">
                 {dateToTime(flight.arrivalTime)}
               </p>
@@ -84,19 +81,19 @@ export default function FlightCard({
                 {flight.arrivalAirport?.code}
               </p>
             </div>
-            <div>
+            <div className="flex justify-center items-center">
               <img
                 src="/Icon-baggage.png"
                 alt="Baggage Icon"
-                className="-translate-x-[200%] w-4 h-4 text-purple-800"
+                className="lg:-translate-x-[200%] w-4 h-4 text-purple-800"
               />
             </div>
-            <div className="flex flex-col items-end gap-[8px]">
-              <p className={`font-semibold ${priceColorClass}`}>
+            <div className="flex flex-col items-end gap-2">
+              <p className={`font-semibold text-purple-800`}>
                 {formatNumberToRupiah(1000000)}
               </p>
               <div
-                className="w-[100px] h-auto px-[12px] py-[4px] rounded-[12px] bg-purple-800 hover:bg-purple-900 text-white text-center cursor-pointer"
+                className="w-[100px] px-4 py-2 rounded-[12px] bg-purple-800 hover:bg-purple-900 text-white text-center cursor-pointer"
                 onClick={handleSelectTicket}
               >
                 Pilih
@@ -104,7 +101,6 @@ export default function FlightCard({
             </div>
           </div>
         </AccordionHeader>
-
         <AccordionBody>
           <FlightDetail flight={flight} />
         </AccordionBody>

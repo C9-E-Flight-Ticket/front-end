@@ -4,7 +4,7 @@ const useCheckUserInput = () => {
   const { departureCity, returnCity, flightDate, passengers, seatClass } =
     useSelector((state) => state.homepage);
 
-  const totalPassenger = passengers.adult + passengers.child + passengers.baby;
+  const totalPassenger = passengers.adult + passengers.child;
   const isValid =
     departureCity && returnCity && flightDate && totalPassenger && seatClass;
 
