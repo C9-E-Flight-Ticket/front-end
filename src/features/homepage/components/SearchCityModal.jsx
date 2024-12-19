@@ -5,6 +5,7 @@ const SearchCityModal = ({ children, onOpen, isOpen, value }) => {
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add("overflow-hidden");
+      window.scrollTo({ top: 0, behavior: "instant" });
     } else {
       document.body.classList.remove("overflow-hidden");
     }
@@ -29,7 +30,7 @@ const SearchCityModal = ({ children, onOpen, isOpen, value }) => {
             {value}
           </Button>
         </MenuHandler>
-        <MenuList className="absolute !top-1/2 !left-1/2 !transform !-translate-x-1/2 !-translate-y-1/2 z-[999] px-0 py-0 !w-[30rem]">
+        <MenuList className="fixed !top-1/2 !left-1/2 !transform !-translate-x-1/2 !-translate-y-1/2 z-[999] px-0 py-0 w-[20rem] sm:w-[30rem]">
           {children}
         </MenuList>
       </Menu>

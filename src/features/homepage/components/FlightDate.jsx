@@ -26,6 +26,7 @@ const FlightDate = () => {
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add("overflow-hidden");
+      window.scrollTo({ top: 0, behavior: "instant" });
     } else {
       document.body.classList.remove("overflow-hidden");
     }
