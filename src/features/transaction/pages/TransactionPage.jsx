@@ -6,38 +6,85 @@ import NotificationBox from "@/features/transaction/components/NotificationBox";
 import FormUserPassenger from "@/features/transaction/components/FormUserPassenger";
 import MainLayout from "@/layouts/MainLayout";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import useCheckToken from "@/hooks/useCheckToken";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import useTicketInputCheck from "@/hooks/useTicketInputCheck";
+import { useGetDetailFlightQuery } from "@/services/api/flightApi";
+import { useCreateTransactionMutation } from "@/services/api/transactionApi";
+import {
+  updateBookingCode,
+  updateFormData,
+  updateTransactionToken,
+} from "@/services/transactionSlice";
 
 export default function TransactionPage() {
-  const isTokenValid = useCheckToken();
-
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const { passengers } = useSelector((state) => state.homepage);
+  const [selectedSeatsPergi, setSelectedSeatsPergi] = useState([]);
+  const [selectedSeatsPulang, setSelectedSeatsPulang] = useState([]);
+  const { passengers, seatClass, isReturnToggleActive } = useSelector(
+    (state) => state.homepage
+  );
 
+  const isTokenValid = useCheckToken();
+  useTicketInputCheck(isTokenValid, passengers);
+
+  const { departureFlightId, returnFlightId } = useSelector(
+    (state) => state.flight
+  );
+
+  const { data } = useGetDetailFlightQuery({
+    flightId: isReturnToggleActive
+      ? [departureFlightId, returnFlightId]
+      : [departureFlightId],
+    seatClass: seatClass,
+    adult: passengers.adult,
+    child: passengers.child,
+    baby: passengers.baby,
+  });
+
+  const [createTransaction, { isLoading, isSuccess }] =
+    useCreateTransactionMutation();
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isTokenValid) {
-      document.body.style.overflow = "hidden";
-      setTimeout(() => navigate("/"), 2000);
-    } else {
-      document.body.style.overflow = "";
-      const totalPassenger = passengers.adult + passengers.child;
-      if (totalPassenger == 0) navigate("/");
+  async function handleSubmit(data) {
+    const totalPassengers = passengers.adult + passengers.child;
+    const seats = selectedSeatsPergi.map((seatData) => seatData.id);
+    const returnSeats = isReturnToggleActive
+      ? selectedSeatsPulang.map((seatData) => seatData.id)
+      : [];
+    const passengerDetails = [];
+
+    for (let index = 0; index < totalPassengers; index++) {
+      const passengerKey = `passenger${index + 1}`;
+      passengerDetails.push({
+        ...data[passengerKey],
+        category: index + 1 <= passengers.adult ? "Adult" : "Child",
+      });
     }
-
-    return () => {
-      document.body.style.overflow = "";
+    const payload = {
+      passengerDetails,
+      seats: [...seats, ...returnSeats],
+      tax: 1320000,
+      total: 13320000,
     };
-  }, [isTokenValid, navigate, passengers]);
 
-  function handleSubmit(data) {
-    // No error in form handler
-    console.log(data);
+    try {
+      const response = await createTransaction(payload).unwrap();
+      const data = response.payload.data;
+
+      dispatch(updateFormData(payload));
+      dispatch(updateBookingCode(data.bookingCode));
+      dispatch(updateTransactionToken(data.midtransToken));
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
 
     setIsSubmitted(true);
     window.scrollTo({
@@ -54,10 +101,10 @@ export default function TransactionPage() {
         {isTokenValid ? (
           <NotificationBox
             message={
-              isSubmitted ? "Data Anda berhasil tersimpan!" : "Selesaikan dalam"
+              isSuccess ? "Data Anda berhasil tersimpan!" : "Selesaikan dalam"
             }
             initialTime={900}
-            type={isSubmitted ? "success" : "count"}
+            type={isSuccess ? "success" : "count"}
           />
         ) : (
           <>
@@ -76,13 +123,26 @@ export default function TransactionPage() {
               formId="userPassengerForm"
               onSubmit={handleSubmit}
             />
-            <SeatSelection />
-            <SaveButton targetFormId="userPassengerForm" />
+            <SeatSelection
+              seats={data?.payload?.data?.flights[0]?.seats || []}
+              returnSeats={data?.payload?.data?.flights[1]?.seats || []}
+              selectedSeatsPergi={selectedSeatsPergi}
+              selectedSeatsPulang={selectedSeatsPulang}
+              setSelectedSeatsPergi={setSelectedSeatsPergi}
+              setSelectedSeatsPulang={setSelectedSeatsPulang}
+            />
+
+            {!isSuccess && (
+              <SaveButton
+                targetFormId="userPassengerForm"
+                isLoading={isLoading}
+              />
+            )}
           </div>
           <div className="md:w-[300px] lg:w-[370px] flex justify-center relative mb-8">
             <div className="[@media(max-width:539px)]:w-[300px] md:w-[370px] pt-0 md:p-6 md:fixed">
               <FlightDetail />
-              {isSubmitted && (
+              {isSuccess && (
                 <Button
                   color="red"
                   className="!bg-red-500 mt-5"

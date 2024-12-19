@@ -76,7 +76,13 @@ const FormUserContent = ({ register, errors }) => {
         </Typography>
         <div className="flex flex-col gap-2">
           <input
-            {...register("user.phoneNumber", { required: true })}
+            {...register("user.phoneNumber", {
+              required: "Phone number is required",
+              pattern: {
+                value: /^\+?[0-9]*$/,
+                message: "Phone Number is not valid",
+              },
+            })}
             placeholder="0892718272"
             className={cn(
               "p-2 rounded border border-[#adadad]",

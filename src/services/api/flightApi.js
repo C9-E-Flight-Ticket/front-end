@@ -30,22 +30,14 @@ export const flightApi = api.injectEndpoints({
         if (import.meta.env.VITE_NODE_ENV !== "production") {
           headers.Authorization = `Bearer ${Cookies.get("access_token")}`;
         }
+
+        const url =
+          flightId.length < 2
+            ? `/api/seat/detail-flight?flightId=${flightId[0]}&seatClass=${seatClass}&adult=${adult}&child=${child}&baby=${baby}`
+            : `/api/seat/detail-flight?flightId=${flightId[0]}&flightId=${flightId[1]}&seatClass=${seatClass}&adult=${adult}&child=${child}&baby=${baby}`;
+
         return {
-          url: `/api/seat/detail-flight?flightId=${flightId[0]}&seatClass=${seatClass}&adult=${adult}&child=${child}&baby=${baby}`,
-          method: "GET",
-          headers,
-        };
-      },
-    }),
-    getDetailFlightWithReturn: build.query({
-      query: ({ flightId, seatClass, adult, child, baby }) => {
-        // send headers authorization to fetch protected API in development
-        const headers = {};
-        if (import.meta.env.VITE_NODE_ENV !== "production") {
-          headers.Authorization = `Bearer ${Cookies.get("access_token")}`;
-        }
-        return {
-          url: `/api/seat/detail-flight?flightId=${flightId[0]}&flightId=${flightId[1]}&seatClass=${seatClass}&adult=${adult}&child=${child}&baby=${baby}`,
+          url,
           method: "GET",
           headers,
         };
@@ -58,5 +50,4 @@ export const {
   useGetTicketByContinentQuery,
   useGetTicketBySearchingQuery,
   useGetDetailFlightQuery,
-  useGetDetailFlightWithReturnQuery,
 } = flightApi;

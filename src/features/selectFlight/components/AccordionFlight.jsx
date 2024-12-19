@@ -30,7 +30,7 @@ export default function AccordionFlight({
       : navigate("/transaction");
 
     dispatch(changeDepartureFlight(flight.id));
-    dispatch(switchSearchCity());
+    if (isReturnToggleActive) dispatch(switchSearchCity());
   };
 
   const handleSelectReturn = (flight) => {

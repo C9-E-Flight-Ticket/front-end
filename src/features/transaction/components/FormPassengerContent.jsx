@@ -4,13 +4,19 @@ import { Controller } from "react-hook-form";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-const FormPassengerContent = ({ index, register, control, errors }) => {
+const FormPassengerContent = ({
+  index,
+  register,
+  control,
+  errors,
+  category = "Adult",
+}) => {
   const [isHaveFamilyName, setIsHaveFamilyName] = useState(false);
 
   return (
     <div>
       <h2 className="mb-5 p-2 ps-4 text-white bg-[#3C3C3C] rounded-t-xl">
-        Data Diri Penumpang {index} - Adult
+        Data Diri Penumpang {index} - {category}
       </h2>
       <div className="flex flex-col gap-6 mx-3">
         <Typography
@@ -25,7 +31,7 @@ const FormPassengerContent = ({ index, register, control, errors }) => {
             name={`passenger${index}.title`}
             rules={{ required: "Title is required!" }}
             control={control}
-            defaultValue={"mr"}
+            defaultValue={"Mr"}
             render={({ field }) => (
               <Select
                 {...field}
@@ -43,8 +49,8 @@ const FormPassengerContent = ({ index, register, control, errors }) => {
                 }}
                 menuProps={{ className: "text-black" }}
               >
-                <Option value="mr">Mr.</Option>
-                <Option value="ms">Ms.</Option>
+                <Option value="Mr">Mr.</Option>
+                <Option value="Ms">Ms.</Option>
               </Select>
             )}
           />
@@ -129,19 +135,19 @@ const FormPassengerContent = ({ index, register, control, errors }) => {
         </Typography>
         <div className="flex flex-col gap-2">
           <input
-            {...register(`passenger${index}.birthDate`, {
+            {...register(`passenger${index}.dateOfBirth`, {
               required: "Tanggal Lahir is required",
             })}
             type="date"
             className={cn(
               "p-2 rounded border border-[#adadad]",
-              errors?.[`passenger${index}`]?.birthDate &&
+              errors?.[`passenger${index}`]?.dateOfBirth &&
                 "border-red-600 outline-red-800"
             )}
           />
-          {errors?.[`passenger${index}`]?.birthDate && (
+          {errors?.[`passenger${index}`]?.dateOfBirth && (
             <p className="text-red-700 text-sm">
-              {errors[`passenger${index}`].birthDate.message}
+              {errors[`passenger${index}`].dateOfBirth.message}
             </p>
           )}
         </div>
@@ -194,6 +200,32 @@ const FormPassengerContent = ({ index, register, control, errors }) => {
           {errors?.[`passenger${index}`]?.identityNumber && (
             <p className="text-red-700 text-sm">
               {errors[`passenger${index}`].identityNumber.message}
+            </p>
+          )}
+        </div>
+
+        <Typography
+          variant="h6"
+          color="deep-purple"
+          className="-mb-3 text-primaryPurple"
+        >
+          Negara Penerbit
+        </Typography>
+        <div className="flex flex-col gap-2">
+          <input
+            {...register(`passenger${index}.issuingCountry`, {
+              required: "Kewarganegaraan is required",
+            })}
+            placeholder="Indonesia"
+            className={cn(
+              "p-2 rounded border border-[#adadad]",
+              errors?.[`passenger${index}`]?.issuingCountry &&
+                "border-red-600 outline-red-800"
+            )}
+          />
+          {errors?.[`passenger${index}`]?.issuingCountry && (
+            <p className="text-red-700 text-sm">
+              {errors[`passenger${index}`].issuingCountry.message}
             </p>
           )}
         </div>

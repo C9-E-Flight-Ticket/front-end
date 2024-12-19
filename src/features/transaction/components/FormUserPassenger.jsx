@@ -30,6 +30,7 @@ const FormUserPassenger = ({ onSubmit, formId }) => {
               register={register}
               control={control}
               errors={errors}
+              category={i + 1 <= passengers.adult ? "Adult" : "Child"}
             />
           ))}
         </FormLayout>

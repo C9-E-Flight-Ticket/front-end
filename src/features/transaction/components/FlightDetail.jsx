@@ -8,14 +8,46 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 import { useSelector } from "react-redux";
+import { useGetDetailFlightQuery } from "@/services/api/flightApi";
 
-const FlightDetail = () => {
+const FlightDetail = ({ bookingCode = "" }) => {
   const [activeTab, setActiveTab] = React.useState("pergi");
-  const { isReturnToggleActive } = useSelector((state) => state.homepage);
+  const { passengers, seatClass, isReturnToggleActive } = useSelector(
+    (state) => state.homepage
+  );
   const { departureFlightId, returnFlightId } = useSelector(
     (state) => state.flight
   );
-  console.log("departureId", departureFlightId);
+  const { data, isLoading } = useGetDetailFlightQuery({
+    flightId: isReturnToggleActive
+      ? [departureFlightId, returnFlightId]
+      : [departureFlightId],
+    seatClass: seatClass,
+    adult: passengers.adult,
+    child: passengers.child,
+    baby: passengers.baby,
+  });
+
+  const dataTicket = data?.payload?.data;
+  console.log(dataTicket);
+
+  const timeHandle = (time, type) => {
+    const newTime = new Date(time);
+
+    if (type === "date") {
+      return newTime.toLocaleDateString("id-ID", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      });
+    }
+    if (type === "hour") {
+      return newTime.toLocaleString("id-ID", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    }
+  };
 
   const flight = [
     {
@@ -23,34 +55,127 @@ const FlightDetail = () => {
       value: "pergi",
       desc: (
         <FlightDetailData
-          departureHour={"07:00"}
-          departureDate={"3 Maret 2023"}
-          departureGate={"Soekarno Hatta - Terminal 1A Domestik"}
-          arrivalHour={"11:00"}
-          arrivalDate={"3 Maret 2023"}
-          arrivalGate={"Melbourne International Airport"}
+          departureHour={timeHandle(
+            dataTicket?.flights?.[0]?.seats?.[0]?.flight?.departureTime,
+            "hour"
+          )}
+          departureDate={timeHandle(
+            dataTicket?.flights?.[0]?.seats?.[0]?.flight?.departureTime,
+            "date"
+          )}
+          departureGate={
+            dataTicket?.flights?.[0]?.seats?.[0]?.flight?.departureAirport?.name
+          }
+          arrivalHour={timeHandle(
+            dataTicket?.flights?.[0]?.seats?.[0]?.flight?.arrivalTime,
+            "hour"
+          )}
+          arrivalDate={timeHandle(
+            dataTicket?.flights?.[0]?.seats?.[0]?.flight?.arrivalTime,
+            "date"
+          )}
+          arrivalGate={
+            dataTicket?.flights?.[0]?.seats?.[0]?.flight?.arrivalAirport?.name
+          }
+          entertaiment={
+            dataTicket?.flights[0]?.seats[0]?.flight?.airline?.entertainment
+          }
+          baggage={dataTicket?.flights[0]?.seats[0]?.flight?.airline?.baggage}
+          cabinBaggage={
+            dataTicket?.flights[0]?.seats[0]?.flight?.airline?.cabinBaggage
+          }
+          airLineImg={
+            dataTicket?.flights[0]?.seats[0]?.flight?.airline?.urlImage
+          }
+          airLine={dataTicket?.flights[0]?.seats[0]?.flight?.airline?.name}
+          flightNumber={dataTicket?.flights[0]?.seats[0]?.flight?.flightNumber}
+          seatClass={dataTicket?.flights[0]?.seats[0]?.seatClass}
+          adultPrice={dataTicket?.pricesByFlight[0]?.subTotalPrice.adult}
+          childrenPrice={dataTicket?.pricesByFlight[0]?.subTotalPrice?.child}
+          tax={dataTicket?.pricesByFlight[0]?.tax}
+          total={dataTicket?.pricesByFlight[0]?.total}
+          loading={isLoading}
         />
       ),
     },
-    {
-      label: "Pulang",
-      value: "Pulang",
-      desc: (
-        <FlightDetailData
-          departureHour={"13:00"}
-          departureDate={"8 Maret 2023"}
-          departureGate={"Melbourne International Airport"}
-          arrivalHour={"17:00"}
-          arrivalDate={"8 Maret 2023"}
-          arrivalGate={"Soekarno Hatta - Terminal 1A Domestik"}
-        />
-      ),
-    },
+    ...(isReturnToggleActive
+      ? [
+          {
+            label: "Pulang",
+            value: "Pulang",
+            desc: (
+              <FlightDetailData
+                departureHour={timeHandle(
+                  dataTicket?.flights?.[1]?.seats?.[0]?.flight?.departureTime,
+                  "hour"
+                )}
+                departureDate={timeHandle(
+                  dataTicket?.flights?.[1]?.seats?.[0]?.flight?.departureTime,
+                  "date"
+                )}
+                departureGate={
+                  dataTicket?.flights?.[1]?.seats?.[0]?.flight?.departureAirport
+                    ?.name
+                }
+                arrivalHour={timeHandle(
+                  dataTicket?.flights?.[1]?.seats?.[0]?.flight?.arrivalTime,
+                  "hour"
+                )}
+                arrivalDate={timeHandle(
+                  dataTicket?.flights?.[1]?.seats?.[0]?.flight?.arrivalTime,
+                  "date"
+                )}
+                arrivalGate={
+                  dataTicket?.flights?.[1]?.seats?.[0]?.flight?.arrivalAirport
+                    ?.name
+                }
+                entertaiment={
+                  dataTicket?.flights?.[1]?.seats[0]?.flight?.airline
+                    ?.entertainment
+                }
+                baggage={
+                  dataTicket?.flights?.[1]?.seats[0]?.flight?.airline?.baggage
+                }
+                cabinBaggage={
+                  dataTicket?.flights?.[1]?.seats[0]?.flight?.airline
+                    ?.cabinBaggage
+                }
+                airLineImg={
+                  dataTicket?.flights?.[1]?.seats[0]?.flight?.airline?.urlImage
+                }
+                airLine={
+                  dataTicket?.flights?.[1]?.seats[0]?.flight?.airline?.name
+                }
+                flightNumber={
+                  dataTicket?.flights?.[1]?.seats[0]?.flight?.flightNumber
+                }
+                seatClass={dataTicket?.flights?.[1]?.seats[0]?.seatClass}
+                adultPrice={
+                  dataTicket?.pricesByFlight?.[1]?.subTotalPrice.adult
+                }
+                childrenPrice={
+                  dataTicket?.pricesByFlight?.[1]?.subTotalPrice?.child
+                }
+                tax={dataTicket?.pricesByFlight?.[1]?.tax}
+                total={dataTicket?.pricesByFlight?.[1]?.total}
+                loading={isLoading}
+              />
+            ),
+          },
+        ]
+      : []),
   ];
   return (
     <>
       <h2 className="pl-2 md:pl-0 text-base lg:text-lg font-bold text-black mb-4">
-        Detail Penerbangan
+        {bookingCode ? (
+          <>
+            Booking Code:{" "}
+            <span className="text-primaryPurple">{bookingCode}</span>
+          </>
+        ) : (
+          "Detail Penerbangan"
+        )}
       </h2>
       <Tabs value={activeTab}>
         {isReturnToggleActive && (
