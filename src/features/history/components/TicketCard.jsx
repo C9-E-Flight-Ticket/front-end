@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import ticketData from "../data/flightData";
-import { Button, Card } from "@material-tailwind/react";
+import { Card } from "@material-tailwind/react";
+import DataNotFound from "@/features/homepage/components/DataNotFound";
 
 const groupTicketsByMonth = (tickets) => {
   return tickets.reduce((acc, ticket) => {
-    const monthYear = new Date(ticket.departureInfo.date).toLocaleString(
-      "default",
-      { month: "long", year: "numeric" }
-    );
+    const monthYear = new Date(
+      ticket.Tickets[0].seat.flight.departureTime
+    ).toLocaleString("default", { month: "long", year: "numeric" });
     if (!acc[monthYear]) {
       acc[monthYear] = [];
     }
@@ -16,14 +15,30 @@ const groupTicketsByMonth = (tickets) => {
   }, {});
 };
 
-const TicketCard = ({ onSelectTicket }) => {
-  const tickets = [...ticketData].reverse();
+const TicketCard = ({ onSelectTicket, data }) => {
+  const tickets = data;
   const firstTicketId = tickets[0]?.id || 0;
   const [activeTicket, setActiveTicket] = useState(firstTicketId);
   const groupedTickets = groupTicketsByMonth(tickets);
 
-  const calculateTotalPrice = (penumpang) => {
-    return penumpang.reduce((total, { price }) => total + price, 0);
+  console.log(tickets);
+
+  const calculateTotalPrice = (tickets) => {
+    return tickets.reduce((total, ticket) => {
+      const price = Number(ticket.seat?.price) || 0;
+      return total + price;
+    }, 0);
+  };
+
+  const calculateDuration = (departure, arrival) => {
+    const start = new Date(departure);
+    const end = new Date(arrival);
+
+    const diffInMs = end - start;
+    const hours = Math.floor(diffInMs / (1000 * 60 * 60));
+    const minutes = Math.floor((diffInMs % (1000 * 60 * 60)) / (1000 * 60));
+
+    return `${hours}h ${minutes}m`;
   };
 
   const handleClick = (id) => {
@@ -31,102 +46,174 @@ const TicketCard = ({ onSelectTicket }) => {
     onSelectTicket(id) || firstTicketId;
   };
 
+  const timeHandle = (time, type) => {
+    const newTime = new Date(time);
+
+    if (type === "date") {
+      return newTime.toLocaleDateString("id-ID", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      });
+    }
+    if (type === "hour") {
+      return newTime.toLocaleString("id-ID", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    }
+  };
+
+  const searchTerm = "GA";
+
+  const filteredTickets = Object.keys(groupedTickets).reduce(
+    (acc, monthYear) => {
+      const filtered = groupedTickets[monthYear].filter((ticket) =>
+        ticket.Tickets[0].seat.flight.flightNumber
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
+      );
+      if (filtered.length > 0) {
+        acc[monthYear] = filtered;
+      }
+      return acc;
+    },
+    {}
+  );
+
+  const isEmpty = Object.keys(filteredTickets).length === 0;
+
   return (
-    <div>
-      {Object.keys(groupedTickets).map((monthYear) => (
-        <div key={monthYear}>
-          <p className="my-[12px] text-[16px] font-bold">{monthYear}</p>
-          {groupedTickets[monthYear].map((ticket) => (
-            <Card
-              key={ticket.id}
-              onClick={() => handleClick(ticket.id)}
-              className={`w-[468px] h-[204px] py-[12px] px-[16px] mt-[8px] rounded-[10px] border-[2px] bg-white ${
-                activeTicket === ticket.id
-                  ? "border-textPurple"
-                  : "border-lightGray"
-              }`}
-            >
-              <p
-                className={`w-[70px] h-[28px] my-[4px] rounded-[16px] text-[14px] font-light flex items-center justify-center text-white 
-                  ${ticket.payment === "Issued" ? "bg-lightGreen w-[70px]" : ""}
-                  ${ticket.payment === "Unpaid" ? "bg-red-500 w-[75px]" : ""}
-                  ${
-                    ticket.payment === "Cancelled" ? "bg-gray-500 w-[96px]" : ""
-                  }`}
-              >
-                {ticket.payment === "Issued" && "Issued"}
-                {ticket.payment === "Unpaid" && "Unpaid"}
-                {ticket.payment === "Cancelled" && "Cancelled"}
-              </p>
-              <div className="flex py-[16px]">
-                <div className="flex w-[120px] h-[60px]">
-                  <img
-                    src="map.png"
-                    alt="map.png"
-                    className="w-[24px] h-[24px]"
-                  />
-                  <div className=" ml-[8px] text-black">
-                    <p className="font-bold text-[14px]">
-                      {ticket.departureInfo.location}
-                    </p>
-                    <p className="text-[12px]">{ticket.departureInfo.date}</p>
-                    <p className="text-[12px]">{ticket.departureInfo.time}</p>
-                  </div>
-                </div>
-                <div className="mx-[16px] flex items-center">
-                  <div>
-                    <p></p>
-                    <img
-                      src="arrow-1.png"
-                      alt="arrow-1.png"
-                      className="w-[164px]"
-                    />
-                  </div>
-                </div>
-                <div className="flex w-[120px] h-[60px]">
-                  <img
-                    src="map.png"
-                    alt="map.png"
-                    className="w-[24px] h-[24px]"
-                  />
-                  <div className=" ml-[8px] text-black">
-                    <p className="font-bold text-[14px]">
-                      {ticket.arrivalInfo.location}
-                    </p>
-                    <p className="text-[12px]">{ticket.departureInfo.date}</p>
-                    <p className="text-[12px]">{ticket.departureInfo.time}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="flex border-t-2">
-                <div className="w-[161px] h[36px] py-[8px] ">
-                  <p className="text-[12px] font-bold text-black">
-                    Booking Code:
-                  </p>
-                  <p className="text-[12px] text-black">
-                    {ticket.flightInfo.bookingCode}
-                  </p>
-                </div>
-                <div className="w-[161px] h[36px] py-[8px] px-[8px] ">
-                  <p className="text-[12px] font-bold text-black">Class:</p>
-                  <p className="text-[12px] text-black">
-                    {ticket.flightInfo.class}
-                  </p>
-                </div>
-                <div className="w-[100px] h-[36x] py-[8px] flex items-center ">
-                  <p className="text-[14px] text-primaryPurple font-bold ">
-                    IDR{" "}
-                    {calculateTotalPrice(
-                      ticket.flightInfo.penumpang
-                    ).toLocaleString("id-ID")}
-                  </p>
-                </div>
-              </div>
-            </Card>
-          ))}
+    <>
+      {isEmpty ? (
+        <div className="lg:w-[468px] w-full flex flex-col lg:items-start items-center lg:mx-[0px] md:mx-[5px]">
+          <DataNotFound />
         </div>
-      ))}
-    </div>
+      ) : (
+        Object.keys(filteredTickets).map((monthYear) => (
+          <div
+            key={monthYear}
+            className="w-full flex flex-col lg:items-start items-center lg:mx-[0px] md:mx-[5px]"
+          >
+            <p className="my-[12px] text-[16px] font-bold">{monthYear}</p>
+            {filteredTickets[monthYear].map((ticket) => (
+              <Card
+                key={ticket.id}
+                onClick={() => handleClick(ticket.id)}
+                className={`sm:w-[468px] w-[350px] sm:h-[204px] h-[120px] md:py-[12px] py-[4px] lg:px-[16px] px-[8px] mt-[8px] rounded-[10px] border-[2px] bg-white ${
+                  activeTicket === ticket.id
+                    ? "border-textPurple"
+                    : "border-lightGray"
+                }`}
+                flightNumber={ticket.Tickets[0].seat.flight.flightNumber}
+              >
+                <p
+                  className={`sm:w-[70px] w-[50px] sm:h-[28px] h-[15px] my-[4px] ml-[15px] rounded-[16px] sm:text-[14px] text-[10px] font-light flex items-center justify-center text-white 
+                ${ticket.status === "Issued" ? "bg-lightGreen w-[70px]" : ""}
+                ${ticket.status === "Unpaid" ? "bg-red-500 w-[75px]" : ""}
+                ${ticket.status === "Cancelled" ? "bg-gray-500 w-[96px]" : ""}`}
+                >
+                  {ticket.status === "Issued" && "Issued"}
+                  {ticket.status === "Unpaid" && "Unpaid"}
+                  {ticket.status === "Cancelled" && "Cancelled"}
+                </p>
+                <div className="flex sm:ml-[0px] ml-[10px] sm:py-[16px] py-[4px] ">
+                  <div className="flex sm:w-[120px] w-[80px] sm:h-[60px] h-[40px] ">
+                    <img
+                      src="map.png"
+                      alt="map.png"
+                      className="sm:w-[24px] w-[20px] sm:h-[24px] h-[20px]"
+                    />
+                    <div className="sm:ml-[8px] ml-[4px] text-black">
+                      <p className="font-bold sm:text-[14px] text-[12px]">
+                        {ticket.Tickets[0].seat.flight.departureAirport.city}
+                      </p>
+                      <p className="sm:text-[12px] text-[8px]">
+                        {timeHandle(
+                          ticket.Tickets[0].seat.flight.departureTime,
+                          "date"
+                        )}
+                      </p>
+                      <p className="sm:text-[12px] text-[8px]">
+                        {timeHandle(
+                          ticket.Tickets[0].seat.flight.departureTime,
+                          "hour"
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mx-[16px] mt-[9px] flex flex-col items-center">
+                    <div className="sm:text-[12px] text-[8px] text-darkgrey ">
+                      {calculateDuration(
+                        ticket.Tickets[0].seat.flight.departureTime,
+                        ticket.Tickets[0].seat.flight.arrivalTime
+                      )}
+                    </div>
+                    <div>
+                      <img
+                        src="arrow-1.png"
+                        alt="arrow-1.png"
+                        className="sm:w-[164px] w-[100px]"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex sm:w-[120px] w-[80px] sm:h-[60px] h-[40px]">
+                    <img
+                      src="map.png"
+                      alt="map.png"
+                      className="sm:w-[24px] w-[20px] sm:h-[24px] h-[20px]"
+                    />
+                    <div className="sm:ml-[8px] ml-[4px] text-black">
+                      <p className="font-bold sm:text-[14px] text-[12px]">
+                        {ticket.Tickets[0].seat.flight.arrivalAirport.city}
+                      </p>
+                      <p className="sm:text-[12px] text-[8px]">
+                        {timeHandle(
+                          ticket.Tickets[0].seat.flight.arrivalTime,
+                          "date"
+                        )}
+                      </p>
+                      <p className="sm:text-[12px] text-[8px]">
+                        {timeHandle(
+                          ticket.Tickets[0].seat.flight.arrivalTime,
+                          "hour"
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="ml-[30px] flex border-t-2">
+                  <div className="sm:w-[161px] w-[110px] py-[8px] ">
+                    <p className="sm:text-[12px] text-[8px] font-bold text-black">
+                      Booking Code:
+                    </p>
+                    <p className="sm:text-[12px] text-[8px] text-black">
+                      {ticket.bookingCode}
+                    </p>
+                  </div>
+                  <div className="sm:w-[161px] w-[110px] py-[8px] px-[8px] ">
+                    <p className="sm:text-[12px] text-[8px] font-bold text-black">
+                      Class:
+                    </p>
+                    <p className="sm:text-[12px] text-[8px] text-black">
+                      {ticket.Tickets[0].seat.seatClass}
+                    </p>
+                  </div>
+                  <div className="sm:w-[110px] w-[90px] py-[8px] flex items-center ">
+                    <p className="sm:text-[14px] text-[10px] text-primaryPurple font-bold ">
+                      IDR{" "}
+                      {(
+                        calculateTotalPrice(ticket.Tickets) + Number(ticket.tax)
+                      ).toLocaleString("id-ID")}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        ))
+      )}
+    </>
   );
 };
 
