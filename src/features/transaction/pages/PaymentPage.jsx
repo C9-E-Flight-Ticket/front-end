@@ -25,8 +25,8 @@ const PaymentPage = () => {
 
   useEffect(() => {
     if (!transactionDate || !transactionTime) {
-      dispatch(updateTransactionDate(formatDateToUI(new Date())));
       dispatch(updateTransactionTime(formattedTime(new Date())));
+      dispatch(updateTransactionDate(formatDateToUI(new Date())));
     }
   }, [dispatch, transactionDate, transactionTime]);
 
@@ -55,6 +55,7 @@ const PaymentPage = () => {
     navigate("/success");
   }
   function handlePending(result) {
+    alert("Pending");
     console.log(result);
   }
   function handleError(result) {
@@ -64,6 +65,7 @@ const PaymentPage = () => {
     navigate("/");
   }
   function handleCancelTransaction(result) {
+    console.log("close");
     // alert("you closed the popup without finishing the payment");
     console.log(result);
 
@@ -79,25 +81,29 @@ const PaymentPage = () => {
   );
 
   return (
-    <MainLayout className="mt-60">
-      <CheckOutStep currentStepIndex={1} />
+    <MainLayout className={"mb-0"}>
+      <CheckOutStep currentStepIndex={1} className={"static"} />
       <NotificationBox
-        className={"bg-red-500"}
+        className={"bg-red-500 static"}
         message={`Selesaikan pembayaran sampai ${transactionDate} ${transactionTime}`}
       />
-      <div className="flex flex-wrap justify-center gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-x-20 gap-y-14 mt-10">
         {isLoading || !transactionToken ? (
-          <div className="w-[30%] flex justify-center items-center">
-            <Spinner className="h-12 w-12" />
+          <div className="w-full flex justify-center items-center">
+            <Spinner className="h-16 w-16" />
           </div>
         ) : (
-          <div className="w-[30%]">
-            <div id="snap-container"></div>
+          <div className="w-full flex justify-center md:justify-end">
+            <div className="border rounded">
+              <div id="snap-container"></div>
+            </div>
           </div>
         )}
 
-        <div className="w-1/4">
-          <FlightDetail bookingCode={bookingCode} />
+        <div className="w-full justify-center md:justify-start flex">
+          <div className="w-[370px]">
+            <FlightDetail bookingCode={bookingCode} />
+          </div>
         </div>
       </div>
     </MainLayout>
