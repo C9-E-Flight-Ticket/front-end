@@ -85,7 +85,7 @@ const PaymentPage = () => {
         className={"bg-red-500"}
         message={`Selesaikan pembayaran sampai ${transactionDate} ${transactionTime}`}
       />
-      <div className="flex justify-center gap-6">
+      <div className="flex flex-wrap justify-center gap-6">
         {isLoading || !transactionToken ? (
           <div className="w-[30%] flex justify-center items-center">
             <Spinner className="h-12 w-12" />

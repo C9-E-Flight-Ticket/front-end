@@ -87,10 +87,6 @@ export default function TransactionPage() {
     }
 
     setIsSubmitted(true);
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
   }
 
   return (
@@ -132,26 +128,27 @@ export default function TransactionPage() {
               setSelectedSeatsPulang={setSelectedSeatsPulang}
             />
 
-            {!isSuccess && (
+            {isSuccess ? (
+              <Button
+                color="red"
+                className="!bg-red-500 mt-5 w-11/12 mx-auto text-white p-2 rounded-md"
+                fullWidth
+                onClick={() => navigate("/payment")}
+                type="button"
+              >
+                Lanjut Bayar
+              </Button>
+            ) : (
               <SaveButton
                 targetFormId="userPassengerForm"
                 isLoading={isLoading}
+                isSuccess={isSuccess}
               />
             )}
           </div>
           <div className="md:w-[300px] lg:w-[370px] flex justify-center relative mb-8">
             <div className="[@media(max-width:539px)]:w-[300px] md:w-[370px] pt-0 md:p-6 md:fixed">
               <FlightDetail />
-              {isSuccess && (
-                <Button
-                  color="red"
-                  className="!bg-red-500 mt-5"
-                  fullWidth
-                  onClick={() => navigate("/payment")}
-                >
-                  Lanjut Bayar
-                </Button>
-              )}
             </div>
           </div>
         </div>
