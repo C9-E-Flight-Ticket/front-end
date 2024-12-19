@@ -12,7 +12,7 @@ export default function CircularPagination({
 }) {
   const getItemProps = (indexPage) => ({
     variant: currPage === indexPage ? "filled" : "text",
-    color: "gray",
+    color: "deep-purple",
     onClick: () => {
       setCurrPage(indexPage);
       setOffset((prev) => prev + limit * (indexPage - currPage));
@@ -38,11 +38,13 @@ export default function CircularPagination({
     <div className={cn("flex items-center justify-center gap-4", className)}>
       <Button
         variant="text"
-        className="flex items-center gap-2 rounded-full"
+        className="flex items-center sm:gap-2 rounded-full"
+        color="purple"
         onClick={prev}
         disabled={currPage === 1}
       >
-        <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
+        <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" />
+        <span className="hidden sm:block">Previous</span>
       </Button>
       <div className="flex items-center gap-2">
         {pagination &&
@@ -55,10 +57,11 @@ export default function CircularPagination({
       <Button
         variant="text"
         className="flex items-center gap-2 rounded-full"
+        color="purple"
         onClick={next}
         disabled={currPage == pagination.totalPages}
       >
-        Next
+        <span className="hidden sm:block">Next</span>
         <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
       </Button>
     </div>

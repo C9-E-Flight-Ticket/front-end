@@ -8,7 +8,7 @@ const FilteredDestinationCard = ({
   image,
 }) => {
   return (
-    <div className="relative max-w-[255px] min-w-[170px] min-h-[194px] border rounded shadow bg-white transition-transform transform hover:scale-110 hover:shadow-lg hover:cursor-pointer">
+    <div className="mx-auto w-full relative max-w-[275px] min-w-[170px] min-h-[194px] border rounded shadow bg-white transition-transform transform hover:scale-110 hover:shadow-lg hover:cursor-pointer">
       <div className="absolute w-[72px] h-[24px] bg-[#A06ECE] rounded-tl-xl rounded-bl-xl top-[5px] right-[3px] flex items-center justify-center">
         <div className="text-white text-[10px] ml-2">50% OFF</div>
       </div>
