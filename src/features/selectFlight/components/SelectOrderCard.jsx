@@ -7,7 +7,7 @@ const SelectOrderCard = ({ selectedFlight, onClose }) => {
 
   return (
     <Card
-      className="relative lg:absolute lg:top-[270px] top-9 lg:left-14 lg:w-[250px] w-full bg-white shadow-lg rounded-lg z-40"
+      className="relative lg:absolute lg:top-[270px] top-24 lg:left-14 lg:w-[250px] w-full bg-white shadow-lg rounded-lg z-40"
       style={{ padding: "20px 26px" }}
     >
       <div className="flex justify-between items-center mb-4">
