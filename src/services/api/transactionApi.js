@@ -43,7 +43,7 @@ export const transactionApi = api.injectEndpoints({
         };
       },
     }),
-    generatePDF: build.query({
+    generatePDF: build.mutation({
       query: (bookingCode) => {
         const headers = {};
         if (import.meta.env.VITE_NODE_ENV !== "production") {
@@ -55,17 +55,21 @@ export const transactionApi = api.injectEndpoints({
         };
       },
     }),
-    downloadPDF: build.query({
+    downloadPDF: build.mutation({
       query: (bookingCode) => {
         const headers = {};
         if (import.meta.env.VITE_NODE_ENV !== "production") {
           headers.Authorization = `Bearer ${Cookies.get("access_token")}`;
         }
+
         return {
           url: `/api/transaction/download/${bookingCode}.pdf`,
           method: "GET",
+          headers,
+          responseHandler: (response) => response.blob(),
         };
       },
+      transformResponse: (response) => response,
     }),
   }),
 });
@@ -75,6 +79,6 @@ export const {
   useGetTransactionByBookingCodeQuery,
   useSendSuccessTransactionMutation,
   useCreateTransactionMutation,
-  useGeneratePDFQuery,
-  useDownloadPDFQuery,
+  useGeneratePDFMutation,
+  useDownloadPDFMutation,
 } = transactionApi;
