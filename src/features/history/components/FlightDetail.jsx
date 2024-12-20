@@ -1,19 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@material-tailwind/react";
 import {
   useDownloadPDFMutation,
   useGeneratePDFMutation,
 } from "@/services/api/transactionApi";
 import QRModal from "./QRModal";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateTransactionToken } from "@/services/transactionSlice";
+import { changeDepartureFlight } from "@/services/flightSlice";
 
-const FlightDetail = ({ selectedTicketId, data }) => {
+const FlightDetail = ({ selectedTicketId, data, isFetching }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [qrCodePath, setQrCodePath] = useState(null);
+  const [flightId, setFlightId] = useState(null);
   const tickets = data.find((ticket) => ticket.id === selectedTicketId);
 
   const [generateQR, { isLoading }] = useGeneratePDFMutation();
   const [downloadPDF, { isLoading: isDownloading }] = useDownloadPDFMutation();
+
+  useEffect(() => {
+    if (!isFetching && tickets) {
+      setFlightId(tickets.Tickets[0].seat.flightId);
+    }
+  }, [tickets, isFetching, selectedTicketId]);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleClose = () => setIsModalOpen(false);
 
@@ -83,7 +97,11 @@ const FlightDetail = ({ selectedTicketId, data }) => {
       console.error("Failed to download:", error);
     }
   }
-  function handleLanjutBayar() {}
+  function handleLanjutBayar() {
+    dispatch(updateTransactionToken(tickets.midtransToken));
+    dispatch(changeDepartureFlight(flightId));
+    navigate("/payment");
+  }
 
   return (
     <>
@@ -239,7 +257,11 @@ const FlightDetail = ({ selectedTicketId, data }) => {
                     ? "bg-primaryRed"
                     : ""
                 } `}
-                onClick={handleCetakTiket}
+                onClick={
+                  tickets.status === "Issued"
+                    ? handleCetakTiket
+                    : handleLanjutBayar
+                }
                 disabled={isLoading}
               >
                 {isLoading ? (
