@@ -38,6 +38,7 @@ const HistoryContent = () => {
             <FlightDetail
               selectedTicketId={activeTicket}
               data={transactionData}
+              isFetching={isLoading}
             />
           </div>
         </div>
