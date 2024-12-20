@@ -9,6 +9,7 @@ const ChangeProfileCard = () => {
   const {
     data: userProfile,
     isLoading: isLoadingProfile,
+    isFetching,
     error: profileError,
   } = useGetUserProfileQuery(null, { refetchOnMountOrArgChange: true });
   const [updateUserProfile, { isLoading: isUpdating }] =
@@ -61,7 +62,7 @@ const ChangeProfileCard = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-4 p-4">
               <div className="text-xl font-bold">Profil Pengguna</div>
-              {isLoadingProfile ? (
+              {isLoadingProfile || isFetching ? (
                 <div className="text-center py-4">Loading profile...</div>
               ) : (
                 <>
@@ -123,7 +124,7 @@ const ChangeProfileCard = () => {
                 </>
               )}
             </div>
-            {!isLoadingProfile && (
+            {(!isLoadingProfile || !isFetching) && (
               <div className="flex justify-center">
                 <button
                   type="submit"

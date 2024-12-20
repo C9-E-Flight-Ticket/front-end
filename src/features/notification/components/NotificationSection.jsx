@@ -6,7 +6,7 @@ const NotificationSection = () => {
   const { data, isLoading, error, isFetching } = useGetAllNotificationsQuery();
   return (
     <>
-      {isLoading && (
+      {(isLoading || isFetching) && (
         <div className="absolute top-[324px] left-1/2 -translate-x-1/2">
           <div
             className="inline-block h-16 w-16 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
@@ -18,7 +18,7 @@ const NotificationSection = () => {
           </div>
         </div>
       )}
-      {!isLoading && (
+      {(!isLoading || !isFetching) && (
         <div className="absolute top-[280px] left-1/2 -translate-x-[60%] grid gap-[17px]">
           {data?.payload?.data?.length === 0 ? (
             <div className="text-center text-[#8A8A8A]">

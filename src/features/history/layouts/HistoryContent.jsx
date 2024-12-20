@@ -6,9 +6,12 @@ import HistoryNotFound from "../components/HistoryNotFound";
 import { Spinner } from "@material-tailwind/react";
 
 const HistoryContent = () => {
-  const { data, isLoading, error } = useGetAllUserTransactionsQuery(null, {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data, isLoading, error, isFetching } = useGetAllUserTransactionsQuery(
+    null,
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
 
   const transactionData = data?.payload?.data || [];
   const firstId = transactionData[0]?.id;
@@ -24,9 +27,9 @@ const HistoryContent = () => {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || isFetching ? (
         <Spinner className="h-16 w-16 flex absolute top-1/2 left-1/2" />
-      ) : !isLoading && transactionData.length > 0 ? (
+      ) : (!isLoading || !isFetching) && transactionData.length > 0 ? (
         <div className="overflow-hidden flex flex-col lg:flex-row justify-center">
           <div className="flex mt-[175px] md:mt-[240px] lg:mt-[240px] lg:mr-[60px]">
             <TicketCard
