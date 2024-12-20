@@ -1,9 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@material-tailwind/react";
+import {
+  useDownloadPDFMutation,
+  useGeneratePDFMutation,
+} from "@/services/api/transactionApi";
+import QRModal from "./QRModal";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateTransactionToken } from "@/services/transactionSlice";
+import { changeDepartureFlight } from "@/services/flightSlice";
 
-const FlightDetail = ({ selectedTicketId, data }) => {
+const FlightDetail = ({ selectedTicketId, data, isFetching }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [qrCodePath, setQrCodePath] = useState(null);
+  const [flightId, setFlightId] = useState(null);
   const tickets = data.find((ticket) => ticket.id === selectedTicketId);
+
+  const [generateQR, { isLoading }] = useGeneratePDFMutation();
+  const [downloadPDF, { isLoading: isDownloading }] = useDownloadPDFMutation();
+
+  useEffect(() => {
+    if (!isFetching && tickets) {
+      setFlightId(tickets.Tickets[0].seat.flightId);
+    }
+  }, [tickets, isFetching, selectedTicketId]);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleClose = () => setIsModalOpen(false);
 
   const timeHandle = (time, type) => {
     const newTime = new Date(time);
@@ -44,6 +70,38 @@ const FlightDetail = ({ selectedTicketId, data }) => {
   ).reduce((sum, passenger) => sum + (Number(passenger.seat.price) || 0), 0);
 
   const total = totalChildrenPrice + totalAdultPrice;
+
+  async function handleCetakTiket() {
+    try {
+      const response = await generateQR(tickets.bookingCode).unwrap();
+      const data = response.payload?.data;
+      setQrCodePath(data.qrCode);
+      setIsModalOpen((prev) => !prev);
+    } catch (error) {
+      console.error("Failed to download:", error);
+    }
+  }
+
+  async function handleDownload() {
+    try {
+      const blob = await downloadPDF(tickets.bookingCode).unwrap();
+      const blobURL = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.style.display = "none";
+      a.href = blobURL;
+      a.download = `${tickets.bookingCode}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(blobURL);
+    } catch (error) {
+      console.error("Failed to download:", error);
+    }
+  }
+  function handleLanjutBayar() {
+    dispatch(updateTransactionToken(tickets.midtransToken));
+    dispatch(changeDepartureFlight(flightId));
+    navigate("/payment");
+  }
 
   return (
     <>
@@ -192,21 +250,44 @@ const FlightDetail = ({ selectedTicketId, data }) => {
           <div className="flex justify-center items-center w-[350px] lg:h-[62px] md:h-[62px] h-[35px] lg:mt-[12px] md:mt-[12px] mt-[5px] lg:text-[20px] md:text-[20px] text-[15px]">
             {tickets.status === "Cancelled" ? null : (
               <Button
-                className={`flex justify-center items-center w-[350px] lg:h-[62px] md:h-[62px] h-[35px] lg:mt-[12px] md:mt-[12px] mt-[5px] lg:text-[20px] md:text-[20px] text-[15px] rounded-[12px] normal-case font-normal text-white ${
+                className={`flex justify-center items-center w-[350px] lg:h-[40px] md:h-[40px] h-[35px] lg:mt-[12px] md:mt-[12px] mt-[5px] lg:text-[20px] md:text-[20px] text-[15px] rounded-[12px] normal-case font-normal text-white ${
                   tickets.status === "Issued"
                     ? "bg-textPurple"
                     : tickets.status === "Unpaid"
                     ? "bg-primaryRed"
                     : ""
                 } `}
+                onClick={
+                  tickets.status === "Issued"
+                    ? handleCetakTiket
+                    : handleLanjutBayar
+                }
+                disabled={isLoading}
               >
-                {tickets.status === "Issued" && "Cetak Tiket"}
-                {tickets.status === "Unpaid" && "Lanjut Bayar"}
+                {isLoading ? (
+                  tickets.status === "Issued" ? (
+                    "Mencetak..."
+                  ) : (
+                    "Memproses Pembayaran..."
+                  )
+                ) : (
+                  <>
+                    {tickets.status === "Issued" && "Cetak Tiket"}
+                    {tickets.status === "Unpaid" && "Lanjut Bayar"}
+                  </>
+                )}
               </Button>
             )}
           </div>
         </div>
       </div>
+      <QRModal
+        open={isModalOpen}
+        onClose={handleClose}
+        qrCode={qrCodePath}
+        onDownload={handleDownload}
+        isLoading={isDownloading}
+      />
     </>
   );
 };

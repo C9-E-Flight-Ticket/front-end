@@ -78,38 +78,15 @@ const PaymentPage = () => {
     // when user close payment
   }
   function handleError(result) {
-    alert("payment failed!");
-
-    try {
-      sendPaymentSuccess({
-        order_id: result.order_id,
-        fraud_status: result.fraud_status,
-        transaction_status: result.transaction_status,
-        payment_type: result.payment_type,
-      }).unwrap();
-    } catch (error) {
-      console.log(error);
-    }
-    navigate("/");
-
+    console.log(result);
+    console.log("error");
     navigate("/");
   }
-  function handleCancelTransaction(result) {
-    alert("payment canceled!");
 
-    try {
-      sendPaymentSuccess({
-        order_id: result.order_id,
-        fraud_status: result.fraud_status,
-        transaction_status: result.transaction_status,
-        payment_type: result.payment_type,
-      }).unwrap();
-    } catch (error) {
-      console.log(error);
-    }
-    navigate("/");
-    // alert("you closed the popup without finishing the payment");
+  function handleCancelTransaction(result) {
+    console.log("cancel");
     console.log(result);
+    navigate(-1);
   }
 
   useMidtransEmbed(
