@@ -30,7 +30,7 @@ export const accountApi = api.injectEndpoints({
         if (import.meta.env.VITE_NODE_ENV !== "production") {
           headers.Authorization = `Bearer ${Cookies.get("access_token")}`;
         }
-        return { url: `/api/profile/:id`, method: "GET" };
+        return { url: `/api/profile`, method: "GET" };
       },
     }),
     updateUserProfile: build.mutation({
@@ -40,7 +40,7 @@ export const accountApi = api.injectEndpoints({
           headers.Authorization = `Bearer ${Cookies.get("access_token")}`;
         }
         return {
-          url: `/api/profile/:id`,
+          url: `/api/profile`,
           method: "PUT",
           body: { name, email, phoneNumber },
         };

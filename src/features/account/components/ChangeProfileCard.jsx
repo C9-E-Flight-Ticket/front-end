@@ -10,7 +10,7 @@ const ChangeProfileCard = () => {
     data: userProfile,
     isLoading: isLoadingProfile,
     error: profileError,
-  } = useGetUserProfileQuery();
+  } = useGetUserProfileQuery(null, { refetchOnMountOrArgChange: true });
   const [updateUserProfile, { isLoading: isUpdating }] =
     useUpdateUserProfileMutation();
   const {
@@ -40,6 +40,7 @@ const ChangeProfileCard = () => {
       const response = await updateUserProfile({
         name: data.fullName,
         phoneNumber: data.phoneNumber,
+        email: data.email,
       }).unwrap();
       console.log("Profile updated successfully:", response);
       alert("Profil berhasil diperbarui!");
@@ -95,7 +96,7 @@ const ChangeProfileCard = () => {
                           {...register("phoneNumber", {
                             required: "Nomor telepon wajib diisi",
                             pattern: {
-                              value: /^(\+?\d{1,3}|\d{1,4})?\s?\d+$/,
+                              value: /^(\+?\d{1,3}|\d{1,4})?\s?\d+$/,
                               message: "Nomor telepon tidak valid",
                             },
                           })}
