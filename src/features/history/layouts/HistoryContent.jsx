@@ -6,7 +6,7 @@ import HistoryNotFound from "../components/HistoryNotFound";
 import { Spinner } from "@material-tailwind/react";
 
 const HistoryContent = () => {
-  const { data, isLoading, error } = useGetAllUserTransactionsQuery({
+  const { data, isLoading, error } = useGetAllUserTransactionsQuery(null, {
     refetchOnMountOrArgChange: true,
   });
 
