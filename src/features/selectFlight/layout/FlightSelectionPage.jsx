@@ -66,7 +66,7 @@ export default function FlightSelectionPage() {
   return (
     <>
       <Sorting />
-      <div className="relative flex flex-col lg:flex-row top-[230px] lg:top-[320px] w-full max-w-screen-xl mx-auto px-4 lg:px-0 gap-6">
+      <div className="relative flex flex-col lg:flex-row top-[170px] sm:top-[170px] md:top-[230px] lg:top-[320px] w-full max-w-screen-xl mx-auto px-4 lg:px-0 gap-6">
         <div
           className={`relative lg:fixed lg:pt-4 w-full lg:w-[250px] ${
             stage === "departure" ? "lg:top-[390px]" : "lg:top-[315px]"
