@@ -6,6 +6,7 @@ import { useGetTicketByContinentQuery } from "@/services/api/flightApi";
 import DataNotFound from "./DataNotFound";
 import DestinationSkeleton from "./DestinationSkeleton";
 import { formatNumberToRupiah } from "@/utils/helper";
+import DestinationFilterDropdown from "./DestinationFilterDropdown";
 
 const continents = [
   "Semua",
@@ -48,7 +49,7 @@ const Destination = ({ className }) => {
     <div className={className}>
       <div className="flex flex-col justify-center items-start">
         <h1 className="text-xl font-bold">Destinasi Favorit</h1>
-        <div className="flex gap-4 mt-4 flex-wrap">
+        <div className="hidden md:flex gap-4 mt-4 flex-wrap">
           {continents.map((continent, index) => (
             <DestinationFilterButton
               key={index}
@@ -58,6 +59,13 @@ const Destination = ({ className }) => {
               {continent}
             </DestinationFilterButton>
           ))}
+        </div>
+        <div className="md:hidden w-full mt-4 mb-2">
+          <DestinationFilterDropdown
+            continents={continents}
+            selected={selected}
+            handleSelect={handleSelect}
+          />
         </div>
       </div>
 
