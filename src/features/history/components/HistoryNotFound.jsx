@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 const HistoryNotFound = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex justify-center items-center flex-col w-full h-screen">
+    <div className="flex justify-center items-center flex-col w-full h-screen" >
       <img
         src="cart-shopping.png"
         alt="cart-shopping.png"
-        className="w-[204px] h-[208px] "
+        className="w-[204px] h-[208px] md:mt-[100px] "
       />
       <div className="py-[10px] pl-[12px] pr-[2px] flex justify-center items-center flex-col">
         <p className="text-[14px] font-normal text-primaryPurple ">

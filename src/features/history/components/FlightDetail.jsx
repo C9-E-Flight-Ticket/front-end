@@ -118,8 +118,8 @@ const FlightDetail = ({ selectedTicketId, data, isFetching }) => {
           isVisible ? "block" : "hidden"
         } block lg:block `}
       >
-        <div className="flex items-center mt-[5px]">
-          <p className="lg:ml-[0px] ml-[4px] md:mb-[6px] md:text-[18px] text-[14px] font-bold ">
+        <div className="flex items-center mt-[5px] lg:px-[0px] px-[15px]">
+          <p className="md:mb-[6px] md:text-[18px] text-[14px] font-bold">
             Detail Pesanan
           </p>
           <div className="flex justify-end ml-auto">
@@ -136,14 +136,14 @@ const FlightDetail = ({ selectedTicketId, data, isFetching }) => {
           </div>
         </div>
         <div>
-          <p className="lg:ml-[0px] ml-[4px] md:mb-[10px] md:text-[18px] text-[12px]">
+          <p className="lg:px-[0px] px-[15px] md:mb-[10px] md:text-[18px] text-[12px]">
             Booking Code:{" "}
             <span className="font-bold text-textPurple">
               {tickets.bookingCode}
             </span>
           </p>
         </div>
-        <div className="lg:mx-[0px] mx-[5px] flex justify-between items-start">
+        <div className="lg:px-[0px] px-[15px] flex justify-between items-start">
           <div>
             <p className="md:text-sm text-[10px] font-bold">
               {timeHandle(tickets.Tickets[0].seat.flight.departureTime, "hour")}
@@ -155,13 +155,13 @@ const FlightDetail = ({ selectedTicketId, data, isFetching }) => {
             </p>
           </div>
         </div>
-        <p className="lg:ml-[0px] ml-[5px] md:text-sm text-[10px] text-black">
+        <p className="lg:px-[0px] px-[15px] md:text-sm text-[10px] text-black">
           {timeHandle(tickets.Tickets[0].seat.flight.departureTime, "date")}
         </p>
-        <p className="lg:ml-[0px] ml-[5px] md:text-sm text-[10px] text-black">
+        <p className="lg:px-[0px] px-[15px] md:text-sm text-[10px] text-black">
           {tickets.Tickets[0].seat.flight.departureAirport.city}
         </p>
-        <div className="pt-2 md:mt-4 border-t">
+        <div className="lg:px-[0px] px-[15px] pt-2 md:mt-4 border-t">
           <p className="ml-11 md:text-sm text-[10px] font-semibold text-black">
             {tickets.Tickets[0].seat.flight.airline.name} -{" "}
             {tickets.Tickets[0].seat.seatClass}
@@ -190,7 +190,7 @@ const FlightDetail = ({ selectedTicketId, data, isFetching }) => {
             </div>
           </div>
         </div>
-        <div className="lg:mx-[0px] mx-[5px] pt-2 md:mt-2 flex border-t justify-between items-start">
+        <div className="lg:px-[0px] px-[15px] pt-2 md:mt-2 flex border-t justify-between items-start">
           <div>
             <p className="md:text-sm text-[10px] font-bold">
               {timeHandle(tickets.Tickets[0].seat.flight.arrivalTime, "hour")}
@@ -202,13 +202,13 @@ const FlightDetail = ({ selectedTicketId, data, isFetching }) => {
             </p>
           </div>
         </div>
-        <p className="lg:ml-[0px]ml-[5px] md:text-sm text-[10px] text-black">
+        <p className="lg:px-[0px] px-[15px] md:text-sm text-[10px] text-black">
           {timeHandle(tickets.Tickets[0].seat.flight.arrivalTime, "date")}
         </p>
-        <p className="lg:ml-[0px] ml-[5px] md:text-sm text-[10px] text-black">
+        <p className="lg:px-[0px] px-[15px] md:text-sm text-[10px] text-black">
           {tickets.Tickets[0].seat.flight.arrivalAirport.city}
         </p>
-        <div className="md:mt-2 ml-3 border-t">
+        <div className="lg:px-[0px] px-[15px] md:mt-2 ml-3 border-t">
           <h3 className="md:text-base text-[14px] font-semibold text-black md:mb-2">
             Rincian Harga
           </h3>
@@ -238,7 +238,7 @@ const FlightDetail = ({ selectedTicketId, data, isFetching }) => {
           )}
           <div className="flex justify-between md:text-sm text-[10px] lg:mr-[0px] mr-[5px] text-black">
             <p>Tax</p>
-            <p>IDR {tickets.tax.toLocaleString("id-ID")}</p>
+            <p>IDR {(Number(tickets.tax)).toLocaleString("id-ID")}</p>
           </div>
 
           <div className="mt-2 lg:mr-[0px] mr-[5px] flex justify-between md:text-lg text-[12px] font-bold border-t text-textPurple">
