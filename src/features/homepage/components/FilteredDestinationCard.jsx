@@ -1,14 +1,35 @@
+import {
+  selectDepartureCity,
+  selectReturnCity,
+  updateFlightDate,
+  updatePassengers,
+} from "@/services/homepageSlice";
+import { formatDateToDash } from "@/utils/helper";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 const FilteredDestinationCard = ({
   from,
   destination,
   airline,
   departureDate,
-  returnDate,
   price,
   image,
 }) => {
+  const dispatch = useDispatch();
+
+  function handleClick() {
+    dispatch(updateFlightDate(formatDateToDash(departureDate)));
+    dispatch(selectDepartureCity(from));
+    dispatch(selectReturnCity(destination));
+    dispatch(updatePassengers({ adult: 1, child: 0, baby: 0 }));
+  }
+
   return (
-    <div className="mx-auto w-full relative max-w-[275px] min-w-[170px] min-h-[194px] border rounded shadow bg-white transition-transform transform hover:scale-110 hover:shadow-lg hover:cursor-pointer">
+    <div
+      onClick={handleClick}
+      className="mx-auto w-full relative max-w-[275px] min-w-[170px] min-h-[194px] border rounded shadow bg-white transition-transform transform hover:scale-110 hover:shadow-lg hover:cursor-pointer"
+    >
       <div className="absolute w-[72px] h-[24px] bg-[#A06ECE] rounded-tl-xl rounded-bl-xl top-[5px] right-[3px] flex items-center justify-center">
         <div className="text-white text-[10px] ml-2">50% OFF</div>
       </div>
@@ -22,9 +43,7 @@ const FilteredDestinationCard = ({
           {destination}
         </div>
         <div className="text-[10px] text-[#7126B5] font-bold">{airline}</div>
-        <div className="text-[10px] font-medium">
-          {departureDate} - {returnDate}
-        </div>
+        <div className="text-[10px] font-medium">20 - 30 Maret 2024</div>
         <div className="text-[12px] font-normal">
           Mulai dari{" "}
           <span className="text-[#FF0000] font-bold">
