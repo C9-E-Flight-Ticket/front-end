@@ -1,3 +1,5 @@
+import { jwtDecode } from "jwt-decode";
+
 export const capitalizeFirstLetter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
@@ -55,4 +57,14 @@ export const dateToTime = (date) => {
   const minutes = dateFormat.getMinutes().toString().padStart(2, "0");
 
   return `${hours}:${minutes}`;
+};
+
+export const decodeJWT = (token) => {
+  try {
+    const decoded = jwtDecode(token);
+    return decoded;
+  } catch (error) {
+    console.error("Failed to decode JWT:", error);
+    return null;
+  }
 };
