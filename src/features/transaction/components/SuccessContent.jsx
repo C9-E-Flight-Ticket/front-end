@@ -17,7 +17,10 @@ const SuccessContent = () => {
           Transaksi Pembayaran Sukses
         </p>
       </div>
-      <Button className="w-[347px] h-[48px] mt-[26px] rounded-[12px] bg-textPurple text-white">
+      <Button
+        className="w-[347px] h-[48px] mt-[26px] rounded-[12px] bg-textPurple text-white"
+        onClick={() => navigate("/history")}
+      >
         Terbitkan Tiket
       </Button>
       <Button

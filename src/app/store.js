@@ -15,7 +15,7 @@ const store = configureStore({
     homepage: homepageReducer,
     flight: flightReducer,
     transaction: transactionReducer,
-    // notification: notificationReducer,
+    notification: notificationReducer,
     [flightApi.reducerPath]: flightApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [transactionApi.reducerPath]: transactionApi.reducer,
@@ -27,8 +27,8 @@ const store = configureStore({
       .concat(flightApi.middleware)
       .concat(authApi.middleware)
       .concat(transactionApi.middleware)
-      .concat(accountApi.middleware),
-  // .concat(socketMiddleware),
+      .concat(accountApi.middleware)
+      .concat(socketMiddleware),
 });
 
 export default store;

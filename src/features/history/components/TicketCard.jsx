@@ -79,7 +79,7 @@ const TicketCard = ({ onSelectTicket, data }) => {
     {}
   );
 
-  const isEmpty = Object.keys(filteredTickets).length === 0;
+  const isEmpty = Object.keys(groupedTickets).length === 0;
 
   return (
     <>
@@ -88,13 +88,13 @@ const TicketCard = ({ onSelectTicket, data }) => {
           <DataNotFound />
         </div>
       ) : (
-        Object.keys(filteredTickets).map((monthYear) => (
+        Object.keys(groupedTickets).map((monthYear) => (
           <div
             key={monthYear}
             className="w-full flex flex-col lg:items-start items-center lg:mx-[0px] md:mx-[5px]"
           >
             <p className="my-[12px] text-[16px] font-bold">{monthYear}</p>
-            {filteredTickets[monthYear].map((ticket) => (
+            {groupedTickets[monthYear].map((ticket) => (
               <Card
                 key={ticket.id}
                 onClick={() => handleClick(ticket.id)}
