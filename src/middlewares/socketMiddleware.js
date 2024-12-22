@@ -1,5 +1,7 @@
 import { addNotification } from "@/services/notificationSlice";
 import io from "socket.io-client";
+import Cookies from "js-cookie";
+import { decodeJWT } from "@/utils/helper";
 
 const socketMiddleware = (storeAPI) => {
   let socket;
@@ -7,7 +9,13 @@ const socketMiddleware = (storeAPI) => {
   return (next) => (action) => {
     if (!socket) {
       socket = io("https://api.eflight.web.id");
-      console.log("connect");
+
+      const access_token = Cookies.get("access_token");
+
+      if (access_token) {
+        const payload = decodeJWT(access_token);
+        socket.emit("register", payload.userId);
+      }
 
       socket.on("transaction-notification", (notification) => {
         storeAPI.dispatch(addNotification(notification));
