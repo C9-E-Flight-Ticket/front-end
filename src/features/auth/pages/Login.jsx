@@ -1,6 +1,4 @@
 import Cookies from "js-cookie";
-import io from "socket.io-client";
-const socket = io("https://api.eflight.web.id");
 
 import AuthLayout from "@/features/auth/layouts/AuthLayout";
 import { useForm } from "react-hook-form";
@@ -10,7 +8,6 @@ import Notification from "../components/Notification";
 import { useLoginMutation } from "@/services/api/authApi";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { decodeJWT } from "@/utils/helper";
 
 const Login = () => {
   const [login, { isLoading, isSuccess }] = useLoginMutation();
@@ -35,9 +32,6 @@ const Login = () => {
         password: data.password,
       }).unwrap();
       const token = response.payload?.data;
-
-      const payload = decodeJWT(token);
-      socket.emit("register", payload.userId);
 
       if (import.meta.env.VITE_NODE_ENV != "production")
         Cookies.set("access_token", token);
