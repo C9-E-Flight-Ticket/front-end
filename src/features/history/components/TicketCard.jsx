@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Card } from "@material-tailwind/react";
 import DataNotFound from "@/features/homepage/components/DataNotFound";
 
@@ -79,7 +79,7 @@ const TicketCard = ({ onSelectTicket, data }) => {
     {}
   );
 
-  const isEmpty = Object.keys(filteredTickets).length === 0;
+  const isEmpty = Object.keys(groupedTickets).length === 0;
 
   return (
     <>
@@ -88,13 +88,13 @@ const TicketCard = ({ onSelectTicket, data }) => {
           <DataNotFound />
         </div>
       ) : (
-        Object.keys(filteredTickets).map((monthYear) => (
+        Object.keys(groupedTickets).map((monthYear) => (
           <div
             key={monthYear}
             className="w-full flex flex-col lg:items-start items-center lg:mx-[0px] md:mx-[5px]"
           >
             <p className="my-[12px] text-[16px] font-bold">{monthYear}</p>
-            {filteredTickets[monthYear].map((ticket) => (
+            {groupedTickets[monthYear].map((ticket) => (
               <Card
                 key={ticket.id}
                 onClick={() => handleClick(ticket.id)}
@@ -109,7 +109,11 @@ const TicketCard = ({ onSelectTicket, data }) => {
                   className={`sm:w-[70px] w-[50px] sm:h-[28px] h-[15px] my-[4px] ml-[15px] rounded-[16px] sm:text-[14px] text-[10px] font-light flex items-center justify-center text-white 
                 ${ticket.status === "Issued" ? "bg-lightGreen w-[70px]" : ""}
                 ${ticket.status === "Unpaid" ? "bg-red-500 w-[75px]" : ""}
-                ${ticket.status === "Cancelled" ? "bg-gray-500 w-[96px]" : ""}`}
+                ${
+                  ticket.status === "Cancelled"
+                    ? "bg-gray-500 w-fit px-3 sm:px-12"
+                    : ""
+                }`}
                 >
                   {ticket.status === "Issued" && "Issued"}
                   {ticket.status === "Unpaid" && "Unpaid"}

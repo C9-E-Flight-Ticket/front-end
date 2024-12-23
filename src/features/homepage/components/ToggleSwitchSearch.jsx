@@ -1,4 +1,4 @@
-import { switchSearchCity } from "@/services/homepageSlice";
+import { switchSearchCity } from "@/services/slices/homepageSlice";
 import { useDispatch } from "react-redux";
 
 const ToggleSwitchSearch = () => {

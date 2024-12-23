@@ -1,6 +1,6 @@
 import ModalMenuLayout from "@/features/homepage/components/ModalMenuLayout";
 import PassengerItem from "@/features/homepage/components/PassengerItem";
-import { updatePassengers } from "@/services/homepageSlice";
+import { updatePassengers } from "@/services/slices/homepageSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 

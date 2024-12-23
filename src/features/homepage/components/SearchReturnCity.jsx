@@ -6,7 +6,7 @@ import {
   selectReturnCity,
   removeSuggestion,
   clearSuggestion,
-} from "@/services/homepageSlice";
+} from "@/services/slices/homepageSlice";
 
 const SearchReturnCity = () => {
   const [isOpen, setIsOpen] = useState(false);

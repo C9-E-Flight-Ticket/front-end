@@ -7,9 +7,9 @@ import LoadingTicket from "../components/LoadingTicket";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetTicketBySearchingQuery } from "@/services/api/flightApi";
 import { useEffect, useState } from "react";
-import { resetFlightState } from "@/services/flightSlice";
+import { resetFlightState } from "@/services/slices/flightSlice";
 import SelectOrderCard from "../components/SelectOrderCard";
-import { switchSearchCity } from "@/services/homepageSlice";
+import { switchSearchCity } from "@/services/slices/homepageSlice";
 import { useNavigate } from "react-router-dom";
 
 export default function FlightSelectionPage() {
@@ -66,7 +66,7 @@ export default function FlightSelectionPage() {
   return (
     <>
       <Sorting />
-      <div className="relative flex flex-col lg:flex-row top-[230px] lg:top-[320px] w-full max-w-screen-xl mx-auto px-4 lg:px-0 gap-6">
+      <div className="relative flex flex-col lg:flex-row top-[170px] sm:top-[170px] md:top-[230px] lg:top-[320px] w-full max-w-screen-xl mx-auto px-4 lg:px-0 gap-6">
         <div
           className={`relative lg:fixed lg:pt-4 w-full lg:w-[250px] ${
             stage === "departure" ? "lg:top-[390px]" : "lg:top-[315px]"

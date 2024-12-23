@@ -4,7 +4,7 @@ import SuccessContent from "../components/SuccessContent";
 import NotificationBox from "../components/NotificationBox";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { resetFlightState } from "@/services/flightSlice";
+import { resetFlightState } from "@/services/slices/flightSlice";
 import { useNavigate } from "react-router-dom";
 
 export default function PaymentSuccessPage() {

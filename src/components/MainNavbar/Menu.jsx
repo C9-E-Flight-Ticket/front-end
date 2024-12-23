@@ -5,10 +5,13 @@ import {
 } from "@heroicons/react/24/outline";
 import { Typography } from "@material-tailwind/react";
 import { useLocation, useNavigate } from "react-router-dom";
+import NotificationDropdown from "../Notification/NotificationDropdown";
+import { useSelector } from "react-redux";
 
 const Menu = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { notifications } = useSelector((state) => state.notification);
 
   const active = (path) => location.pathname === path;
 
@@ -40,19 +43,23 @@ const Menu = () => {
           onClick={() => navigate("/account")}
         />
       </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="flex items-center gap-x-1 p-1 font-medium"
-      >
-        <BellIcon
-          className={`w-5 hover:text-deep-purple-600 hover:cursor-pointer transform hover:scale-125 ${
-            active("/notification") && "text-deep-purple-600"
-          }`}
-          onClick={() => navigate("/notification")}
-        />
-      </Typography>
+      <div>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="flex items-center gap-x-1 p-1 font-medium"
+        >
+          <BellIcon
+            className={`w-5 hover:text-deep-purple-600 hover:cursor-pointer transform hover:scale-125 ${
+              active("/notification") && "text-deep-purple-600"
+            }`}
+            onClick={() => navigate("/notification")}
+          />
+        </Typography>
+
+        {notifications.length > 0 && <NotificationDropdown />}
+      </div>
     </ul>
   );
 };

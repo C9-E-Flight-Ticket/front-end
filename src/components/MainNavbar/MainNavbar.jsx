@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const MainNavbar = () => {
   const navigate = useNavigate();
+
   return (
     <Navbar
       fullWidth

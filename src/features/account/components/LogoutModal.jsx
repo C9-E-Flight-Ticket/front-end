@@ -1,6 +1,6 @@
 import Cookie from "js-cookie";
-import { resetFlightState } from "@/services/flightSlice";
-import { resetHomepageState } from "@/services/homepageSlice";
+import { resetFlightState } from "@/services/slices/flightSlice";
+import { resetHomepageState } from "@/services/slices/homepageSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "@/services/api/authApi";

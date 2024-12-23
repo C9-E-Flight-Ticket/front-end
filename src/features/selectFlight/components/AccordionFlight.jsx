@@ -5,8 +5,8 @@ import {
   changeDepartureFlight,
   changeFlightStage,
   changeReturnFlight,
-} from "@/services/flightSlice";
-import { switchSearchCity } from "@/services/homepageSlice";
+} from "@/services/slices/flightSlice";
+import { switchSearchCity } from "@/services/slices/homepageSlice";
 
 export default function AccordionFlight({
   flightData,
@@ -25,12 +25,14 @@ export default function AccordionFlight({
     setSelectedDepartureFlight(flight);
     setOpen(null);
 
-    isReturnToggleActive
-      ? dispatch(changeFlightStage("return"))
-      : navigate("/transaction");
+    if (isReturnToggleActive) {
+      dispatch(changeFlightStage("return"));
+      dispatch(switchSearchCity());
+    } else {
+      navigate("/transaction");
+    }
 
     dispatch(changeDepartureFlight(flight.id));
-    dispatch(switchSearchCity());
   };
 
   const handleSelectReturn = (flight) => {
@@ -44,7 +46,7 @@ export default function AccordionFlight({
   return (
     <div className="flex flex-col items-center lg:space-y-5 space-y-3 lg:py-5 relative">
       <div className="w-full">
-        <h2 className="text-xl font-bold mb-4 px-20 lg:px-24 pt-12 sm:pt-14 md:pt-12 lg:py-0">
+        <h2 className="text-xl font-bold mb-4 px-5 sm:px-10 lg:px-24 pt-0 sm:pt-0 md:pt-4 lg:py-0 max-w-full">
           {stage === "departure"
             ? "Pilih Tiket Keberangkatan"
             : "Pilih Tiket Kepulangan"}

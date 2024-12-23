@@ -18,7 +18,7 @@ import {
   updateBookingCode,
   updateFormData,
   updateTransactionToken,
-} from "@/services/transactionSlice";
+} from "@/services/slices/transactionSlice";
 
 export default function TransactionPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -80,8 +80,6 @@ export default function TransactionPage() {
       dispatch(updateFormData(payload));
       dispatch(updateBookingCode(data.bookingCode));
       dispatch(updateTransactionToken(data.midtransToken));
-
-      console.log(response);
     } catch (error) {
       console.log(error);
     }

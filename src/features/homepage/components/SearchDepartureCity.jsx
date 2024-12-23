@@ -6,7 +6,7 @@ import {
   selectDepartureCity,
   removeSuggestion,
   clearSuggestion,
-} from "@/services/homepageSlice";
+} from "@/services/slices/homepageSlice";
 
 const SearchDepartureCity = () => {
   const [isOpen, setIsOpen] = useState(false);
