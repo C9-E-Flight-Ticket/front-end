@@ -109,7 +109,11 @@ const TicketCard = ({ onSelectTicket, data }) => {
                   className={`sm:w-[70px] w-[50px] sm:h-[28px] h-[15px] my-[4px] ml-[15px] rounded-[16px] sm:text-[14px] text-[10px] font-light flex items-center justify-center text-white 
                 ${ticket.status === "Issued" ? "bg-lightGreen w-[70px]" : ""}
                 ${ticket.status === "Unpaid" ? "bg-red-500 w-[75px]" : ""}
-                ${ticket.status === "Cancelled" ? "bg-gray-500 w-[96px]" : ""}`}
+                ${
+                  ticket.status === "Cancelled"
+                    ? "bg-gray-500 w-fit px-3 sm:px-12"
+                    : ""
+                }`}
                 >
                   {ticket.status === "Issued" && "Issued"}
                   {ticket.status === "Unpaid" && "Unpaid"}

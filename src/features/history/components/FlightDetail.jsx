@@ -127,7 +127,7 @@ const FlightDetail = ({ selectedTicketId, data, isFetching }) => {
               className={`md:w-[70px] w-[40px] md:h-[28px] h-[20px] my-[4px] rounded-[16px] md:text-[14px] text-[12px] font-light flex items-center justify-center text-white 
             ${tickets.status === "Issued" ? "bg-lightGreen w-[70px]" : ""}
             ${tickets.status === "Unpaid" ? "bg-red-500 w-[75px]" : ""}
-            ${tickets.status === "Cancelled" ? "bg-gray-500 w-[96px]" : ""}`}
+            ${tickets.status === "Cancelled" ? "bg-gray-500 w-fit px-12" : ""}`}
             >
               {tickets.status === "Issued" && "Issued"}
               {tickets.status === "Unpaid" && "Unpaid"}
@@ -238,7 +238,7 @@ const FlightDetail = ({ selectedTicketId, data, isFetching }) => {
           )}
           <div className="flex justify-between md:text-sm text-[10px] lg:mr-[0px] mr-[5px] text-black">
             <p>Tax</p>
-            <p>IDR {(Number(tickets.tax)).toLocaleString("id-ID")}</p>
+            <p>IDR {Number(tickets.tax).toLocaleString("id-ID")}</p>
           </div>
 
           <div className="mt-2 lg:mr-[0px] mr-[5px] flex justify-between md:text-lg text-[12px] font-bold border-t text-textPurple">
