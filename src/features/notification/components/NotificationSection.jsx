@@ -19,7 +19,7 @@ const NotificationSection = () => {
         </div>
       )}
       {(!isLoading || !isFetching) && (
-        <div className="absolute top-[280px] left-1/2 -translate-x-[60%] grid gap-[17px]">
+        <div className="absolute md:top-[280px] left-1/2 -translate-x-1/2 top-[200px] sm:left-1/2 sm:-translate-x-[60%] grid gap-[17px]">
           {data?.payload?.data?.length === 0 ? (
             <div className="text-center text-[#8A8A8A]">
               Tidak ada notifikasi...
