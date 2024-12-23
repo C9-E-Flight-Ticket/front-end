@@ -5,8 +5,8 @@ import {
   changeDepartureFlight,
   changeFlightStage,
   changeReturnFlight,
-} from "@/services/flightSlice";
-import { switchSearchCity } from "@/services/homepageSlice";
+} from "@/services/slices/flightSlice";
+import { switchSearchCity } from "@/services/slices/homepageSlice";
 
 export default function AccordionFlight({
   flightData,

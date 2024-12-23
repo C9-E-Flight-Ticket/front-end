@@ -18,7 +18,7 @@ import {
   updateBookingCode,
   updateFormData,
   updateTransactionToken,
-} from "@/services/transactionSlice";
+} from "@/services/slices/transactionSlice";
 
 export default function TransactionPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);

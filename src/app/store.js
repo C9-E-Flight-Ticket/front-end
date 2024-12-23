@@ -1,7 +1,7 @@
-import homepageReducer from "@/services/homepageSlice";
-import flightReducer from "@/services/flightSlice";
-import transactionReducer from "@/services/transactionSlice";
-import notificationReducer from "@/services/notificationSlice";
+import homepageReducer from "@/services/slices/homepageSlice";
+import flightReducer from "@/services/slices/flightSlice";
+import transactionReducer from "@/services/slices/transactionSlice";
+import notificationReducer from "@/services/slices/notificationSlice";
 
 import { configureStore } from "@reduxjs/toolkit";
 import { flightApi } from "@/services/api/flightApi";

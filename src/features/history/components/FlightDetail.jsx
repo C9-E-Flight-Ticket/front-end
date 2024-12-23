@@ -7,8 +7,8 @@ import {
 import QRModal from "./QRModal";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { updateTransactionToken } from "@/services/transactionSlice";
-import { changeDepartureFlight } from "@/services/flightSlice";
+import { updateTransactionToken } from "@/services/slices/transactionSlice";
+import { changeDepartureFlight } from "@/services/slices/flightSlice";
 
 const FlightDetail = ({ selectedTicketId, data, isFetching }) => {
   const [isVisible, setIsVisible] = useState(false);

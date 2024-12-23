@@ -1,6 +1,6 @@
 import ModalMenuLayout from "@/features/homepage/components/ModalMenuLayout";
 import SeatItem from "@/features/homepage/components/SeatItem";
-import { chooseSeatClass } from "@/services/homepageSlice";
+import { chooseSeatClass } from "@/services/slices/homepageSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 const SeatMenu = () => {

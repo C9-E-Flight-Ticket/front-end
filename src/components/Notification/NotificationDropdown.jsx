@@ -1,4 +1,4 @@
-import { removeNotification } from "@/services/notificationSlice";
+import { removeNotification } from "@/services/slices/notificationSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const NotificationDropdown = () => {

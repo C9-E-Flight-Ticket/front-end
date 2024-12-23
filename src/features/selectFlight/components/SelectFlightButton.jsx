@@ -19,8 +19,14 @@ const days = [
 ];
 
 import { useNavigate } from "react-router-dom";
-import { switchSearchCity, updateFlightDate } from "@/services/homepageSlice";
-import { changeFlightStage, resetFlightState } from "@/services/flightSlice";
+import {
+  switchSearchCity,
+  updateFlightDate,
+} from "@/services/slices/homepageSlice";
+import {
+  changeFlightStage,
+  resetFlightState,
+} from "@/services/slices/flightSlice";
 
 const SelectFlightButton = () => {
   const currentDate = new Date().toISOString();

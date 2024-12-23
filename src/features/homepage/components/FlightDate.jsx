@@ -5,7 +5,10 @@ import ToggleSwitch from "@/features/homepage/components/ToggleSwitch";
 import DatePicker from "@/features/homepage/components/DatePicker";
 import FlightDateButton from "@/features/homepage/components/FlightDateButton";
 import { useDispatch, useSelector } from "react-redux";
-import { changeReturnToggle, updateFlightDate } from "@/services/homepageSlice";
+import {
+  changeReturnToggle,
+  updateFlightDate,
+} from "@/services/slices/homepageSlice";
 import { convertLocalDateToUTC } from "@/utils/helper";
 
 const FlightDate = () => {

@@ -1,4 +1,4 @@
-import { addNotification } from "@/services/notificationSlice";
+import { addNotification } from "@/services/slices/notificationSlice";
 import io from "socket.io-client";
 import Cookies from "js-cookie";
 import { decodeJWT } from "@/utils/helper";

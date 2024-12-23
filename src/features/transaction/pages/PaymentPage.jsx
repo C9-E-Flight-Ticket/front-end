@@ -13,7 +13,7 @@ import {
   updateTransactionDate,
   updateTransactionStatus,
   updateTransactionTime,
-} from "@/services/transactionSlice";
+} from "@/services/slices/transactionSlice";
 
 const PaymentPage = () => {
   const { bookingCode, transactionToken, transactionDate, transactionTime } =

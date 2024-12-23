@@ -4,7 +4,7 @@ import Banner from "../layouts/Banner";
 import MainLayout from "@/layouts/MainLayout";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { resetFlightState } from "@/services/flightSlice";
+import { resetFlightState } from "@/services/slices/flightSlice";
 
 export default function Homepage() {
   const dispatch = useDispatch();

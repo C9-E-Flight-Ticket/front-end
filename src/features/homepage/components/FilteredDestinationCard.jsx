@@ -3,7 +3,7 @@ import {
   selectReturnCity,
   updateFlightDate,
   updatePassengers,
-} from "@/services/homepageSlice";
+} from "@/services/slices/homepageSlice";
 import { formatDateToDash } from "@/utils/helper";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";

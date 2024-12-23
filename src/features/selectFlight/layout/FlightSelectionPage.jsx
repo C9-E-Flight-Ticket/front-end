@@ -7,9 +7,9 @@ import LoadingTicket from "../components/LoadingTicket";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetTicketBySearchingQuery } from "@/services/api/flightApi";
 import { useEffect, useState } from "react";
-import { resetFlightState } from "@/services/flightSlice";
+import { resetFlightState } from "@/services/slices/flightSlice";
 import SelectOrderCard from "../components/SelectOrderCard";
-import { switchSearchCity } from "@/services/homepageSlice";
+import { switchSearchCity } from "@/services/slices/homepageSlice";
 import { useNavigate } from "react-router-dom";
 
 export default function FlightSelectionPage() {
