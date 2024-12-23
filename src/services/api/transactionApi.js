@@ -30,7 +30,7 @@ export const transactionApi = api.injectEndpoints({
         return { url: `/api/transaction/order`, method: "POST", body: payload };
       },
     }),
-    sendSuccessTransaction: build.mutation({
+    sendTransactionCallback: build.mutation({
       query: ({ order_id, transaction_status, fraud_status, payment_type }) => {
         const headers = {};
         if (import.meta.env.VITE_NODE_ENV !== "production") {
@@ -77,7 +77,7 @@ export const transactionApi = api.injectEndpoints({
 export const {
   useGetAllUserTransactionsQuery,
   useGetTransactionByBookingCodeQuery,
-  useSendSuccessTransactionMutation,
+  useSendTransactionCallbackMutation,
   useCreateTransactionMutation,
   useGeneratePDFMutation,
   useDownloadPDFMutation,
