@@ -5,7 +5,7 @@ import MainLayout from "@/layouts/MainLayout";
 import useMidtransEmbed from "@/hooks/useMidtransEmbed";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useSendSuccessTransactionMutation } from "@/services/api/transactionApi";
+import { useSendTransactionCallbackMutation } from "@/services/api/transactionApi";
 import { Spinner } from "@material-tailwind/react";
 import { formatDateToUI, formattedTime } from "@/utils/helper";
 import { useEffect } from "react";
@@ -18,8 +18,8 @@ import {
 const PaymentPage = () => {
   const { bookingCode, transactionToken, transactionDate, transactionTime } =
     useSelector((state) => state.transaction);
-  const [sendPaymentSuccess, { isLoading }] =
-    useSendSuccessTransactionMutation();
+  const [sendTransactionCallback, { isLoading }] =
+    useSendTransactionCallbackMutation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ const PaymentPage = () => {
     */
 
     try {
-      await sendPaymentSuccess({
+      await sendTransactionCallback({
         order_id: result.order_id,
         fraud_status: result.fraud_status,
         transaction_status: result.transaction_status,
@@ -63,7 +63,7 @@ const PaymentPage = () => {
 
   function handlePending(result) {
     try {
-      sendPaymentSuccess({
+      sendTransactionCallback({
         order_id: result.order_id,
         fraud_status: result.fraud_status,
         transaction_status: result.transaction_status,
