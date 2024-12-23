@@ -6,10 +6,12 @@ import {
 import { Typography } from "@material-tailwind/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import NotificationDropdown from "../Notification/NotificationDropdown";
+import { useSelector } from "react-redux";
 
 const Menu = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { notifications } = useSelector((state) => state.notification);
 
   const active = (path) => location.pathname === path;
 
@@ -55,7 +57,8 @@ const Menu = () => {
             onClick={() => navigate("/notification")}
           />
         </Typography>
-        {/* <NotificationDropdown /> */}
+
+        {notifications.length > 0 && <NotificationDropdown />}
       </div>
     </ul>
   );

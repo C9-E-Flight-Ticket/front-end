@@ -25,12 +25,14 @@ export default function AccordionFlight({
     setSelectedDepartureFlight(flight);
     setOpen(null);
 
-    isReturnToggleActive
-      ? dispatch(changeFlightStage("return"))
-      : navigate("/transaction");
+    if (isReturnToggleActive) {
+      dispatch(changeFlightStage("return"));
+      dispatch(switchSearchCity());
+    } else {
+      navigate("/transaction");
+    }
 
     dispatch(changeDepartureFlight(flight.id));
-    dispatch(switchSearchCity());
   };
 
   const handleSelectReturn = (flight) => {

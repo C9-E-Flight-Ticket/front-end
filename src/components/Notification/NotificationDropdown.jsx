@@ -1,40 +1,24 @@
-import { useState } from "react";
+import { removeNotification } from "@/services/notificationSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const NotificationDropdown = () => {
-  const [notifications, setNotifications] = useState([
-    {
-      id: 1,
-      title: "Comment Notification",
-      message:
-        "New comment on your post. This is a longer message that spans multiple lines to demonstrate wrapping behavior.",
-    },
-    {
-      id: 2,
-      title: "Profile Update",
-      message:
-        "Your profile was updated successfully. Check your profile section for more details.",
-    },
-    {
-      id: 3,
-      title: "Friend Request",
-      message:
-        "John Doe has sent you a friend request. You can accept or decline it from the friends section.",
-    },
-  ]);
+  const { notifications } = useSelector((state) => state.notification);
+
+  const dispatch = useDispatch();
 
   const dismissNotification = (id) => {
-    setNotifications(notifications.filter((notif) => notif.id !== id));
+    dispatch(removeNotification(id));
   };
 
   return (
     <div className="relative">
-      <div className="absolute right-0 mt-2 w-80 bg-white shadow-lg rounded-lg">
+      <div className="absolute right-0 mt-2 w-80 bg-white shadow-lg rounded-lg z-[99]">
         {notifications.length > 0 ? (
           <ul className="divide-y divide-gray-200">
             {notifications.map((notif) => (
               <li
-                key={notif.id}
-                className="flex justify-between items-start p-4 hover:bg-gray-100"
+                key={notif.id || 1}
+                className="flex justify-between items-start p-4 hover:bg-gray-100 hover:cursor-pointer"
               >
                 <div className="w-5/6">
                   <h4 className="font-semibold text-sm text-gray-800">

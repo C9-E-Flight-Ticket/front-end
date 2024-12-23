@@ -117,8 +117,7 @@ const SelectFlightButton = () => {
                     : "bg-white text-black"
                 }`}
               >
-                {getDayName(date)} -{" "}
-                <span className="block">{formatDateToForwardSlash(date)}</span>
+                {getDayName(date)} - {formatDateToForwardSlash(date)}
               </option>
             );
           })}

@@ -13,8 +13,10 @@ const DestinationFilterDropdown = ({ continents, selected, handleSelect }) => {
         }}
         menuProps={{ className: "text-black" }}
       >
-        {continents.map((continent) => (
-          <Option value={`${continent}`}>{continent}</Option>
+        {continents.map((continent, index) => (
+          <Option value={`${continent}`} key={index}>
+            {continent}
+          </Option>
         ))}
       </Select>
     </>

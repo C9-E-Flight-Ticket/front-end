@@ -14,6 +14,7 @@ const socketMiddleware = (storeAPI) => {
 
       if (access_token) {
         const payload = decodeJWT(access_token);
+        console.log(payload);
         socket.emit("register", payload.userId);
       }
 
@@ -27,10 +28,10 @@ const socketMiddleware = (storeAPI) => {
         console.log(notification);
       });
 
-      socket.on("broadcast-notification", (notification) => {
-        storeAPI.dispatch(addNotification(notification));
-        console.log(notification);
-      });
+      // socket.on("broadcast-notification", (notification) => {
+      //   storeAPI.dispatch(addNotification({ notification }));
+      //   console.log(notification);
+      // });
     }
 
     return next(action);

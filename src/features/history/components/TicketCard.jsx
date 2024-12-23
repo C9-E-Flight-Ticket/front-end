@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Card } from "@material-tailwind/react";
 import DataNotFound from "@/features/homepage/components/DataNotFound";
 

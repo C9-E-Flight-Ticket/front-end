@@ -80,8 +80,6 @@ export default function TransactionPage() {
       dispatch(updateFormData(payload));
       dispatch(updateBookingCode(data.bookingCode));
       dispatch(updateTransactionToken(data.midtransToken));
-
-      console.log(response);
     } catch (error) {
       console.log(error);
     }

@@ -25,7 +25,7 @@ const NotificationBox = ({
   };
   return (
     <div
-      className={`fixed z-[10001] top-20 md:top-28 left-1/2 w-8/12 p-2 mt-10 text-center text-base font-normal rounded-lg text-white ${className} ${
+      className={`fixed z-[101] top-20 md:top-28 left-1/2 w-8/12 p-2 mt-10 text-center text-base font-normal rounded-lg text-white ${className} ${
         type === "count" ? "bg-red-500" : "bg-lightGreen"
       }`}
       style={{ transform: "translateX(-50%)" }}

@@ -106,7 +106,7 @@ const PaymentPage = () => {
       />
       <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-x-20 gap-y-14 mt-10">
         {isLoading || !transactionToken ? (
-          <div className="w-full flex justify-center md:justify-end items-center md:items-end">
+          <div className="w-full flex justify-center md:justify-end items-center">
             <Spinner className="h-16 w-16" />
           </div>
         ) : (
