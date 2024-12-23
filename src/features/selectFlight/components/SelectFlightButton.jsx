@@ -30,6 +30,7 @@ const SelectFlightButton = () => {
   const [selectedDate, setSelectedDate] = useState(
     isReturnToggleActive ? flightDate.from : flightDate
   );
+  const [dropdownDate, setDropdownDate] = useState("");
   const datesInWeek = useFlightDates(flightDate, isReturnToggleActive, stage);
 
   const navigate = useNavigate();
@@ -83,7 +84,48 @@ const SelectFlightButton = () => {
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-center pt-1 md:pt-2  ">
+      <div className="block md:hidden mt-2">
+        <select
+          className="w-full border border-[#7126B5] rounded-xl p-2 text-sm"
+          value={dropdownDate}
+          onChange={(e) => {
+            const selected = e.target.value;
+            setDropdownDate(selected);
+            handleSelectDay(selected);
+          }}
+        >
+          <option value="" disabled className="text-[#7126B5]">
+            Pilih Hari dan Tanggal
+          </option>
+          {datesInWeek.map((date, index) => {
+            const isSelected =
+              formatDateToForwardSlash(selectedDate) ===
+              formatDateToForwardSlash(date);
+            const isToday =
+              formatDateToForwardSlash(currentDate) ===
+              formatDateToForwardSlash(date);
+
+            return (
+              <option
+                key={index}
+                value={date}
+                className={`p-2 hover:bg-[#B78FD6] hover:text-white transition duration-300 ${
+                  isSelected
+                    ? "bg-[#7126B5] text-white"
+                    : isToday
+                    ? "bg-[#A06ECE] text-white"
+                    : "bg-white text-black"
+                }`}
+              >
+                {getDayName(date)} -{" "}
+                <span className="block">{formatDateToForwardSlash(date)}</span>
+              </option>
+            );
+          })}
+        </select>
+      </div>
+
+      <div className="hidden md:flex flex-wrap justify-center pt-1 md:pt-2">
         {datesInWeek.map((date, index) => (
           <div key={index} className="flex items-center">
             <div className="p-2">
