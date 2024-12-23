@@ -1,5 +1,7 @@
 import { addNotification } from "@/services/notificationSlice";
 import io from "socket.io-client";
+import Cookies from "js-cookie";
+import { decodeJWT } from "@/utils/helper";
 
 const socketMiddleware = (storeAPI) => {
   let socket;
@@ -8,16 +10,26 @@ const socketMiddleware = (storeAPI) => {
     if (!socket) {
       socket = io("https://api.eflight.web.id");
 
-      socket.on("transaction-notification", (notif) => {
-        storeAPI.dispatch(addNotification(notif));
+      const access_token = Cookies.get("access_token");
+
+      if (access_token) {
+        const payload = decodeJWT(access_token);
+        socket.emit("register", payload.userId);
+      }
+
+      socket.on("transaction-notification", (notification) => {
+        storeAPI.dispatch(addNotification(notification));
+        console.log(notification);
       });
 
-      socket.on("personal-notification", (notif) => {
-        storeAPI.dispatch(addNotification(notif));
+      socket.on("personal-notification", (notification) => {
+        storeAPI.dispatch(addNotification(notification));
+        console.log(notification);
       });
 
-      socket.on("broadcast-notification", (notif) => {
-        storeAPI.dispatch(addNotification(notif));
+      socket.on("broadcast-notification", (notification) => {
+        storeAPI.dispatch(addNotification(notification));
+        console.log(notification);
       });
     }
 
