@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   useGetUserProfileQuery,
   useUpdateUserProfileMutation,
 } from "@/services/api/accountApi";
+import ConfirmUpdateModal from "../components/ConfirmUpdateModal";
 
 const ChangeProfileCard = () => {
   const {
@@ -22,6 +23,10 @@ const ChangeProfileCard = () => {
     formState: { errors },
   } = useForm();
 
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [formData, setFormData] = useState(null);
+  const [notification, setNotification] = useState("");
+
   useEffect(() => {
     if (userProfile?.payload?.data) {
       console.log("User profile fetched:", userProfile.payload.data);
@@ -35,19 +40,27 @@ const ChangeProfileCard = () => {
     }
   }, [userProfile, profileError, reset]);
 
-  const onSubmit = async (data) => {
-    console.log("Form data submitted:", data);
+  const handleConfirm = async () => {
+    if (!formData) return;
     try {
       const response = await updateUserProfile({
-        name: data.fullName,
-        phoneNumber: data.phoneNumber,
-        email: data.email,
+        name: formData.fullName,
+        phoneNumber: formData.phoneNumber,
+        email: formData.email,
       }).unwrap();
       console.log("Profile updated successfully:", response);
-      alert("Profil berhasil diperbarui!");
+      setNotification("Profil berhasil diperbarui!");
+      setTimeout(() => setNotification(""), 3000);
     } catch (error) {
       console.error("Error saat update profil:", error);
+    } finally {
+      setModalOpen(false);
     }
+  };
+
+  const onSubmit = (data) => {
+    setFormData(data);
+    setModalOpen(true);
   };
 
   return (
@@ -137,7 +150,17 @@ const ChangeProfileCard = () => {
             )}
           </form>
         </div>
+        <ConfirmUpdateModal
+          isOpen={isModalOpen}
+          onConfirm={handleConfirm}
+          onCancel={() => setModalOpen(false)}
+        />
       </div>
+      {notification && (
+        <div className="fixed bottom-16 bg-green-500 text-white  py-2 px-4 rounded-lg">
+          {notification}
+        </div>
+      )}
     </div>
   );
 };
