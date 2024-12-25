@@ -22,7 +22,7 @@ const AccountPage = () => {
     <>
       <MainLayout>
         <HeaderMenu title={"Akun"} />
-        <div className="absolute top-[304px] left-1/2 -translate-x-1/2 flex md:flex-row flex-col gap-[10px]">
+        <div className="absolute top-[304px] w-full flex justify-center md:flex-row flex-col gap-[10px]">
           <Option
             handleOption={handleOption}
             handleLogoutModal={handleLogoutModal}
