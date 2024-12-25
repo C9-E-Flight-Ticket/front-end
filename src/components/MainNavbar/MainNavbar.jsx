@@ -18,7 +18,7 @@ const MainNavbar = () => {
             className="mr-4 py-1.5 font-medium hover:cursor-pointer"
             onClick={() => navigate("/")}
           >
-            <img src="/logo.png" alt="Logo" className="w-28" />
+            <img src="/logo.png" alt="Logo" className="w-[4.2rem]" />
           </Typography>
           <div className="relative w-full flex items-center">
             <input
