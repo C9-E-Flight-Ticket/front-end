@@ -42,16 +42,16 @@ const RegisterPage = () => {
         password,
       }).unwrap();
       localStorage.setItem("user", JSON.stringify(response.payload?.data.user));
+
+      setTimeout(() => {
+        navigate("/otp", { state: { email: data.email } });
+      }, 2000);
     } catch (error) {
       console.log(error);
       if (error.status == 400) {
         handleError("email", error.data?.payload.message);
       }
     }
-
-    setTimeout(() => {
-      navigate("/otp", { state: { email: data.email } });
-    }, 2000);
   }
 
   return (
