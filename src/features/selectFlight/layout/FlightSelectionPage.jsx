@@ -13,6 +13,8 @@ import { switchSearchCity } from "@/services/slices/homepageSlice";
 import { useNavigate } from "react-router-dom";
 
 export default function FlightSelectionPage() {
+  const [selectedSorting, setSelectedSorting] = useState("earlierDeparture");
+
   const { stage } = useSelector((state) => state.flight);
   const {
     departureCity,
@@ -33,6 +35,7 @@ export default function FlightSelectionPage() {
         : flightDate,
       returnDate: isReturnToggleActive ? flightDate.to : "",
       seatClass,
+      sortBy: selectedSorting,
       limit: 100,
       offset: 0,
     },
@@ -65,7 +68,10 @@ export default function FlightSelectionPage() {
 
   return (
     <>
-      <Sorting />
+      <Sorting
+        selectedSorting={selectedSorting}
+        setSelectedSorting={setSelectedSorting}
+      />
       <div className="relative flex flex-col lg:flex-row top-[170px] sm:top-[170px] md:top-[230px] lg:top-[320px] w-full max-w-screen-xl mx-auto px-4 lg:px-0 gap-6">
         <div
           className={`relative lg:fixed lg:pt-4 w-full lg:w-[250px] ${

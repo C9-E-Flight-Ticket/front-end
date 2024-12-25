@@ -1,21 +1,23 @@
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 
-const SortingModal = ({ closeModal, submitSorting, value }) => {
-  const [sortingValue, setSortingValue] = useState(value);
-  const [selected, setSelected] = useState(value);
-  const choices = [
-    "Harga Termurah",
-    "Durasi Terpendek",
-    "Keberangkatan Paling Awal",
-    "Keberangkatan Paling Akhir",
-    "Kedatangan Paling Awal",
-    "Kedatangan Paling Akhir",
-  ];
+const SortingModal = ({
+  closeModal,
+  submitSorting,
+  value,
+  choices,
+  choicesValue,
+}) => {
+  const [sortingValue, setSortingValue] = useState(
+    choices[choicesValue.indexOf(value)]
+  );
+  const [selected, setSelected] = useState(
+    choices[choicesValue.indexOf(value)]
+  );
 
   const handleSubmit = () => {
     setSortingValue(selected);
-    submitSorting(selected);
+    submitSorting(choicesValue[choices.indexOf(selected)]);
     closeModal();
   };
 
@@ -30,8 +32,8 @@ const SortingModal = ({ closeModal, submitSorting, value }) => {
               </div>
             </button>
           </div>
-          {choices.map((choice) => (
-            <div key={choice}>
+          {choices.map((choice, i) => (
+            <div key={i}>
               <button
                 onClick={() => setSelected(choice)}
                 className={`w-full px-4 ${
