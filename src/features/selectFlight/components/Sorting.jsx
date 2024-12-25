@@ -3,9 +3,26 @@ import { ArrowsUpDownIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import SortingModal from "./SortingModal";
 
-const Sorting = () => {
+const Sorting = ({ selectedSorting, setSelectedSorting }) => {
+  const choices = [
+    "Harga Termurah",
+    "Durasi Terpendek",
+    "Keberangkatan Paling Awal",
+    "Keberangkatan Paling Akhir",
+    "Kedatangan Paling Awal",
+    "Kedatangan Paling Akhir",
+  ];
+
+  const choicesValue = [
+    "price",
+    "duration",
+    "earlierDeparture",
+    "latestDeparture",
+    "earlierArrival",
+    "latestArrival",
+  ];
+
   const [modalActivated, setModalActivated] = useState(false);
-  const [selectedSorting, setSelectedSorting] = useState("Harga Termurah");
 
   const handleActiveModal = () => {
     setModalActivated(true);
@@ -35,7 +52,10 @@ const Sorting = () => {
               <ArrowsUpDownIcon />
             </div>
             <div className="text-xs px-2">
-              {selectedSorting.split(" ").slice(1).join(" ")}
+              {choices[choicesValue.indexOf(selectedSorting)]
+                .split(" ")
+                .slice(1)
+                .join(" ")}
             </div>
           </div>
         </button>
@@ -46,6 +66,8 @@ const Sorting = () => {
           closeModal={handleCloseModal}
           submitSorting={handleSubmitSorting}
           value={selectedSorting}
+          choices={choices}
+          choicesValue={choicesValue}
         />
       )}
     </>

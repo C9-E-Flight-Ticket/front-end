@@ -9,14 +9,12 @@ const SideBanner = () => {
 
       <div className="absolute inset-0">
         <img
-          src="/tiketku-logo.png"
+          src="/flaizy.png"
           alt="logo"
-          className="absolute"
+          className="absolute xl:left-[14rem] 2xl:left-[16rem] left-36"
           style={{
             width: "264px",
-            height: "146px",
             top: "301px",
-            left: "150px",
           }}
         />
 

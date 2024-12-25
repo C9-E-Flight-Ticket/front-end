@@ -5,7 +5,6 @@ import MainLayout from "@/layouts/MainLayout";
 import useMidtransEmbed from "@/hooks/useMidtransEmbed";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useSendTransactionCallbackMutation } from "@/services/api/transactionApi";
 import { Spinner } from "@material-tailwind/react";
 import { formatDateToUI, formattedTime } from "@/utils/helper";
 import { useEffect } from "react";
@@ -18,8 +17,6 @@ import {
 const PaymentPage = () => {
   const { bookingCode, transactionToken, transactionDate, transactionTime } =
     useSelector((state) => state.transaction);
-  const [sendTransactionCallback, { isLoading }] =
-    useSendTransactionCallbackMutation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,46 +33,15 @@ const PaymentPage = () => {
   }, [dispatch, transactionDate, transactionTime]);
 
   async function handleSuccess(result) {
-    /*
-    const transactionDateTime = result.transaction_time;
-    dispatch(
-      updateTransactionDate(formatDateToUI(transactionDateTime.split(" ")[0]))
-    );
-    dispatch(
-      updateTransactionTime(formatDateToUI(transactionDateTime.split(" ")[1]))
-    );
-    */
-
-    try {
-      await sendTransactionCallback({
-        order_id: result.order_id,
-        fraud_status: result.fraud_status,
-        transaction_status: result.transaction_status,
-        payment_type: result.payment_type,
-      }).unwrap();
-    } catch (error) {
-      console.log(error);
-    }
-
+    console.log(result);
     dispatch(updateTransactionStatus(true));
     navigate("/success");
   }
 
   function handlePending(result) {
-    try {
-      sendTransactionCallback({
-        order_id: result.order_id,
-        fraud_status: result.fraud_status,
-        transaction_status: result.transaction_status,
-        payment_type: result.payment_type,
-      }).unwrap();
-    } catch (error) {
-      console.log(error);
-    }
     navigate("/");
 
     console.log(result);
-    // when user close payment
   }
   function handleError(result) {
     console.log(result);
@@ -105,23 +71,23 @@ const PaymentPage = () => {
         message={`Selesaikan pembayaran sampai ${transactionDate} ${transactionTime}`}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-x-20 gap-y-14 mt-10">
-        {isLoading || !transactionToken ? (
-          <div className="w-full flex justify-center md:justify-end items-center">
+        <div className="w-full justify-center md:justify-start flex order-1 md:order-2">
+          <div className="w-[370px]">
+            <FlightDetail bookingCode={bookingCode} />
+          </div>
+        </div>
+
+        {!transactionToken ? (
+          <div className="w-full flex justify-center md:justify-end items-center order-2 md:order-1">
             <Spinner className="h-16 w-16" />
           </div>
         ) : (
-          <div className="w-full flex justify-center md:justify-end">
+          <div className="w-full flex justify-center md:justify-end order-2 md:order-1 mb-10 md:mb-0">
             <div className="border rounded">
               <div id="snap-container"></div>
             </div>
           </div>
         )}
-
-        <div className="w-full justify-center md:justify-start flex">
-          <div className="w-[370px]">
-            <FlightDetail bookingCode={bookingCode} />
-          </div>
-        </div>
       </div>
     </MainLayout>
   );
