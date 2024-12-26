@@ -9,7 +9,7 @@ const OtpHeader = () => {
       <div className="w-full lg:mx-20 flex items-center justify-between text-blue-gray-900">
         <div className="flex lg:w-[35rem] gap-4 items-center">
           <Typography className="mr-4 py-1.5 font-medium">
-            <img src="/logo.png" alt="Logo" className="w-28" />
+            <img src="/logo.png" alt="Logo" className="w-[4.2rem]" />
           </Typography>
         </div>
       </div>

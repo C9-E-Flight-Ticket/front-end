@@ -25,7 +25,7 @@ export default function TicketSearching({ className }) {
       <CardBody>
         <Typography variant="h5" color="black" className="mb-5">
           Pilih Jadwal Penerbangan spesial di{" "}
-          <span className="text-deep-purple-700">Tiketku!</span>
+          <span className="text-deep-purple-700">Flaizy!</span>
         </Typography>
         <MenuBodyContent />
       </CardBody>

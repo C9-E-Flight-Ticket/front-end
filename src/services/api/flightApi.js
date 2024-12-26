@@ -16,10 +16,11 @@ export const flightApi = api.injectEndpoints({
         departureDate,
         returnDate,
         seatClass,
+        sortBy,
         limit,
         offset,
       }) => ({
-        url: `/api/flight/search?departureCity=${departureCity}&arrivalCity=${arrivalCity}&departureDate=${departureDate}&returnDate=${returnDate}&seatClass=${seatClass}&limit=${limit}&offset=${offset}`,
+        url: `/api/flight/search?departureCity=${departureCity}&arrivalCity=${arrivalCity}&departureDate=${departureDate}&returnDate=${returnDate}&seatClass=${seatClass}&limit=${limit}&offset=${offset}&sort=${sortBy}`,
         method: "GET",
       }),
     }),

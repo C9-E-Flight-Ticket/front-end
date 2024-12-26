@@ -15,7 +15,7 @@ const Option = ({ handleOption, handleLogoutModal }) => {
       </button>
       <button
         className="lg:w-[328px] md:w-[233px] sm:w-full"
-        onClick={() => handleOption("settings")}
+        // onClick={() => handleOption("settings")}
       >
         <div className="grid gap-4 md:mx-[0px] mx-[35px]">
           <div className="flex gap-4">

@@ -102,7 +102,7 @@ export default function TransactionPage() {
           />
         ) : (
           <>
-            <div className="fixed inset-0 bg-black bg-opacity-75 z-[10000]" />
+            <div className="fixed inset-0 bg-black bg-opacity-75 z-[100]" />
             <NotificationBox
               message={"Anda harus login terlebih dahulu!"}
               type={"count"}
