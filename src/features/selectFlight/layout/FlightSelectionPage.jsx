@@ -87,7 +87,7 @@ export default function FlightSelectionPage() {
           )}
         </div>
 
-        <div className="flex-grow mt-8 lg:mt-0 lg:pl-[250px]">
+        <div className="flex-grow mt-8 lg:mt-0 lg:pl-[300px]">
           {flightData?.length === 0 && <TicketSold className="mt-10 mx-auto" />}
           {!isLoading && flightData?.length > 0 && !isError && !isFetching && (
             <AccordionFlight

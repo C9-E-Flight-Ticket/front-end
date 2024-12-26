@@ -7,7 +7,7 @@ const SelectOrderCard = ({ selectedFlight, onClose }) => {
 
   return (
     <Card
-      className="relative lg:absolute lg:top-[270px] top-8 lg:left-14 lg:w-[250px] w-full bg-white shadow-lg rounded-lg z-40"
+      className="relative border lg:absolute lg:top-[280px] top-8 lg:left-[2.7rem] lg:w-[280px] w-full bg-white shadow-lg rounded-lg z-40"
       style={{ padding: "20px 26px" }}
     >
       <div className="flex justify-between items-center mb-4">
@@ -18,7 +18,7 @@ const SelectOrderCard = ({ selectedFlight, onClose }) => {
           variant="text"
           color="gray"
           onClick={onClose}
-          className="hover:bg-gray-200"
+          className="hover:bg-gray-200 hover:cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
