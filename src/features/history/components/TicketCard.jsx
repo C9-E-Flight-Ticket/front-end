@@ -5,7 +5,7 @@ import DataNotFound from "@/features/homepage/components/DataNotFound";
 const groupTicketsByMonth = (tickets) => {
   return tickets.reduce((acc, ticket) => {
     const monthYear = new Date(
-      ticket.Tickets[0].seat.flight.departureTime
+      ticket.createAt
     ).toLocaleString("default", { month: "long", year: "numeric" });
     if (!acc[monthYear]) {
       acc[monthYear] = [];

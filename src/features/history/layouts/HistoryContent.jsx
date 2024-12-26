@@ -17,6 +17,8 @@ const HistoryContent = () => {
   const firstId = transactionData[0]?.id;
   const [activeTicket, setActiveTicket] = useState(firstId);
 
+  console.log(transactionData)
+
   useEffect(() => {
     if (!isLoading) setActiveTicket(firstId);
   }, [isLoading, firstId]);
@@ -31,7 +33,7 @@ const HistoryContent = () => {
         <Spinner className="h-16 w-16 flex absolute top-1/2 left-1/2" />
       ) : (!isLoading || !isFetching) && transactionData.length > 0 ? (
         <div className="overflow-hidden flex flex-col lg:flex-row justify-center">
-          <div className="flex mt-[175px] md:mt-[240px] lg:mt-[240px] lg:mr-[60px]">
+          <div className="mt-[175px] md:mt-[240px] lg:mt-[240px] lg:mr-[60px]">
             <TicketCard
               onSelectTicket={handleSelectTicket}
               data={transactionData}
