@@ -16,10 +16,17 @@ const Login = () => {
     handleSubmit,
     watch,
     setError,
+    clearErrors,
     formState: { errors },
   } = useForm();
 
   const navigate = useNavigate();
+
+  const emailOrPhone = watch("email/phoneNumber");
+
+  useEffect(() => {
+    clearErrors();
+  }, [emailOrPhone, clearErrors]);
 
   useEffect(() => {
     localStorage.clear();
@@ -47,6 +54,9 @@ const Login = () => {
           type: "manual",
           message: message || "Network Error",
         });
+
+        // Clear the error after 3 seconds
+        setTimeout(() => clearErrors(field), 3000);
       };
 
       if (
