@@ -16,10 +16,17 @@ const Login = () => {
     handleSubmit,
     watch,
     setError,
+    clearErrors,
     formState: { errors },
   } = useForm();
 
   const navigate = useNavigate();
+
+  const emailOrPhone = watch("email/phoneNumber");
+
+  useEffect(() => {
+    clearErrors();
+  }, [emailOrPhone, clearErrors]);
 
   useEffect(() => {
     localStorage.clear();
@@ -28,7 +35,7 @@ const Login = () => {
   async function onSubmit(data) {
     try {
       const response = await login({
-        email: data["email/phoneNumber"],
+        email: data["email/phoneNumber"].toLowerCase(),
         password: data.password,
       }).unwrap();
       const token = response.payload?.data;
@@ -47,6 +54,9 @@ const Login = () => {
           type: "manual",
           message: message || "Network Error",
         });
+
+        // Clear the error after 3 seconds
+        setTimeout(() => clearErrors(field), 3000);
       };
 
       if (

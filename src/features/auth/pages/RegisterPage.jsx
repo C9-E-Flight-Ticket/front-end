@@ -37,7 +37,7 @@ const RegisterPage = () => {
     try {
       const response = await userRegister({
         name,
-        email,
+        email: email.toLowerCase(),
         phoneNumber,
         password,
       }).unwrap();
