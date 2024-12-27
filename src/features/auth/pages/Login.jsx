@@ -28,7 +28,7 @@ const Login = () => {
   async function onSubmit(data) {
     try {
       const response = await login({
-        email: data["email/phoneNumber"],
+        email: data["email/phoneNumber"].toLowerCase(),
         password: data.password,
       }).unwrap();
       const token = response.payload?.data;
